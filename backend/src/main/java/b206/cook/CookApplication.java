@@ -1,13 +1,13 @@
-package b206.cooktest;
+package b206.cook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CooktestApplication {
+public class CookApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CooktestApplication.class, args);
+		SpringApplication.run(CookApplication.class, args);
 	}
 
 }

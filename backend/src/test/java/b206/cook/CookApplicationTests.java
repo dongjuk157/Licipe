@@ -1,10 +1,10 @@
-package b206.cooktest;
+package b206.cook;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CooktestApplicationTests {
+class CookApplicationTests {
 
 	@Test
 	void contextLoads() {
