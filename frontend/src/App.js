@@ -1,20 +1,13 @@
 import './App.css';
-import SearchAppBar from './components/common/SearchAppBar'
-import Card from './components/common/Card'
-import { height } from '@material-ui/system';
-import Box from '@material-ui/core/Box';
+import Login from './components/user/Login'
+import Main from './components/recipe/Main'
+import { Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <SearchAppBar></SearchAppBar>
-      <div style={{ height: 450 }}>Carousel</div>
-      <Box display="flex">
-
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-      </Box>
+      <Route exact path="/" component={Main}/>
+      <Route exact path="/login" component={Login}/>
     </div>
   );
 }
