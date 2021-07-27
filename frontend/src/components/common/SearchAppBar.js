@@ -20,6 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import SearchIcon from '@material-ui/icons/Search';
 import { alpha } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -204,14 +205,12 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+          <ListItem>
+              <Link to='/login'>로그인</Link>
+          </ListItem>
+          <ListItem>
+              <Link to='/recipe'>레시피</Link>
+          </ListItem>
       </Drawer>
  
     </div>
