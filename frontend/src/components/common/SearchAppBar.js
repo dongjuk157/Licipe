@@ -209,7 +209,7 @@ export default function PersistentDrawerLeft() {
               <Link to='/login'>로그인</Link>
           </ListItem>
           <ListItem>
-              <Link to='/recipe'>레시피</Link>
+              <Link to='/reciperecommend'>레시피</Link>
           </ListItem>
       </Drawer>
  
