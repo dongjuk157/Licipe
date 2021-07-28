@@ -9,6 +9,7 @@ import java.util.Optional;
 public class JpaIngredientRepository implements IngredientRepository{
 
     private final EntityManager em;
+
     public JpaIngredientRepository(EntityManager em) {
         this.em = em;
     }
