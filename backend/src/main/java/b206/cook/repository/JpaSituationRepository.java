@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class JpaSituationRepository implements SituationRepository {
+
     private final EntityManager em;
 
     public JpaSituationRepository(EntityManager em) {

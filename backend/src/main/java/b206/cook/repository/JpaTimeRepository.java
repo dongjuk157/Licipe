@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class JpaTimeRepository implements TimeRepository {
+
     private final EntityManager em;
 
     public JpaTimeRepository(EntityManager em) {

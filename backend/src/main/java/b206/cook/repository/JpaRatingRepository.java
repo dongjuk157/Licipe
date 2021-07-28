@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class JpaRatingRepository implements RatingRepository {
+
     private final EntityManager em;
 
     public JpaRatingRepository(EntityManager em) {
