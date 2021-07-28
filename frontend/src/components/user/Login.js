@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 import { Box } from '@material-ui/core'
 import axios from 'axios'
-
+import KakaoLogin from './KakaoLogin'
 
 
 const LoginDiv  = styled.div`
@@ -85,9 +85,7 @@ const Login = ({history}) => {
         </Box>
       </LoginForm>
       <Box mx="auto">
-        <Button>
-          kakao
-        </Button>
+        <KakaoLogin />
         <Button>
           Google
         </Button>
