@@ -9,10 +9,10 @@ import java.util.Optional;
 public class JpaFoodRepository implements FoodRepository{
 
     private final EntityManager em;
+
     public JpaFoodRepository(EntityManager em) {
         this.em = em;
     }
-
 
     @Override
     public Food save(Food food) {

@@ -9,6 +9,7 @@ import java.util.Optional;
 public class JpaCountryRepository implements CountryRepository{
 
     private final EntityManager em;
+
     public JpaCountryRepository(EntityManager em) {
         this.em = em;
     }
