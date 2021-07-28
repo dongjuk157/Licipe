@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 import { Box } from '@material-ui/core'
 import axios from 'axios'
-import KakaoLogin from './KakaoLogin'
 
 
-const LoginDiv  = styled.div`
+const JoinDiv  = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,45 +14,72 @@ const LoginDiv  = styled.div`
   border: solid;
   border-radius: 0.5rem; 
 `
-const LoginForm = styled.form`
+const JoinForm = styled.form`
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `
 
-
-const Login = ({history}) => {
+const Join = ({history}) => {
+  const [userid, setUserId] = useState('')
+  const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
   
-  const onLogin = () => {
+  const onJoin = () => {
     console.error("BASE_URL 설정하지 않음")
     // Ajax 통신 post 
     const BASE_URL = process.env.REACT_APP_API_URL
     const PORT = process.env.REACT_APP_API_PORT
     const config = {
       method: 'post',
-      url: `${BASE_URL}:${PORT}/login`,
+      url: `${BASE_URL}:${PORT}/join`,
       data: {
+        userid,
+        nickname,
         email,
         password,
+        passwordConfirm,
       }
     }
+    console.log(config.data)
     axios(config)
       .then( res => {
-      alert(`${res}/ login!`)
+      alert(`${res}/ 회원가입 성공!`)
       //modal로 구현할경우 아래를 제거하고 로그인 상태를 넘겨주면됨
-      history.push('/')
+      history.push('/login')
     }).catch( e => {
       console.log(e)
     })
   }
 
   return (
-    <LoginDiv>
-      <h1>LOGIN</h1>
-      <LoginForm onSubmit={onLogin}>
+    <JoinDiv>
+      <h1>JOIN</h1>
+      <JoinForm onSubmit={onJoin}>
+        
+        <label htmlFor="userid">
+          UserID:
+          <input 
+            placeholder="ID를 입력하세요"
+            id="userid"
+            value={userid}
+            onChange={ e => setUserId(e.target.value)}
+          ></input>
+        </label>
+        <br />
+        <label htmlFor="nickname">
+          NickName:
+          <input 
+            placeholder="닉네임을 입력하세요"
+            id="nickname"
+            value={nickname}
+            onChange={ e => setNickname(e.target.value)}
+          ></input>
+        </label>
+        <br />
         <label htmlFor="email">
           Email:
           <input 
@@ -73,31 +99,28 @@ const Login = ({history}) => {
             onChange={ e => setPassword(e.target.value)}
           ></input>
         </label>
+        <br />
+        <label htmlFor="passwordConfirm">
+          PasswordConfrim: 
+          <input 
+            type="password" placeholder="비밀번호를 다시 입력하세요"
+            id="passwordConfirm"
+            value={passwordConfirm}
+            onChange={ e => setPasswordConfirm(e.target.value)}
+          ></input>
+        </label>
         <Box mt={2}>
           <Button 
-            
-            onClick={onLogin}
+            onClick={onJoin}
             variant="contained"
             color="primary"
           >
             Submit
           </Button>
         </Box>
-      </LoginForm>
-      <Box mx="auto">
-        <KakaoLogin />
-        <Button>
-          Google
-        </Button>
-        <Button>
-          Naver
-        </Button>
-      </Box>
-      <div>
-        <Button onClick={() => history.push('/join')}>아직 회원이 아니신가요?</Button>
-      </div>
-    </LoginDiv>
+      </JoinForm>
+    </JoinDiv> 
   )
 }
 
-export default Login
+export default Join
