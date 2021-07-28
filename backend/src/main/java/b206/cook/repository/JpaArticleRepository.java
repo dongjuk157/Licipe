@@ -10,6 +10,7 @@ import java.util.Optional;
 public class JpaArticleRepository implements ArticleRepository{
 
     private final EntityManager em;
+
     public JpaArticleRepository(EntityManager em) {
         this.em = em;
     }

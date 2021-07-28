@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class JpaRecipeRepository implements RecipeRepository {
+
     private final EntityManager em;
 
     public JpaRecipeRepository(EntityManager em) {
