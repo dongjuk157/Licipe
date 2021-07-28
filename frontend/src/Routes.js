@@ -2,7 +2,8 @@ import React from 'react';
 import Login from './components/user/Login'
 import Main from './components/recipe/Main'
 import Join from './components/user/Join'
-import {  BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import KakaoOAuthHandler from './components/user/KakaoOAuthHandler';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const Routes = () => {
   return (
@@ -11,6 +12,7 @@ const Routes = () => {
             <Route exact path="/" component={Main}/>
             <Route path="/login" component={Login}/>
             <Route path="/join" component={Join}/>
+            <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
 
         </Switch>
       </Router>
