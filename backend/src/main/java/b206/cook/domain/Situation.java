@@ -16,6 +16,6 @@ public class Situation {
     private String name;
 
     //many to many
-    @OneToMany(mappedBy = "food_situation")
+    @OneToMany(mappedBy = "situation")
     private List<Food_Situation> foodList;
 }

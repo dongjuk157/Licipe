@@ -15,6 +15,6 @@ public class Country {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "food")
+    @OneToMany(mappedBy = "country")
     private List<Food> food;
 }

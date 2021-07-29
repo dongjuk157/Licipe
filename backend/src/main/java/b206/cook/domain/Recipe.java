@@ -23,9 +23,9 @@ public class Recipe {
     private Food food;
 
     // Many to many
-    @OneToMany(mappedBy = "main")
+    @OneToMany(mappedBy = "recipe")
     private List<Ingredient_MainRecipe> mainIngredientList;
 
-    @OneToMany(mappedBy = "sub")
+    @OneToMany(mappedBy = "recipe")
     private List<Ingredient_SubRecipe> subIngredientList;
 }
