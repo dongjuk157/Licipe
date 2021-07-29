@@ -15,12 +15,12 @@ public class Ingredient {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "ingredient_food")
+    @OneToMany(mappedBy = "ingredient")
     private List<Ingredient_Food> foodList;
 
-    @OneToMany(mappedBy = "ingredient_main_recipe")
+    @OneToMany(mappedBy = "ingredient")
     private List<Ingredient_MainRecipe> mainRecipeList;
 
-    @OneToMany(mappedBy = "ingredient_sub_recipe")
+    @OneToMany(mappedBy = "ingredient")
     private List<Ingredient_MainRecipe> subRecipeList;
 }

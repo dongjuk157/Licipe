@@ -16,6 +16,6 @@ public class Time {
     private Long id;
     private int maxTime;
 
-    @OneToMany(mappedBy = "food")
+    @OneToMany(mappedBy = "time")
     private List<Food> food;
 }

@@ -20,10 +20,10 @@ public class Food {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    @OneToMany(mappedBy = "rating")
+    @OneToMany(mappedBy = "food")
     private Set<Rating> rating;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "food")
     private Set<Article> article;
 
     @ManyToOne
@@ -35,9 +35,9 @@ public class Food {
     private Country country;
 
     //many to many
-    @OneToMany(mappedBy = "food_situation")
+    @OneToMany(mappedBy = "food")
     private List<Food_Situation> situationList;
 
-    @OneToMany(mappedBy = "ingredient_food")
+    @OneToMany(mappedBy = "food")
     private List<Ingredient_Food> ingredientList;
 }
