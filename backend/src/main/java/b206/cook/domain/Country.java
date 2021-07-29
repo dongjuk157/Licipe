@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +16,5 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "food")
-    private Set<Food> food;
+    private List<Food> food;
 }

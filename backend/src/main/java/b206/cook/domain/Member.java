@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -18,14 +19,20 @@ public class Member {
     private String snsType;
     private String nickName;
     private String email;
-    private Long ratingId;
 
     @OneToMany
-    private Set<Article> article;
-    private Long recipeId;
+    @JoinColumn(name = "article_id")
+    private List<Article> article;
 
     @OneToMany
     @JoinColumn(name = "rating_id")
-    private Set<Rating> rating;
+    private List<Rating> rating;
 
+    @OneToMany
+    @JoinColumn(name = "clip_recipe_id")
+    private List<Recipe> clippedRecipe ;
+
+    @OneToMany
+    @JoinColumn(name = "recent_recipe_id")
+    private List<Recipe> recentRecipe ;
 }

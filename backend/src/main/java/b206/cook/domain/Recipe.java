@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,8 +23,11 @@ public class Recipe {
     private Food food;
 
     // Many to many
-    private Long main;
-    private Long sub;
+    @OneToMany
+    @JoinColumn(name = "ingredient_main_recipe")
+    private List<Ingredient_MainRecipe> mainIngredientList;
 
-
+    @OneToMany
+    @JoinColumn(name = "ingredient_sub_recipe")
+    private List<Ingredient_SubRecipe> subIngredientList;
 }
