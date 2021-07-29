@@ -23,11 +23,9 @@ public class Recipe {
     private Food food;
 
     // Many to many
-    @OneToMany
-    @JoinColumn(name = "ingredient_main_recipe")
+    @OneToMany(mappedBy = "main")
     private List<Ingredient_MainRecipe> mainIngredientList;
 
-    @OneToMany
-    @JoinColumn(name = "ingredient_sub_recipe")
+    @OneToMany(mappedBy = "sub")
     private List<Ingredient_SubRecipe> subIngredientList;
 }

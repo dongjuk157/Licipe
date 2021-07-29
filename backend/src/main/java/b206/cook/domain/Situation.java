@@ -17,5 +17,5 @@ public class Situation {
 
     //many to many
     @OneToMany(mappedBy = "food_situation")
-    private List<Food_Situation> foodSituationList;
+    private List<Food_Situation> foodList;
 }

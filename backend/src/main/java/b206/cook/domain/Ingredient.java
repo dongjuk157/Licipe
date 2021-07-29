@@ -16,5 +16,11 @@ public class Ingredient {
     private String name;
 
     @OneToMany(mappedBy = "ingredient_food")
-    private List<Ingredient_Food> foodIngredientList;
+    private List<Ingredient_Food> foodList;
+
+    @OneToMany(mappedBy = "ingredient_main_recipe")
+    private List<Ingredient_MainRecipe> mainRecipeList;
+
+    @OneToMany(mappedBy = "ingredient_sub_recipe")
+    private List<Ingredient_MainRecipe> subRecipeList;
 }
