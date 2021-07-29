@@ -3,10 +3,8 @@ package b206.cook.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,7 +19,13 @@ public class Member {
     private String nickName;
     private String email;
     private Long ratingId;
-    private Long articleId;
+
+    @OneToMany
+    private Set<Article> article;
     private Long recipeId;
+
+    @OneToMany
+    @JoinColumn(name = "rating_id")
+    private Set<Rating> rating;
 
 }
