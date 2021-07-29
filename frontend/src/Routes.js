@@ -4,6 +4,7 @@ import Main from './components/recipe/Main'
 import RecipeRecommend from './components/recipe/RecipeRecommend';
 import Join from './components/user/Join'
 import KakaoOAuthHandler from './components/user/KakaoOAuthHandler';
+import Article from './components/community/Article'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const Routes = () => {
@@ -15,6 +16,7 @@ const Routes = () => {
             <Route path="/login" component={Login}/>
             <Route path="/join" component={Join}/>
             <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
+            <Route path="/article" component={Article}/>
 
         </Switch>
       </Router>
