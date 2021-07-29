@@ -3,10 +3,7 @@ package b206.cook.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -19,6 +16,12 @@ public class Recipe {
     private String description;
     private int timer;
     private String video;
+
+
+    @OneToOne(mappedBy = "recipe")
+    private Food food;
+
+    // Many to many
     private Long main;
     private Long sub;
 
