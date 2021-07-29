@@ -3,10 +3,8 @@ package b206.cook.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,4 +15,12 @@ public class Ingredient {
     private Long id;
     private String name;
 
+    @OneToMany(mappedBy = "ingredient_food")
+    private List<Ingredient_Food> foodList;
+
+    @OneToMany(mappedBy = "ingredient_main_recipe")
+    private List<Ingredient_MainRecipe> mainRecipeList;
+
+    @OneToMany(mappedBy = "ingredient_sub_recipe")
+    private List<Ingredient_MainRecipe> subRecipeList;
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -34,6 +35,9 @@ public class Food {
     private Country country;
 
     //many to many
-    private Long situationId;
-    private Long ingredientId;
+    @OneToMany(mappedBy = "food_situation")
+    private List<Food_Situation> situationList;
+
+    @OneToMany(mappedBy = "ingredient_food")
+    private List<Ingredient_Food> ingredientList;
 }
