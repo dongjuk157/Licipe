@@ -1,27 +1,24 @@
 package b206.cook.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class Article {
+public class Food_Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
-    private String imgURL;
-    private int report;
+    private boolean isClip;
+    private boolean isRecent;
 
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member")
     private Member member;
 }

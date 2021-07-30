@@ -3,14 +3,11 @@ package b206.cook.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Getter
 public class Recipe {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +15,9 @@ public class Recipe {
     private int step;
     private String description;
     private int timer;
-    private String video;
-    private Long main;
-    private Long sub;
+    private String videoUrl;
 
-
+    @ManyToOne
+    @JoinColumn(name="food_id")
+    private Food food;
 }
