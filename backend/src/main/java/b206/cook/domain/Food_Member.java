@@ -5,19 +5,20 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
-public class Ingredient_MainRecipe {
+@Getter
+public class Food_Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private boolean isClip;
+    private boolean isRecent;
 
     @ManyToOne
-    @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredient;
+    @JoinColumn(name = "food_id")
+    private Food food;
 
     @ManyToOne
-    @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+    @JoinColumn(name = "member")
+    private Member member;
 }

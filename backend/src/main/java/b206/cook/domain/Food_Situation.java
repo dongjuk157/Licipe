@@ -5,9 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
+@Getter
 public class Food_Situation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

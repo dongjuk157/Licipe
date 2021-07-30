@@ -5,13 +5,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
-public class Ingredient_Food {
+@Getter
+public class Food_Ingredient {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private boolean isMain;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id")
@@ -20,5 +21,4 @@ public class Ingredient_Food {
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food;
-
 }

@@ -4,35 +4,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-@Getter
-@Setter
 @Entity
+@Getter
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String accessToken;
-    private String userId;
     private String snsType;
-    private String nickName;
+    private String userName;
     private String email;
 
-    @OneToMany
-    @JoinColumn(name = "article_id")
-    private List<Article> article;
+    @OneToMany(mappedBy = "member")
+    private List<Rating> ratingList = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "rating_id")
-    private List<Rating> rating;
+    @OneToMany(mappedBy = "member")
+    private List<Article> articleList = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "clip_recipe_id")
-    private List<Recipe> clippedRecipe ;
-
-    @OneToMany
-    @JoinColumn(name = "recent_recipe_id")
-    private List<Recipe> recentRecipe ;
+    @OneToMany(mappedBy = "member")
+    private List<Food_Member> foodList = new ArrayList<>();
 }
