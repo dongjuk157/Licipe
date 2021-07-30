@@ -1,73 +1,76 @@
-// const useInfiniteScroll = ({
-// 	root = null,
-// 	target,
-// 	onIntersect,
-// 	threshold = 1.0,
-// 	rootMargin = '0px',
-// }) => {
-// 	useEffect(() => {
-// 		let observer;
-// 		if (target) {
-// 			observer = new IntersectionObserver(onIntersect, {
-// 				root,
-// 				rootMargin,
-// 				threshold,
-// 			});
-// 			observer.observe(target);		
-// 		}
-// 		return () => observer && observer.disconnect();
-// 	}, [target, root, rootMargin, onIntersect, threshold]);
-// }
+import React from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import Paper from '@material-ui/core/Paper';
 
-// // let options = {
-// // 	root: document.querySelector("#scrollArea"),
-// // 	rootMargin: "0px",
-// // 	threshold: 1.0
-// // };
+const useStyles = makeStyles((theme) => ({
+  list: {
+    width: 700,
+  },
+  recipeImage: {
+    width: theme.spacing(40),
+    height: theme.spacing(40),
+    padding: theme.spacing(2),
+  },
+  recipeInfo: {
+    
+    alignItems: 'center',
+  }
+}));
 
-// // const checkIntersect = ([entry], observer) => {
-// // 	if (entry.isIntersecting) {
-// // 		async (entry, observer) => {
-// // 			observer.unobserve(entry.target);
-// // 			await fetchItems();
-// // 			observer.observe(entry.target)
-// // 		}
-// // 	}
-// // }
+const RecipeDetail = (props) => {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    right: false,
+  });
 
-// const RecipeRecommend = () => {
-// 	const classes = useStyles();
 
-// 	const [recipe, setData] = useState([
-// 		{ url: 'recipe', },
-// 		{ url: 'rec', }
-// 	])
-// 	const viewport = useRef(null);
-// 	const target = useRef(null)
+  const toggleDrawer = (anchor, open) => (event) => {
+    setState({ ...state, [anchor]: open });
+  };
 
-// 	const dispatch = useDispatch();
-// 	const [target, setTarget] = useState(null);
-// 	const {
-// 		isLoading,
-// 		images,
-// 		error
-// 	} = useSelector(unsplashSelector.all);
+  const list = (anchor) => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List className={classes.recipeInfo}>
+          <Paper className={classes.recipeImage}>
+              
+              음식 사진
+          </Paper>
+      </List>
+      <Divider />
+    </div>
+  );
 
-// 	useInfinteScroll({
-// 		target,
-// 		onIntersect: ([{ isIntersecting }]) => {
-// 			if (isIntersecting) {
-// 				dispatch(unsplashAction.loadMore());
-// 			}
-// 		}
-// 	});
+  return (
+    <div>
+      {['right'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>자세히 보기</Button>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
 
-// 	useEffect(() => {
-// 		dispatch(unsplashAction.load());
-// 	}, []);
-// 	if (isLoading) {
-// 	return 'loading';
-// 	}
-// 	if (error) {
-// 	return 'error';
-// 	}
+RecipeDetail.defaultProps = {
+    recipe: null,
+};
+
+export default RecipeDetail;
