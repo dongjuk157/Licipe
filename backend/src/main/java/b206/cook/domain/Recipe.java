@@ -6,9 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Getter
 public class Recipe {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +15,9 @@ public class Recipe {
     private int step;
     private String description;
     private int timer;
-    private String video;
+    private String videoUrl;
 
-
-    @OneToOne(mappedBy = "recipe")
+    @ManyToOne
+    @JoinColumn(name="food_id")
     private Food food;
-
-    // Many to many
-    @OneToMany(mappedBy = "recipe")
-    private List<Ingredient_MainRecipe> mainIngredientList;
-
-    @OneToMany(mappedBy = "recipe")
-    private List<Ingredient_SubRecipe> subIngredientList;
 }

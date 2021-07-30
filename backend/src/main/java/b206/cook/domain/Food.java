@@ -4,40 +4,42 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
 public class Food {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
-
-    @OneToMany(mappedBy = "food")
-    private Set<Rating> rating;
-
-    @OneToMany(mappedBy = "food")
-    private Set<Article> article;
+    @ManyToOne
+    @JoinColumn(name="country_id")
+    private Country country;
 
     @ManyToOne
     @JoinColumn(name="time_id")
     private Time time;
 
-    @ManyToOne
-    @JoinColumn(name="country_id")
-    private Country country;
+    @OneToMany(mappedBy = "food")
+    private List<Recipe> recipeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "food")
+    private List<Rating> ratingList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "food")
+    private List<Article> articleList = new ArrayList<>();
 
     //many to many
     @OneToMany(mappedBy = "food")
-    private List<Food_Situation> situationList;
+    private List<Food_Situation> situationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "food")
-    private List<Ingredient_Food> ingredientList;
+    private List<Food_Ingredient> ingredientList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "food")
+    private List<Food_Member> memberList = new ArrayList<>();
 }

@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Getter
 public class Country {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,5 +16,5 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country")
-    private List<Food> food;
+    private List<Food> foodList = new ArrayList<>();
 }
