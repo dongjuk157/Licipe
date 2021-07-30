@@ -38,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    // width: `calc(100% - ${drawerWidth}px)`,
+    width: '100%',
+    marginLeft: 0,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -51,12 +52,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     display: 'none',
+    textAlign: 'center',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
   },
   hide: {
-    display: 'none',
+    // display: 'none',
+    display: 'hidden',
   },
   drawer: {
     width: drawerWidth,
@@ -164,7 +167,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            Persistent drawer
+            앱 만들다 살찜
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
