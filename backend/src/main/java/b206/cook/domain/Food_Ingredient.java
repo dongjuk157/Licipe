@@ -10,29 +10,25 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Rating {
+public class Food_Ingredient {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private int score;
+    private boolean isMain;
+
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;
 
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    public Rating(int score, Food food, Member member) {
-        this.score = score;
+    public Food_Ingredient(boolean isMain, Ingredient ingredient, Food food) {
+        this.isMain = isMain;
+        this.ingredient = ingredient;
         this.food = food;
-        this.member = member;
-    }
-
-    public Rating updateScore(int score) {
-        this.score = score;
-        return this;
     }
 }

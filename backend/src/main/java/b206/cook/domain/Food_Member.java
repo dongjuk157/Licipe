@@ -10,29 +10,27 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Rating {
+public class Food_Member {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private int score;
+    private boolean isClip; // clip한 레시피인지
 
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @ManyToOne
+    @JoinColumn(name = "member")
     private Member member;
 
-    public Rating(int score, Food food, Member member) {
-        this.score = score;
+    public Food_Member(boolean isClip, boolean isRecent, Food food, Member member) {
+        this.isClip = isClip;
         this.food = food;
         this.member = member;
     }
 
-    public Rating updateScore(int score) {
-        this.score = score;
-        return this;
+    public void updateClip() {
+        this.isClip = !this.isClip;
     }
 }
