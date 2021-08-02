@@ -28,24 +28,24 @@ public class Food {
     @JoinColumn(name="time_id")
     private Time time;
 
-    @OneToMany(mappedBy = "food")
-    private List<Recipe> recipeList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "food")
-    private List<Rating> ratingList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "food")
-    private List<Article> articleList = new ArrayList<>();
+//    @OneToMany(mappedBy = "food")
+//    private List<Recipe> recipeList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "food")
+//    private List<Rating> ratingList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "food")
+//    private List<Article> articleList = new ArrayList<>();
 
     //many to many
-    @OneToMany(mappedBy = "food")
-    private List<Food_Situation> situationList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "food")
-    private List<Food_Ingredient> ingredientList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "food")
-    private List<Food_Member> memberList = new ArrayList<>();
+//    @OneToMany(mappedBy = "food")
+//    private List<Food_Situation> situationList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "food")
+//    private List<Food_Ingredient> ingredientList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "food")
+//    private List<Food_Member> memberList = new ArrayList<>();
 
     public Food(String name, Country country, Time time) {
         this.name = name;
