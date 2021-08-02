@@ -18,8 +18,8 @@ public class Situation {
     private String name;
 
     //many to many
-    @OneToMany(mappedBy = "situation")
-    private List<Food_Situation> foodList = new ArrayList<>();
+//    @OneToMany(mappedBy = "situation")
+//    private List<Food_Situation> foodList = new ArrayList<>();
 
     public Situation(String name) {
         this.name = name;

@@ -21,8 +21,8 @@ public class Time {
     @Column(nullable = false)
     private int maxTime;
 
-    @OneToMany(mappedBy = "time")
-    private List<Food> foodList = new ArrayList<>();
+//    @OneToMany(mappedBy = "time")
+//    private List<Food> foodList = new ArrayList<>();
 
     public Time(int maxTime) {
         this.maxTime = maxTime;
