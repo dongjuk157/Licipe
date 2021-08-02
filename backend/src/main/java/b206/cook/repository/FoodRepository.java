@@ -11,7 +11,5 @@ public interface FoodRepository {
     Optional<Food> findByName(String name);
     List<Food> findByTime(Long timeId);
     List<Food> findByCountry(Long countryId);
-    List<Food> findBySituation(Long situationId);
-    List<Food> findByIngredient(Long ingredientId);
     List<Food> findAll();
 }
