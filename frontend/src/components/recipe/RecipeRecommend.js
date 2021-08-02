@@ -5,7 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import axios from'axios';
 import { Link } from 'react-router-dom';
-import RecipeDetail from './RecipeDetail'
+import RecipeDetail from './RecipeDetail';
+
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -28,9 +30,10 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_A
 const RecipeRecommend = () => {
 const classes = useStyles();
 
+const [images, setImages] = useState([]);
 const [recipeList, setRecipeList] = useState([]);
 const getRecipeList = () => {
-	axios.get('/recipe')
+	axios.get('/foods')
 	.then((res) => res.json())
 	.then((data) => {
 		let result = data
@@ -46,7 +49,7 @@ const target = useRef(null);
 
 const getMoreRecipeList = () => {
 	setRecipeList((prevState) => {
-		axios.get(`/recipe/${prevState.length + 1}`)
+		axios.get(`/foods/${prevState.length + 1}`)
 		.then((res) => res.json())
 		.then((data) => {
 			return [...setRecipeList, ...data];
@@ -116,9 +119,10 @@ const getMoreRecipeList = () => {
 							레시피</Paper>
 					</div>
 				</Grid>
+
 			</div>
 		</div>
-    );
+	);
 }
 
 export default RecipeRecommend;
