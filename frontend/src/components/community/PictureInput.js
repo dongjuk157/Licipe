@@ -58,7 +58,7 @@ const PictureInput = () => {
     }
 
     return (
-        <div>
+        <>
             <img src={selectedFile}/>
             <input type='file' 
                 accept='image/*' 
@@ -67,7 +67,7 @@ const PictureInput = () => {
                 id="fileInput"
             >
             </input>
-        </div>
+        </>
 
     )
 }

@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { Box } from '@material-ui/core'
 import axios from 'axios'
 
 
-const JoinDiv  = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  border: solid;
-  border-radius: 0.5rem; 
-`
 const JoinForm = styled.form`
   display:flex;
   flex-direction: column;
@@ -56,7 +47,13 @@ const Join = ({history}) => {
   }
 
   return (
-    <JoinDiv>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+    >
       <h1>JOIN</h1>
       <JoinForm onSubmit={onJoin}>
         
@@ -67,6 +64,7 @@ const Join = ({history}) => {
             id="userid"
             value={userid}
             onChange={ e => setUserId(e.target.value)}
+            required
           ></input>
         </label>
         <br />
@@ -77,6 +75,7 @@ const Join = ({history}) => {
             id="nickname"
             value={nickname}
             onChange={ e => setNickname(e.target.value)}
+            required
           ></input>
         </label>
         <br />
@@ -87,6 +86,7 @@ const Join = ({history}) => {
             id="email"
             value={email}
             onChange={ e => setEmail(e.target.value)}
+            required
           ></input>
         </label>
         <br />
@@ -97,6 +97,7 @@ const Join = ({history}) => {
             id="password"
             value={password}
             onChange={ e => setPassword(e.target.value)}
+            required
           ></input>
         </label>
         <br />
@@ -107,6 +108,7 @@ const Join = ({history}) => {
             id="passwordConfirm"
             value={passwordConfirm}
             onChange={ e => setPasswordConfirm(e.target.value)}
+            required
           ></input>
         </label>
         <Box mt={2}>
@@ -119,7 +121,7 @@ const Join = ({history}) => {
           </Button>
         </Box>
       </JoinForm>
-    </JoinDiv> 
+    </Grid> 
   )
 }
 

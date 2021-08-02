@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PictureInput from './PictureInput'
 import axios from 'axios'
 
@@ -33,7 +33,7 @@ const Article = ({history}) => {
     history.push('/')
   }
   return (
-    <div>
+    <>
       <PictureInput />
       {/* <Button>사진 선택하기</Button> */}
       <input
@@ -46,7 +46,7 @@ const Article = ({history}) => {
       <Button
         onClick={onSkip}
       >인증 안 할래요</Button>
-    </div>
+    </>
   )
 }
 
