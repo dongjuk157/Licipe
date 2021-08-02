@@ -29,9 +29,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Article> articleList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Food_Member> foodList = new ArrayList<>();
+// many to many
+//    @OneToMany(mappedBy = "member")
+//    private List<Food_Member> foodList = new ArrayList<>();
 
     @Builder
     public Member(String username, String name, String picture, String email) {

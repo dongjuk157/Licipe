@@ -20,8 +20,8 @@ public class Country {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "country")
-    private List<Food> foodList = new ArrayList<>();
+//    @OneToMany(mappedBy = "country")
+//    private List<Food> foodList = new ArrayList<>();
 
     public Country(String name) {
         this.name = name;
