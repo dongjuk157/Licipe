@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   detail: {
@@ -55,7 +56,11 @@ const RecipeDetail = (props) => {
           </Paper>
         </ListItem>
         <ListItem>
-          <p>레시피 제목</p>
+          <span>레시피 제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          {/* foodid props로 전달 */}
+          <Link onClick={() => this.props.history.push(`/recipe/${props.recipe.foodid}/recipestep`)}>
+            <span>요리하기</span>
+          </Link>
         </ListItem>
         <ListItem>
           <p>주재료</p>
