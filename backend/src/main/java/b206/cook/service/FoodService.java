@@ -6,6 +6,7 @@ import b206.cook.repository.FoodRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FoodService {
 
     private final FoodRepository foodRepository;

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +18,10 @@ public class FoodController {
     @Autowired
     public FoodController(FoodService foodService) {
         this.foodService = foodService;
+    }
+    @GetMapping("/foods")
+    public List<Food> list() {
+        return foodService.findFoods();
     }
 
     @GetMapping("/foods/{foodId}")
