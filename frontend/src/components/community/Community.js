@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import SearchAppBar from '../common/SearchAppBar'
 import axios from 'axios'
 import FeedCard from '../common/FeedCard'
-import { Button } from '@material-ui/core'
 import styled from 'styled-components'
 const FeedContainer = styled.div`
   column-count: 5;
@@ -30,8 +29,8 @@ const Community = () => {
   const updateFeed = () => {
     const config = {
       method: 'get',
-      // url: `${BASE_URL}:${PORT}/articles`,
-      url: `https://picsum.photos/v2/list?page=${count}&limit=10`, // test용도
+      url: `${BASE_URL}:${PORT}/articles`,
+      // url: `https://picsum.photos/v2/list?page=${count}&limit=10`, // test용도
     }
     setCount(count + 1) // infinity scroll
     axios(config)
@@ -55,10 +54,11 @@ const Community = () => {
     <>
       <SearchAppBar></SearchAppBar>
       <div style={{height:"100px"}}></div>
-      <Button onClick={updateFeed}>업데이트 피드</Button>
+      {/* <Button onClick={updateFeed}>업데이트 피드</Button> */}
       <FeedContainer>
         {feeds.map((article) => (
           <FeedCard 
+            key={article.id}
             article={article}
           />
         ))}

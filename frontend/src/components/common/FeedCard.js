@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 export default function MediaCard({article}) {
   const classes = useStyles()
   const history = useHistory()
-  // height 필요함
+  // height 변경 필요함
   const height = 300
   // console.log(rate, height, width)
   // 실제 사진 데이터를 얻어오는 경우 cardMedia의 image 주소를 바꿀것
