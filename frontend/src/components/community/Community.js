@@ -25,14 +25,15 @@ const Community = () => {
   const PORT = process.env.REACT_APP_API_PORT
   
   const [feeds, setFeeds] = useState([])
+  
   const [count, setCount] = useState(1)
   const updateFeed = () => {
     const config = {
       method: 'get',
       // url: `${BASE_URL}:${PORT}/articles`,
-      url: `https://picsum.photos/v2/list?page=${count}&limit=10`,
+      url: `https://picsum.photos/v2/list?page=${count}&limit=10`, // test용도
     }
-    setCount(count + 1)
+    setCount(count + 1) // infinity scroll
     axios(config)
       .then(res => {
         const newFeeds = [...feeds, ...res.data]
@@ -45,18 +46,21 @@ const Community = () => {
     //처음 들어왔을때 Get 요청으로 이미지 채워넣기
     updateFeed()
   }, [])
-  useEffect(() => {
-    // console.log("update")
-    console.log(feeds)
-  }, [feeds])
+  // useEffect(() => {
+  //   // 피드 업데이트마다 할 동작
+  //   console.log(feeds)
+  // }, [feeds])
+
   return (
     <>
       <SearchAppBar></SearchAppBar>
       <div style={{height:"100px"}}></div>
       <Button onClick={updateFeed}>업데이트 피드</Button>
       <FeedContainer>
-        {feeds.map((element) => (
-          <FeedCard element={element}/>
+        {feeds.map((article) => (
+          <FeedCard 
+            article={article}
+          />
         ))}
       </FeedContainer>
     </>

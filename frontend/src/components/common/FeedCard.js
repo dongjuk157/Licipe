@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
+import { useHistory } from 'react-router';
 
 const maxWidth  = 345
 const useStyles = makeStyles({
@@ -16,21 +17,30 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard({element}) {
-  const classes = useStyles();
-  // console.log(element)
-  const rate = element.height / element.width
-  const height = rate * maxWidth
+export default function MediaCard({article}) {
+  const classes = useStyles()
+  const history = useHistory()
+  // height 필요함
+  const height = 300
   // console.log(rate, height, width)
   // 실제 사진 데이터를 얻어오는 경우 cardMedia의 image 주소를 바꿀것
   // 그리고 이미지 사이즈가 매우 크므로 이미지 리사이징 해서 가져올것(속도가 매우 느려짐)
+
+  const onCardClick = () => {
+    history.push(`/article/${article.id}`)
+    // history.push(`/article/${article.ArticleID}`)
+  }
+
   return (
-    <Card className={classes.root}>
+    <Card 
+      className={classes.root}
+      onClick={onCardClick}
+    >
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={element.download_url}
-          title="Contemplative Reptile"
+          image={article.download_url}
+          // image={article.Img}
           style={{
             height: height,
             objectFit: 'cover'
