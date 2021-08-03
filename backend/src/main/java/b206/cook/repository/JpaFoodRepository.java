@@ -48,20 +48,6 @@ public class JpaFoodRepository implements FoodRepository{
                 .getResultList();
     }
 
-//    @Override
-//    public List<Food> findBySituation(Long situationId) {
-//        return em.createQuery("select f from Food f where f.situationId = :situationId", Food.class)
-//                .setParameter("situationId", situationId)
-//                .getResultList();
-//    }
-
-//    @Override
-//    public List<Food> findByIngredient(Long ingredientId) {
-//        return em.createQuery("select f from Food f where f.ingredientId = :ingredientId", Food.class)
-//                .setParameter("ingredientId", ingredientId)
-//                .getResultList();
-//    }
-
     @Override
     public List<Food> findAll() {
         return em.createQuery("select f from Food f", Food.class).getResultList();
