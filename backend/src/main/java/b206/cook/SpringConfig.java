@@ -31,6 +31,11 @@ public class SpringConfig {
     }
 
     @Bean
+    public FoodIngredientRepository foodIngredientRepository() {
+        return new JpaFoodIngredientRepository(em);
+    }
+
+    @Bean
     public IngredientRepository ingredientRepository() {
         return new JpaIngredientRepository(em);
     }
