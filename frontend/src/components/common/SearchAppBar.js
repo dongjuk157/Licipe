@@ -214,6 +214,9 @@ export default function PersistentDrawerLeft() {
           <ListItem>
               <Link to='/reciperecommend'>레시피</Link>
           </ListItem>
+          <ListItem>
+              <Link to='/community'>커뮤니티</Link>
+          </ListItem>
       </Drawer>
  
     </div>
