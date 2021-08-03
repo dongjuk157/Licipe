@@ -9,6 +9,7 @@ import RecipeDetail from './components/recipe/RecipeDetail';
 import ArticleForm from './components/community/ArticleForm'
 import Community from './components/community/Community'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ArticleDetail from './components/community/ArticleDetail';
 
 const Routes = () => {
   return (
@@ -21,6 +22,7 @@ const Routes = () => {
             <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
             <Route path="/join" component={Join}/>
             <Route exact path="/article" component={ArticleForm}/>
+            <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
             <Route path="/recipe/:recipeid" component={RecipeDetail}/>
         </Switch>

@@ -27,7 +27,14 @@ export default function MediaCard({article}) {
   // 그리고 이미지 사이즈가 매우 크므로 이미지 리사이징 해서 가져올것(속도가 매우 느려짐)
 
   const onCardClick = () => {
-    history.push(`/article/${article.id}`)
+    
+    history.push({
+      pathname:`/article/${article.id}`, 
+      state: {
+        article: article,
+      },
+      
+    })
     // history.push(`/article/${article.ArticleID}`)
   }
 
