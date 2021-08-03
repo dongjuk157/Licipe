@@ -1,6 +1,7 @@
 package b206.cook.controller;
 
 import b206.cook.domain.Food;
+import b206.cook.domain.Food_Ingredient;
 import b206.cook.domain.Ingredient;
 import b206.cook.service.FoodIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,12 @@ public class FoodIngredientController {
     }
 
     @GetMapping("/foods/ingredients/{ingredientId}")
-    public List<Food> foodList(@PathVariable Long ingredientId) {
+    public List<Food_Ingredient> foodList(@PathVariable Long ingredientId) {
         return foodIngredientService.findFoodByIngredient(ingredientId);
     }
 
     @GetMapping("foods/{foodId}/ingredients")
-    public List<Ingredient> IngredientList(@PathVariable Long foodId) {
+    public List<Food_Ingredient> IngredientList(@PathVariable Long foodId) {
         return foodIngredientService.findIngredientByFood(foodId);
     }
 }
