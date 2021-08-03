@@ -2,6 +2,7 @@ package b206.cook.service;
 
 import b206.cook.domain.Food;
 import b206.cook.repository.FoodRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
