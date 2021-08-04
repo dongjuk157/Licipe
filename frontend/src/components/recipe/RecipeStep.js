@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
-const RecipeStep = () => {
+const RecipeStep = (props) => {
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -14,22 +14,35 @@ const RecipeStep = () => {
 		slidesToScroll: 1
 	};
 	let steps = [];
-	const { foodid } = useParams()
+
+	const foodid = props.match.params.id
 	const GetRecipeSteps = async () => {
-		for (let i = 0; i < 20; i++) {
+		// for (let i = 0; i < 20; i++) {
+		// 	axios.get(`/foods/${foodid}/recipe/steps/${i}`)
+		// 	.then((res) => {
+		// 		console.log(res)
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err)
+		// 	})
+
+		// }
+		for (let i = 1; i < 20; i++) {
 			try {
 				// props로 받은 foodid 활용
 				const response = await axios.get(`/foods/${foodid}/recipe/steps/${i}`)
-					steps.push(response)
+				console.log(response)
+				steps.push(response)
 			} catch (error) {
 				console.log(error)
 				break
 			}
 		};
+	}
 		useEffect(() => {
 			GetRecipeSteps()
-		})
-	}
+		}, [])
+	
 	return (
 		<div>
 			<h1>page check</h1>
