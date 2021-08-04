@@ -13,27 +13,27 @@ public class JpaSituationRepository implements SituationRepository {
     public JpaSituationRepository(EntityManager em) {
         this.em = em;
     }
-
-    @Override
-    public Situation save(Situation situation) {
-        em.persist(situation);
-        return situation;
-    }
-
-    @Override
-    public Optional<Situation> findById(Long id) {
-        Situation situation = em.find(Situation.class, id);
-        return Optional.ofNullable(situation);
-    }
-
-    @Override
-    public Optional<Situation> findByName(String name) {
-        List<Situation> result = em.createQuery("select s from Situation s where s.name = :name", Situation.class)
-                .setParameter("name", name)
-                .getResultList();
-
-        return result.stream().findAny();
-    }
+//
+//    @Override
+//    public Situation save(Situation situation) {
+//        em.persist(situation);
+//        return situation;
+//    }
+//
+//    @Override
+//    public Optional<Situation> findById(Long id) {
+//        Situation situation = em.find(Situation.class, id);
+//        return Optional.ofNullable(situation);
+//    }
+//
+//    @Override
+//    public Optional<Situation> findByName(String name) {
+//        List<Situation> result = em.createQuery("select s from Situation s where s.name = :name", Situation.class)
+//                .setParameter("name", name)
+//                .getResultList();
+//
+//        return result.stream().findAny();
+//    }
 
     @Override
     public List<Situation> findAll() {
