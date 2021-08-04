@@ -44,21 +44,18 @@ const Main = () => {
 						<RecipeImage>
 							<h3>1</h3>
 						</RecipeImage>
-						<div>
+						<RecipeImage>
 							<h3>2</h3>
-						</div>
-						<div>
+						</RecipeImage>
+            <RecipeImage>
 							<h3>3</h3>
-						</div>
-						<div>
+						</RecipeImage>
+            <RecipeImage>
 							<h3>4</h3>
-						</div>
-						<div>
+						</RecipeImage>
+            <RecipeImage>
 							<h3>5</h3>
-						</div>
-						<div>
-							<h3>6</h3>
-						</div>
+						</RecipeImage>
 					</Slider>
         </Carousel>
         <Box display="flex">

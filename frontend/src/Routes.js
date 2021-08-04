@@ -1,13 +1,16 @@
 import React from 'react';
 import Login from './components/user/Login'
+import KakaoOAuthHandler from './components/user/KakaoOAuthHandler';
 import Main from './components/recipe/Main'
 import RecipeRecommend from './components/recipe/RecipeRecommend';
 import RecipeDetail from './components/recipe/RecipeDetail';
+import RecipeStep from './components/recipe/RecipeStep';
 import Join from './components/user/Join'
-import KakaoOAuthHandler from './components/user/KakaoOAuthHandler';
 import EmailLogin from './components/user/EmailLogin';
-import Article from './components/community/Article'
+import ArticleForm from './components/community/ArticleForm'
+import Community from './components/community/Community'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ArticleDetail from './components/community/ArticleDetail';
 
 const Routes = () => {
   return (
@@ -16,11 +19,14 @@ const Routes = () => {
             <Route exact path="/" component={Main}/>
             <Route path="/reciperecommend" component={RecipeRecommend}/>
             <Route exact path="/login" component={Login}/>
-            <Route path="/join" component={Join}/>
-            <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
             <Route path="/login/email" component={EmailLogin}/>
-            <Route path="/article" component={Article}/>
-            <Route path="/recipe/:recipeid" component={RecipeDetail}/>
+            <Route path="/recipe/:foodid" component={RecipeDetail}/>
+            <Route path="/recipe/:foodid/recipestep" component={RecipeStep}/>
+            <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
+            <Route path="/join" component={Join}/>
+            <Route exact path="/article" component={ArticleForm}/>
+            <Route path ="/article/:articleid" component={ArticleDetail}/>
+            <Route exact path="/community" component={Community}/>
         </Switch>
       </Router>
   );
