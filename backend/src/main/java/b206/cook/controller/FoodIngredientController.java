@@ -19,13 +19,18 @@ public class FoodIngredientController {
         this.foodIngredientService = foodIngredientService;
     }
 
+    @GetMapping("/foods/ingredients")
+    public List<Food_Ingredient> ingredientList() {
+        return foodIngredientService.findIngredients();
+    }
+
     @GetMapping("/foods/ingredients/{ingredientId}")
     public List<Food_Ingredient> foodList(@PathVariable Long ingredientId) {
         return foodIngredientService.findFoodByIngredient(ingredientId);
     }
 
     @GetMapping("foods/{foodId}/ingredients")
-    public List<Food_Ingredient> ingredientList(@PathVariable Long foodId) {
+    public List<Food_Ingredient> ingredientListForFood(@PathVariable Long foodId) {
         return foodIngredientService.findIngredientByFood(foodId);
     }
 }

@@ -11,6 +11,13 @@ public class JpaFoodIngredientRepository implements FoodIngredientRepository{
     public JpaFoodIngredientRepository(EntityManager em) {
         this.em = em;
     }
+    // 메인 재료들 조회
+    @Override
+    public List<Food_Ingredient> findIngredients() {
+        return em.createQuery("select fi from Food_Ingredient fi where fi.isMain = true", Food_Ingredient.class)
+                .getResultList();
+    }
+
     // 해당 재료가 메인으로 들어가는 음식 조회
     @Override
     public List<Food_Ingredient> findByIngredient(Long ingredientId) {
@@ -25,4 +32,5 @@ public class JpaFoodIngredientRepository implements FoodIngredientRepository{
                 .setParameter("foodId", foodId)
                 .getResultList();
     }
+
 }

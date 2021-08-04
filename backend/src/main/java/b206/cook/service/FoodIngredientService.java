@@ -14,6 +14,10 @@ public class FoodIngredientService {
         this.foodIngredientRepository = foodIngredientRepository;
     }
 
+    public List<Food_Ingredient> findIngredients() {
+        return foodIngredientRepository.findIngredients();
+    }
+
     public List<Food_Ingredient> findFoodByIngredient(Long ingredientId) {
         return foodIngredientRepository.findByIngredient(ingredientId);
     }
