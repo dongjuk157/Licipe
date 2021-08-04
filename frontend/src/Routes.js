@@ -11,6 +11,7 @@ import ArticleForm from './components/community/ArticleForm'
 import Community from './components/community/Community'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ArticleDetail from './components/community/ArticleDetail';
+import RecipeEvaluation from './components/recipe/RecipeEvaluation';
 
 const Routes = () => {
   return (
@@ -21,12 +22,13 @@ const Routes = () => {
             <Route exact path="/login" component={Login}/>
             <Route path="/login/email" component={EmailLogin}/>
             <Route path="/recipe/:foodid" component={RecipeDetail}/>
-            <Route path="/recipe/:foodid/recipestep" component={RecipeStep}/>
+            <Route path="/recipe/:foodid/step" component={RecipeStep}/>
             <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
             <Route path="/join" component={Join}/>
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
+            <Route path="/recipe/:foodid/recipeevaluation" component={RecipeEvaluation}/>
         </Switch>
       </Router>
   );

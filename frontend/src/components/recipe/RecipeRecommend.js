@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import RecipeDetail from './RecipeDetail';
+import RecipeInfoComponent from './RecipeInfoComponent';
 
 
 
@@ -49,7 +49,7 @@ const target = useRef(null);
 
 const getMoreRecipeList = () => {
 	setRecipeList((prevState) => {
-		axios.get(`/foods/${prevState.length + 1}`)
+		axios.get('/foods')
 		.then((res) => res.json())
 		.then((data) => {
 			return [...setRecipeList, ...data];
@@ -62,6 +62,7 @@ const getMoreRecipeList = () => {
 
 
 	useEffect(() => {
+		getRecipeList();
 		const options = {
 			root: null,
 			target,
@@ -103,7 +104,7 @@ const getMoreRecipeList = () => {
 										className={classes.paper}
 										>
 											<img src={recipe.image}></img>
-											<RecipeDetail recipe={recipe}></RecipeDetail>
+											<RecipeInfoComponent recipe={recipe}></RecipeInfoComponent>
 										</Paper>
 									{/* </Link> */}
 								</Grid>
@@ -115,7 +116,7 @@ const getMoreRecipeList = () => {
 							{/* Material-ui V4 에서는 오류가 발생 
 							findDOMNode is deprecated ~~~
 							index.js의 StrictMode 삭제 및 Fragment로 변경할 시 해결 */}
-							<RecipeDetail></RecipeDetail>
+							<RecipeInfoComponent></RecipeInfoComponent>
 							레시피</Paper>
 					</div>
 				</Grid>
