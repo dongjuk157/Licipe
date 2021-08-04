@@ -16,8 +16,6 @@ public class Member {
 
     @Column(nullable = false)
     private String username;
-
-    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
