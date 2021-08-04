@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
-
 const RecipeStep = () => {
 	const settings = {
 		dots: true,
@@ -46,7 +45,7 @@ const RecipeStep = () => {
 				</div>
 				<Link to={`/recipe/${foodid}/evaluation`}>
 					<div>
-					요리 끝! 요리 인증하기
+					요리 끝! 요리 평가하기
 					</div>
 				</Link>
 			</Slider>
