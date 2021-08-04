@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TimeRepository {
-    Time save(Time time);
-    Optional<Time> findById(Long id);
-    List<Time> findByMaxTime(int maxTime);
+//    Time save(Time time);
+//    Optional<Time> findById(Long id);
+//    List<Time> findByMaxTime(int maxTime);
     List<Time> findAll();
 }

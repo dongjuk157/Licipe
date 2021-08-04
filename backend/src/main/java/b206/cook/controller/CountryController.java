@@ -22,5 +22,4 @@ public class CountryController {
     public List<Country> list() {
         return countryService.findCountries();
     }
-
 }
