@@ -49,6 +49,7 @@ const target = useRef(null);
 
 const getMoreRecipeList = () => {
 	setRecipeList((prevState) => {
+		// http://localhost
 		axios.get('/foods')
 		.then((res) => res.json())
 		.then((data) => {
