@@ -49,7 +49,8 @@ const target = useRef(null);
 
 const getMoreRecipeList = () => {
 	setRecipeList((prevState) => {
-		axios.get(`/foods/${prevState.length + 1}`)
+		// http://localhost
+		axios.get('/foods')
 		.then((res) => res.json())
 		.then((data) => {
 			return [...setRecipeList, ...data];
@@ -62,6 +63,7 @@ const getMoreRecipeList = () => {
 
 
 	useEffect(() => {
+		getRecipeList();
 		const options = {
 			root: null,
 			target,

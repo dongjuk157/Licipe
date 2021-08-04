@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
   }
 }));
-
 const RecipeDetail = (props) => {
   const classes = useStyles();
   const [state, setState] = React.useState({

@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecipeInfoComponent = (props) => {
+  console.log(props)
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
@@ -140,7 +141,9 @@ const RecipeInfoComponent = (props) => {
 };
 
 RecipeInfoComponent.defaultProps = {
-    recipe: null,
+    recipe: {
+      foodid: 1,
+    },
 };
 
 export default RecipeInfoComponent;
