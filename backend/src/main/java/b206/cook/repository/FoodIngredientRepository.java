@@ -1,8 +1,6 @@
 package b206.cook.repository;
 
-import b206.cook.domain.Food;
 import b206.cook.domain.Food_Ingredient;
-import b206.cook.domain.Ingredient;
 
 import java.util.List;
 
