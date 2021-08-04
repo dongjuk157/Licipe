@@ -21,14 +21,14 @@ const Routes = () => {
             <Route path="/reciperecommend" component={RecipeRecommend}/>
             <Route exact path="/login" component={Login}/>
             <Route path="/login/email" component={EmailLogin}/>
-            <Route path="/recipe/:foodid" component={RecipeDetail}/>
-            <Route path="/recipe/:foodid/step" component={RecipeStep}/>
+            {/* <Route path="/recipe/:id" component={RecipeDetail}/> */}
+            <Route path="/recipe/:id/step" component={RecipeStep}/>
             <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
             <Route path="/join" component={Join}/>
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
-            <Route path="/recipe/:foodid/recipeevaluation" component={RecipeEvaluation}/>
+            <Route path="/recipe/:id/recipeevaluation" component={RecipeEvaluation}/>
         </Switch>
       </Router>
   );
