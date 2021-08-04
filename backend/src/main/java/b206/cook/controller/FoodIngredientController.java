@@ -25,7 +25,7 @@ public class FoodIngredientController {
     }
 
     @GetMapping("foods/{foodId}/ingredients")
-    public List<Food_Ingredient> IngredientList(@PathVariable Long foodId) {
+    public List<Food_Ingredient> ingredientList(@PathVariable Long foodId) {
         return foodIngredientService.findIngredientByFood(foodId);
     }
 }
