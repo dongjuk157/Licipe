@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ const RecipeStep = () => {
 	};
 	let steps = [];
 	const { foodid } = useParams()
-	const getRecipeSteps = async () => {
+	const GetRecipeSteps = async () => {
 		for (let i = 0; i < 20; i++) {
 			try {
 				// props로 받은 foodid 활용
@@ -27,9 +27,13 @@ const RecipeStep = () => {
 				break
 			}
 		};
+		useEffect(() => {
+			GetRecipeSteps()
+		})
 	}
 	return (
 		<div>
+			<h1>page check</h1>
 			<h2> Single Item</h2>
 			<Slider {...settings}>
 				<div>
@@ -40,7 +44,11 @@ const RecipeStep = () => {
 						</div>
 						))}
 				</div>
-
+				<Link to={`/recipe/${foodid}/evaluation`}>
+					<div>
+					요리 끝! 요리 인증하기
+					</div>
+				</Link>
 			</Slider>
 		</div>
 	)
