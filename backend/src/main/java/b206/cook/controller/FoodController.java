@@ -20,6 +20,7 @@ public class FoodController {
     public FoodController(FoodService foodService) {
         this.foodService = foodService;
     }
+
     @GetMapping("/foods")
     public List<Food> list() {
         return foodService.findFoods();
