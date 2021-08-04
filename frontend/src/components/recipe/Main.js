@@ -56,6 +56,7 @@ const Main = () => {
             <RecipeImage>
 							<h3>5</h3>
 						</RecipeImage>
+            
 					</Slider>
         </Carousel>
         <Box display="flex">
