@@ -25,4 +25,14 @@ public class FoodService {
     public Optional<Food> findOne(Long foodId) {
         return foodRepository.findById(foodId);
     }
+
+    // 나라별 음식 조회
+    public List<Food> findFoodsByCountry(Long countryId) {
+        return foodRepository.findByCountry(countryId);
+    }
+
+    // 소요시간별 음식 조회
+    public List<Food> findFoodsByTime(Long timeId) {
+        return foodRepository.findByTime(timeId);
+    }
 }
