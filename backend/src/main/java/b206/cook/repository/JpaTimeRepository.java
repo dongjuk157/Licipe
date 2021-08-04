@@ -13,25 +13,25 @@ public class JpaTimeRepository implements TimeRepository {
     public JpaTimeRepository(EntityManager em) {
         this.em = em;
     }
-
-    @Override
-    public Time save(Time time) {
-        em.persist(time);
-        return time;
-    }
-
-    @Override
-    public Optional<Time> findById(Long id) {
-        Time time = em.find(Time.class, id);
-        return Optional.ofNullable(time);
-    }
-
-    @Override
-    public List<Time> findByMaxTime(int maxTime) {
-        return em.createQuery("select t from Time t where t.maxTime = :maxTime", Time.class)
-                .setParameter("maxTime", maxTime)
-                .getResultList();
-    }
+//
+//    @Override
+//    public Time save(Time time) {
+//        em.persist(time);
+//        return time;
+//    }
+//
+//    @Override
+//    public Optional<Time> findById(Long id) {
+//        Time time = em.find(Time.class, id);
+//        return Optional.ofNullable(time);
+//    }
+//
+//    @Override
+//    public List<Time> findByMaxTime(int maxTime) {
+//        return em.createQuery("select t from Time t where t.maxTime = :maxTime", Time.class)
+//                .setParameter("maxTime", maxTime)
+//                .getResultList();
+//    }
 
     @Override
     public List<Time> findAll() {

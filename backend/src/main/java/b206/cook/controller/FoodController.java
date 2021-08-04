@@ -4,6 +4,7 @@ import b206.cook.domain.Food;
 import b206.cook.domain.Food_Ingredient;
 import b206.cook.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RestController
 public class FoodController {
 
@@ -20,6 +22,7 @@ public class FoodController {
     public FoodController(FoodService foodService) {
         this.foodService = foodService;
     }
+
     @GetMapping("/foods")
     public List<Food> list() {
         return foodService.findFoods();

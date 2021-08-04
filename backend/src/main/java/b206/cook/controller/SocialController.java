@@ -15,5 +15,4 @@ public class SocialController {
         System.out.println("인증 완료됨. 코드값:" + code);
         return "인증 완료";
     }
-
 }
