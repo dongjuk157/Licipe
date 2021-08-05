@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import RecipeStep from './RecipeStep'
 
 const useStyles = makeStyles((theme) => ({
   detail: {
@@ -29,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
   }
 }));
-const RecipeDetail = (props) => {
+
+const RecipeInfoComponent = (props) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
@@ -39,6 +41,7 @@ const RecipeDetail = (props) => {
   const toggleDrawer = (open) => (event) => {
     setState({ ...state, right: open });
   };
+
 
   const list = () => (
     <div
@@ -56,7 +59,8 @@ const RecipeDetail = (props) => {
         <ListItem>
           <span>레시피 제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
           {/* foodid props로 전달 */}
-          <Link onClick={() => this.props.history.push(`/recipe/${props.recipe.foodid}/recipestep`)}>
+          
+          <Link to={`/recipe/${props.recipe.id}/step`}>
             <span>요리하기</span>
           </Link>
         </ListItem>
@@ -137,8 +141,10 @@ const RecipeDetail = (props) => {
   );
 };
 
-RecipeDetail.defaultProps = {
-    recipe: null,
+RecipeInfoComponent.defaultProps = {
+    recipe: {
+      foodid: 1,
+    },
 };
 
-export default RecipeDetail;
+export default RecipeInfoComponent;

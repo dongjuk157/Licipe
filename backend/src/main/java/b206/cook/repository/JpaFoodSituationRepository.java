@@ -1,6 +1,5 @@
 package b206.cook.repository;
 
-import b206.cook.domain.Food;
 import b206.cook.domain.Food_Situation;
 
 import javax.persistence.EntityManager;
@@ -13,10 +12,18 @@ public class JpaFoodSituationRepository implements FoodSituationRepository{
         this.em = em;
     }
 
+    // 요리별 상황리스트 검색
+    @Override
+    public List<Food_Situation> findByFood(Long foodId) {
+        return em.createQuery("select fs from Food_Situation fs where fs.food.id = :foodId", Food_Situation.class)
+                .setParameter("foodId", foodId)
+                .getResultList();
+    }
+
     // 상황으로 요리리스트 검색
     @Override
-    public List<Food> findBySituation(Long situationId) {
-        return em.createQuery("select fs.food from Food_Situation fs where fs.situation.id = :situationId", Food.class)
+    public List<Food_Situation> findBySituation(Long situationId) {
+        return em.createQuery("select fs from Food_Situation fs where fs.situation.id = :situationId", Food_Situation.class)
                 .setParameter("situationId", situationId)
                 .getResultList();
     }
