@@ -1,8 +1,11 @@
 import { Button } from '@material-ui/core'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
-import axios from 'axios'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
+import * as articleActions from "../../redux/modules/article";
+import storage from '../../lib/storage';
 
 const ImgContainer = styled.div`
   width: 300px;
@@ -12,76 +15,68 @@ const InputContent = styled.input`
 `
 
 
-const Article = ({history}) => {
+const Article = () => {
+  // useEffect(,[])
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const { userid, food, content, img } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const postSuccess = useSelector((state) => state.article.get('postSuccess'))
+  const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
+  // if (!currentUserInfo) {
+  //   history.push('/login')
+  // }
+  // useEffect(()=>{
+  //   dispatch(articleActions.changeInput({
+  //     name: 'userid',
+  //     value: currentUserInfo.userid
+  //   }))
+  //   //food 어디서 받아와야하지?
+  // },[])
+
   const [selectedFile, setSelectedFile] = useState(null)
-  const [img, setImg] = useState('')
-  const [content, setContent] = useState('')
-  const food = ''
-  const userid = ''
   const fileRef = useRef()
 
-  const BASE_URL = process.env.REACT_APP_API_URL
-  const PORT = process.env.REACT_APP_API_PORT
+  const handleChange = (event) =>{
+    const { name, value } = event.target
+    dispatch(articleActions.changeInput({name, value}))
+  }
 
   const handleImageButtonClick = (event) => {
     event.preventDefault()
     fileRef.current.click()
   }
 
-  const handleUpload = (event) => {
+  const handleSelect = async (event) => {
     event.preventDefault()
+    // 사진 미리보기
     const file = event.target.files[0]
-    // if (!file) {
-    //   //파일을 선택하지 않는 경우
-    //   alert('힝')
-    //   return
-    // }
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = (event) => {
       setSelectedFile(event.currentTarget.result)
     }
     
+    // 사진 업로드
     const formData = new FormData()
     formData.append('img', file)
-    // for (var key of formData.keys()) {
-    //   console.log(key);
-    // }
-    
-    // for (var value of formData.values()) {
-    //   console.log(value);
-    // }
-    const config = {
-      method: 'post',
-      url: `${BASE_URL}:${PORT}/articles/image`,
-      body: formData,
-    }
-    axios(config)
-      .then(res => {
-      // 이미지 주소 리턴
-      setImg(res.data.imgUrl)
-    }).catch(e => {
-      console.log(e)
-    })
+    formData.append('userid', userid)
+
+    await dispatch(articleActions.uploadImage(formData))
+
   }
-  const onPost = (event) => {
+
+  const onPost = async (event) => {
     event.preventDefault()
-    const config = {
-      method: 'post',
-      url: `${BASE_URL}:${PORT}/article`,
-      data: {
-        userid,
-        food,
-        content,
-        img,
-      }
-    }
-    axios(config)
-      .then(()=> {
-        history.push('/community')
-    }).catch((e)=>{
-      console.log(e)
-    })
+    // 게시글 업로드
+    const formData = new FormData()
+    formData.append('userid', userid)
+    formData.append('food', food)
+    formData.append('content', content)
+    formData.append('img', img)
+    
+    await dispatch(articleActions.uploadArticle(formData))
+    if (postSuccess)
+      history.push('/community')
   }
   const onSkip = () => {
     history.push('/')
@@ -104,7 +99,7 @@ const Article = ({history}) => {
               src={selectedFile}
               alt="selectedFileImage"
               style={{
-                'object-fit': 'contain',
+                'objectFit': 'contain',
                 width: '100%',
               }}
             />
@@ -121,7 +116,7 @@ const Article = ({history}) => {
             accept='image/*'
             capture='camera' 
             name='img' 
-            onChange={handleUpload}
+            onChange={handleSelect}
             id="fileInput"
             hidden
             ref = {fileRef}
@@ -138,9 +133,8 @@ const Article = ({history}) => {
         <form>
           <InputContent
             placeholder="음식에 대해 간략하게 평가해주세요"
-            onChange={(event)=>{
-              setContent(event.target.value)
-            }}
+            name="content"
+            onChange={handleChange}
           >
           </InputContent>
           <br/>
