@@ -6,6 +6,8 @@ import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.management.MXBean;
+
 @OpenAPIDefinition(info = @Info(title = "리시피 API 명세서", description = "API 명세서", version = "0.1"))
 @Configuration
 public class OpenApiConfig {
@@ -14,10 +16,12 @@ public class OpenApiConfig {
         return GroupedOpenApi.builder().setGroup("foods").pathsToMatch("/foods/**").build();
     }
 
+    @Bean
     public GroupedOpenApi memberApis() {
         return GroupedOpenApi.builder().setGroup("member").pathsToMatch("/member/**").build();
     }
 
+    @Bean
     public GroupedOpenApi articleApis() {
         return GroupedOpenApi.builder().setGroup("article").pathsToMatch("/article/**").build();
     }
