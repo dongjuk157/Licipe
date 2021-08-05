@@ -1,15 +1,17 @@
-package b206.cook.service;
+package b206.cook.social.kakao;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 @Service
-public class KakaoService {
+public class KakaoUserInfo {
 
     public String getAccessToken(String code) {
         String access_Token = "";
@@ -68,5 +70,52 @@ public class KakaoService {
         }
 
         return access_Token;
+    }
+
+    public HashMap<String, Object> getUserInfo(String access_Token) {
+
+        HashMap<String, Object> userInfo = new HashMap<>();
+        String reqURL = "https://kapi.kakao.com/v2/user/me";
+        try{
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Header 에 담을 내용
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode = " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String line = "";
+            StringBuilder result = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+            System.out.println("response body = " + result);
+
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(String.valueOf(result));
+
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+//            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+//            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String id = element.getAsJsonObject().get("id").getAsString();
+
+            userInfo.put("nickname", nickname);
+//            userInfo.put("email", email);
+            userInfo.put("profile_image", profile_image);
+            userInfo.put("id", id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return userInfo;
     }
 }
