@@ -1,9 +1,8 @@
-import { Button } from '@material-ui/core'
 import React, { useRef, useState, useEffect } from 'react'
-import { Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
 
@@ -18,20 +17,28 @@ const InputContent = styled.input`
 const Article = () => {
   // useEffect(,[])
   const history = useHistory()
+  const location = useLocation()
   const dispatch = useDispatch()
-  const { userid, food, content, img } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const postSuccess = useSelector((state) => state.article.get('postSuccess'))
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
+  const article = location.state.article
   // if (!currentUserInfo) {
   //   history.push('/login')
   // }
-  // useEffect(()=>{
-  //   dispatch(articleActions.changeInput({
-  //     name: 'userid',
-  //     value: currentUserInfo.userid
-  //   }))
-  //   //food 어디서 받아와야하지?
-  // },[])
+  useEffect(()=>{
+    if (article.id){ // edit으로 넘어온 경우
+      dispatch(articleActions.getArticle(article.id))
+    }
+    // else {
+    //   dispatch(articleActions.changeInput({
+    //     name: 'userid',
+    //     value: currentUserInfo.userid
+    //   }))
+    //   // food 어디서 받아와야하지?
+    // }
+    return dispatch(articleActions.initializeForm('article'))
+  },[])
 
   const [selectedFile, setSelectedFile] = useState(null)
   const fileRef = useRef()
@@ -73,8 +80,12 @@ const Article = () => {
     formData.append('food', food)
     formData.append('content', content)
     formData.append('img', img)
-    
-    await dispatch(articleActions.uploadArticle(formData))
+    if (article.id) {
+      await dispatch(articleActions.editArticle(formData, articleid))
+    }
+    else {
+      await dispatch(articleActions.uploadArticle(formData))
+    }
     if (postSuccess)
       history.push('/community')
   }

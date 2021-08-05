@@ -7,10 +7,7 @@ export const checkStatus = () => axios.get(`${BASE_URL}:${PORT}/user/check`)
 export const checkEmailExists = (email) => {
   const config = {
     method: 'get',
-    url: `${BASE_URL}:${PORT}/user/exist/email`,
-    params: {
-      email
-    }
+    url: `${BASE_URL}:${PORT}/user/exist/email/${email}`,
   }
   return axios(config)
 }
@@ -18,10 +15,7 @@ export const checkEmailExists = (email) => {
 export const checkUseridExists = (userid) => {
   const config = {
     method: 'get',
-    url: `${BASE_URL}:${PORT}/user/exists/userid`,
-    params: {
-      userid
-    }
+    url: `${BASE_URL}:${PORT}/user/exists/userid/${userid}`,
   }
   return axios(config)
 }

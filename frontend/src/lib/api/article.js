@@ -13,9 +13,28 @@ export const uploadArticle = (formData) => {
 }
 
 export const getArticlesPage = (page) => {}
-export const getArticle = () => {}
-export const editArticle = () => {}
-export const deleteArticle = () => {}
+export const getArticle = (articleid) => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/article/${articleid}`,
+  }
+  return axios(config)
+}
+export const editArticle = (formData, articleid) => {
+  const config = {
+    method: 'put',
+    url: `${BASE_URL}:${PORT}/article/${articleid}`,
+    body: formData,
+  }
+  return axios(config)
+}
+export const deleteArticle = (articleid) => {
+  const config = {
+    method: 'delete',
+    url: `${BASE_URL}:${PORT}/article/${articleid}`,
+  }
+  return axios(config)
+}
 
 export const uploadImage = (formData) => {
   const config = {
