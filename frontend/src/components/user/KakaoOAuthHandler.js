@@ -3,12 +3,12 @@ import axios from "axios"
 import { CircularProgress } from "@material-ui/core"
 
 const KakaoOAuthHandler = ({history}) => {
-  const code = new URL(window.location.href).searchParams.get("code")
-  const BASE_URL = process.env.REACT_APP_API_URL
-  const PORT = process.env.REACT_APP_API_PORT
-  
+
   // console.log(code)
   useEffect( () => {
+    const code = new URL(window.location.href).searchParams.get("code")
+    const BASE_URL = process.env.REACT_APP_API_URL
+    const PORT = process.env.REACT_APP_API_PORT
     async function SubmitServer() {
       const config = {
         method: 'get',
