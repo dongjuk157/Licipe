@@ -34,22 +34,24 @@ const [images, setImages] = useState([]);
 const [recipeList, setRecipeList] = useState([]);
 const getRecipeList = () => {
 	axios.get('/foods')
-	.then((res) => res.json())
-	.then((data) => {
-		let result = data
-		setRecipeList(result)
+	.then((res) => {
+		console.log(res)
+		setRecipeList(res.data)
 	})
 	.catch((err) => {
 		console.log(err)
 	});
 };
 
+useEffect(() => {
+	getRecipeList();
+}, [])
+
 const viewport = useRef(null);
 const target = useRef(null);
 
 const getMoreRecipeList = () => {
-	setRecipeList((prevState) => {
-		// http://localhost
+	setRecipeList(() => {
 		axios.get('/foods')
 		.then((res) => res.json())
 		.then((data) => {
@@ -62,8 +64,8 @@ const getMoreRecipeList = () => {
 };
 
 
+
 	useEffect(() => {
-		getRecipeList();
 		const options = {
 			root: null,
 			target,
@@ -99,7 +101,7 @@ const getMoreRecipeList = () => {
 						{recipeList.map((recipe) => {
 							const lastEl = 'index' === recipeList.length - 1;
 							return (
-								<Grid item xs={6}>
+								<Grid item xs={6} key={recipe.id}>
 									{/* <Link to={`/recipe/${recipe.id}`}> */}
 										<Paper 
 										className={classes.paper}
