@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -17,15 +16,37 @@ public class ArticleService {
     public ArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
+
     // 전체 게시글 조회
-    public List<Article> findArticles() {
+    public List<Article> feeds() {
         return articleRepository.findAll();
     }
+
     // 게시글 하나 조회
     public Optional<Article> findArticle(Long articleId) {
         return articleRepository.findById(articleId);
     }
+
     // 게시글 생성
-    // 게시글 수정
+    public Article createArticle(Article article) {
+        return articleRepository.save(article);
+    }
+
+    // 게시글 내용 수정
+    @Transactional
+    public Long updateContent(Long articleId, String content) {
+        Optional<Article> article = this.findArticle(articleId);
+        article.get().updateContent(content);
+        return articleId;
+    }
+
+    // 게시글 이미지 수정
+    @Transactional
+    public Long updateImg(Long articleId, String imgUrl) {
+        Optional<Article> article = this.findArticle(articleId);
+        article.get().updateImage(imgUrl);
+        return articleId;
+    }
     // 게시글 삭제
+    
 }
