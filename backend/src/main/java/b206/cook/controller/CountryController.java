@@ -1,6 +1,6 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Country;
+import b206.cook.domain.entity.Country;
 import b206.cook.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

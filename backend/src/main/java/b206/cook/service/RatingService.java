@@ -1,6 +1,6 @@
 package b206.cook.service;
 
-import b206.cook.repository.RatingRepository;
+import b206.cook.domain.repository.RatingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

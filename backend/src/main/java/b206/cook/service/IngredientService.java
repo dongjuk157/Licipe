@@ -1,7 +1,7 @@
 package b206.cook.service;
 
-import b206.cook.domain.Ingredient;
-import b206.cook.repository.IngredientRepository;
+import b206.cook.domain.entity.Ingredient;
+import b206.cook.domain.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

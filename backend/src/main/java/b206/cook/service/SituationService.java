@@ -1,7 +1,7 @@
 package b206.cook.service;
 
-import b206.cook.domain.Situation;
-import b206.cook.repository.SituationRepository;
+import b206.cook.domain.entity.Situation;
+import b206.cook.domain.repository.SituationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

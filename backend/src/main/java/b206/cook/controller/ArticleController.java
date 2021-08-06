@@ -1,12 +1,10 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Article;
+import b206.cook.domain.entity.Article;
 import b206.cook.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

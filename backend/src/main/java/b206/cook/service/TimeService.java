@@ -1,7 +1,7 @@
 package b206.cook.service;
 
-import b206.cook.domain.Time;
-import b206.cook.repository.TimeRepository;
+import b206.cook.domain.entity.Time;
+import b206.cook.domain.repository.TimeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

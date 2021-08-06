@@ -1,6 +1,6 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Situation;
+import b206.cook.domain.entity.Situation;
 import b206.cook.service.SituationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

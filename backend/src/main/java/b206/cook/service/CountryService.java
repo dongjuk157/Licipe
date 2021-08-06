@@ -1,11 +1,10 @@
 package b206.cook.service;
 
-import b206.cook.domain.Country;
-import b206.cook.repository.CountryRepository;
+import b206.cook.domain.entity.Country;
+import b206.cook.domain.repository.CountryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CountryService {

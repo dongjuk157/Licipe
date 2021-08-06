@@ -1,6 +1,6 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Time;
+import b206.cook.domain.entity.Time;
 import b206.cook.service.TimeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

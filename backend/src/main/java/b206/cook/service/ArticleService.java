@@ -1,7 +1,7 @@
 package b206.cook.service;
 
-import b206.cook.domain.Article;
-import b206.cook.repository.ArticleRepository;
+import b206.cook.domain.entity.Article;
+import b206.cook.domain.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
