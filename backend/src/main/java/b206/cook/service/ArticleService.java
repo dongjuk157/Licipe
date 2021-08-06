@@ -48,5 +48,8 @@ public class ArticleService {
         return articleId;
     }
     // 게시글 삭제
-    
+    @Transactional
+    public void deleteArticle(Long articleId) {
+        articleRepository.delete(articleId);
+    }
 }

@@ -37,6 +37,4 @@ public class JpaArticleRepository implements ArticleRepository{
         Article article1 = em.find(Article.class, id);
         em.remove(article1);
     }
-
-
 }
