@@ -1,7 +1,9 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Time;
+import b206.cook.domain.entity.Time;
 import b206.cook.service.TimeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,7 @@ public class TimeController {
     }
 
     @GetMapping("/foods/times")
-    public List<Time> list() {
-        return timeService.findTimes();
+    public ResponseEntity<List<Time>> list() throws Exception {
+        return new ResponseEntity<>(timeService.findTimes(), HttpStatus.OK);
     }
 }

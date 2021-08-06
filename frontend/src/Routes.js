@@ -9,8 +9,9 @@ import Join from './components/user/Join'
 import EmailLogin from './components/user/EmailLogin';
 import ArticleForm from './components/community/ArticleForm'
 import Community from './components/community/Community'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ArticleDetail from './components/community/ArticleDetail';
+import { Error404 } from './components/common/Error404';
 import RecipeEvaluation from './components/recipe/RecipeEvaluation';
 
 const Routes = () => {
@@ -28,7 +29,11 @@ const Routes = () => {
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
-            <Route path="/recipe/:id/evaluation" component={RecipeEvaluation}/>
+            <Route path="/404NotFound" component={Error404}/>
+            <Route path="*">
+              <Redirect to="/404NotFound" />
+            </Route>
+            <Route path="/recipe/:id/recipeevaluation" component={RecipeEvaluation}/>
         </Switch>
       </Router>
   );

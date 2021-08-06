@@ -1,7 +1,7 @@
 package b206.cook.service;
 
-import b206.cook.domain.Food_Situation;
-import b206.cook.repository.FoodSituationRepository;
+import b206.cook.domain.entity.Food_Situation;
+import b206.cook.domain.repository.FoodSituationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
