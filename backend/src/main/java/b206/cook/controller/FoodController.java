@@ -1,13 +1,11 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Food;
-import b206.cook.domain.Food_Ingredient;
+import b206.cook.domain.entity.Food;
 import b206.cook.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,22 +22,22 @@ public class FoodController {
     }
 
     @GetMapping("/foods")
-    public List<Food> list() {
-        return foodService.findFoods();
+    public ResponseEntity<List<Food>> list() throws Exception{
+        return new ResponseEntity<>(foodService.findFoods(), HttpStatus.OK);
     }
 
     @GetMapping("/foods/{foodId}")
-    public Optional<Food> one(@PathVariable Long foodId) {
-        return foodService.findOne(foodId);
+    public ResponseEntity<Optional<Food>> one(@PathVariable Long foodId) {
+        return new ResponseEntity<>(foodService.findOne(foodId), HttpStatus.OK);
     }
 
     @GetMapping("/foods/countries/{countryId}")
-    public List<Food> foodListByCountry(@PathVariable Long countryId) {
-        return foodService.findFoodsByCountry(countryId);
+    public ResponseEntity<List<Food>> foodListByCountry(@PathVariable Long countryId) {
+        return new ResponseEntity<>(foodService.findFoodsByCountry(countryId), HttpStatus.OK);
     }
 
     @GetMapping("/foods/times/{timeId}")
-    public List<Food> foodListByTime(@PathVariable Long timeId) {
-        return foodService.findFoodsByTime(timeId);
+    public ResponseEntity<List<Food>> foodListByTime(@PathVariable Long timeId) {
+        return new ResponseEntity<>(foodService.findFoodsByTime(timeId), HttpStatus.OK);
     }
 }

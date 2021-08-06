@@ -1,7 +1,9 @@
 package b206.cook.controller;
 
-import b206.cook.domain.Situation;
+import b206.cook.domain.entity.Situation;
 import b206.cook.service.SituationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +21,7 @@ public class SituationController {
     }
 
     @GetMapping("/foods/situations")
-    public List<Situation> list() {
-        return situationService.findSituations();
+    public ResponseEntity<List<Situation>> list() throws Exception {
+        return new ResponseEntity<>(situationService.findSituations(), HttpStatus.OK);
     }
 }
