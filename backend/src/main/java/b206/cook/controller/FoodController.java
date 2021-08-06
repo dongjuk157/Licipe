@@ -1,7 +1,6 @@
 package b206.cook.controller;
 
 import b206.cook.domain.Food;
-import b206.cook.domain.Food_Ingredient;
 import b206.cook.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -7,10 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +23,8 @@ public class ArticleController {
     }
 
     @GetMapping("/articles")
-    public List<Article> all(Model model) {
-        List<Article> articles = articleService.feeds();
-        return articles;
+    public ResponseEntity<List<Article>> all() throws Exception {
+        return new ResponseEntity<>(articleService.feeds(), HttpStatus.OK);
     }
 
     @PostMapping("/article")
@@ -38,7 +34,7 @@ public class ArticleController {
     }
 
     @GetMapping("/article/{articleId}")
-    public Optional<Article> one(Long articleId) {
-        return articleService.findArticle(articleId);
+    public ResponseEntity<Optional<Article>> one(@PathVariable Long articleId) {
+        return new ResponseEntity<>(articleService.findArticle(articleId), HttpStatus.OK);
     }
 }

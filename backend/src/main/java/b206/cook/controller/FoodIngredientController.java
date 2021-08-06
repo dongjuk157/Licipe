@@ -3,6 +3,8 @@ package b206.cook.controller;
 import b206.cook.domain.Food_Ingredient;
 import b206.cook.service.FoodIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,17 +24,17 @@ public class FoodIngredientController {
     }
 
     @GetMapping("/foods/ingredients")
-    public List<Food_Ingredient> ingredientList() {
-        return foodIngredientService.findIngredients();
+    public ResponseEntity<List<Food_Ingredient>> ingredientList(){
+        return new ResponseEntity<>(foodIngredientService.findIngredients(), HttpStatus.OK);
     }
 
     @GetMapping("/foods/ingredients/{ingredientId}")
-    public List<Food_Ingredient> foodList(@PathVariable Long ingredientId) {
-        return foodIngredientService.findFoodByIngredient(ingredientId);
+    public ResponseEntity<List<Food_Ingredient>> foodList(@PathVariable Long ingredientId) {
+        return new ResponseEntity<>(foodIngredientService.findFoodByIngredient(ingredientId), HttpStatus.OK);
     }
 
     @GetMapping("foods/{foodId}/ingredients")
-    public List<Food_Ingredient> ingredientListForFood(@PathVariable Long foodId) {
-        return foodIngredientService.findIngredientByFood(foodId);
+    public ResponseEntity<List<Food_Ingredient>> ingredientListForFood(@PathVariable Long foodId) {
+        return new ResponseEntity<>(foodIngredientService.findIngredientByFood(foodId), HttpStatus.OK);
     }
 }
