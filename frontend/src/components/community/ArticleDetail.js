@@ -1,7 +1,10 @@
 import { Button, Grid } from '@material-ui/core'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory, useLocation } from 'react-router'
+import * as articleActions from "../../redux/modules/article";
+import storage from '../../lib/storage';
 
 const ArticleContainer = styled.div`
   padding: 1em;
@@ -21,46 +24,44 @@ const ImageContainer = styled.div`
   }
 `
 
-const ArticleDetail = ({location}) => {
-  const [image, setImage] = useState('')
-  const [comment, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [food, setFood] = useState('')
-  
-  const BASE_URL = process.env.REACT_APP_API_URL
-  const PORT = process.env.REACT_APP_API_PORT
-  const articleId = new URL(window.location.href).pathname.split('/article/')[1] // string
-  
-  const getArticle = () =>{
-    const config = {
-      method: 'get',
-      url: `${BASE_URL}:${PORT}/article/${articleId}`,
-      // url: location.state.article.download_url,
-    }
-    console.log(config)
-    axios(config)
-    .then(res => {
-      // console.log(res.data)
-      setImage(res.data.img)
-      setContent(res.data.content)
-      setFood(res.data.food)
-      setAuthor(res.data.userid)
-    }).catch(e => {
-      console.log(e)
-    }) 
-    // setImage(location.state.article.download_url)
-  }
-    
+const ArticleDetail = () => {
+  const location = useLocation()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
+  const article = location.state.article
   useEffect(()=>{
-    getArticle()
-    // console.log(image)
+    dispatch(articleActions.getArticle(article.id))
+    return () => {
+      dispatch(articleActions.initializeForm('article'))
+    }
   }, [])
+  
+  const handleThumbup = () => {
+    // 좋아요 안만들겠지?
+  }
+  const handleEdit = () => {
+    if (currentUserInfo.userid !== userid) return
+    history.push({
+      pathname:`/article/`, 
+      state: {
+        article: article,
+      },
+    })
+  }
+  const handleDelete = async () => {
+    if (currentUserInfo.userid !== userid) return
+    dispatch(articleActions.deleteArticle(articleid))
+    history('/community')
+  }
+
   return (
     <ArticleContainer>
       <ImageContainer>
-        { image 
+        { img 
         ? <img 
-            src={image}
+            src={img}
             alt="articleImage"
             style={{
               width:"100%",
@@ -72,17 +73,27 @@ const ArticleDetail = ({location}) => {
       <div>
         <p style={{display:'flex', justifyContent:'space-around'}}>
           <span>
-            작성자: {author}
+            작성자: {userid}
           </span>
           <span>
             음식: {food}
           </span>
         </p>
-        { comment
-        ? <p>{comment}</p>
+        { content
+        ? <p>{content}</p>
         : <>정말 맛있어요</>
         }
-        <Button>❤</Button>
+        <Button onClick={handleThumbup}>❤</Button>
+      
+      { currentUserInfo.userid === userid 
+        ? (<div>
+            <Button onClick={handleEdit}>수정</Button>
+            <Button onClick={handleDelete}>삭제</Button>
+          </div>)
+        : <></>
+      }
+      
+
       </div>
     </ArticleContainer>
   )

@@ -38,11 +38,13 @@ public class Article {
     private Member member;
 
     @Builder
-    public Article(String content, String imgURL) {
-        Assert.hasText(content,"레시피에 대한 한줄평을 작성해주세요." );
+    public Article(String content, String imgURL, Food food, Member member) {
+        Assert.hasText(content,"한줄평을 작성해주세요." );
         this.content = content;
         Assert.hasText(imgURL, "이미지를 업로드 해주세요.");
         this.imgURL = imgURL;
+        this.food = food;
+        this.member = member;
     }
 
     // Update

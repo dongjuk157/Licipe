@@ -1,8 +1,13 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { Button, Grid } from '@material-ui/core'
-import { Box } from '@material-ui/core'
+import { Box, Button, Grid } from '@material-ui/core'
+import * as authActions from '../../redux/modules/auth'
+import * as userActions from '../../redux/modules/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+import storage from '../../lib/storage'
+
 
 
 const LoginForm = styled.form`
@@ -12,31 +17,45 @@ const LoginForm = styled.form`
   align-items: center;
 `
 
-const EmailLogin = ({history}) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const EmailLogin = () => {
   
-  const onLogin = () => {
-    console.error("BASE_URL 설정하지 않음")
-    // Ajax 통신 post 
-    const BASE_URL = process.env.REACT_APP_API_URL
-    const PORT = process.env.REACT_APP_API_PORT
-    const config = {
-      method: 'post',
-      url: `${BASE_URL}:${PORT}/login`,
-      data: {
-        email,
-        password,
-      }
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const { form } = useSelector((state) => state.auth.getIn(['login'])).toJS()
+  const result = useSelector((state) => state.auth.get(['result']))
+  // console.log(result)
+  const values = Object.assign(form)
+  // 초기화
+  useEffect(() => {
+    return () => {
+      dispatch(authActions.initializeForm('login'))
+    };
+  }, []);
+
+  const handleChange = (event) => {
+    const {name, value} = event.target
+    dispatch(authActions.changeInput({
+      name,
+      value,
+      form: 'login'
+    }))
+  }
+
+  const onLogin = async (event) => {
+    event.preventDefault()
+    try {
+      const { userid, password } = form
+      await dispatch(authActions.emailLogin({userid, password}))
+      const loggedInfo = Object.assign(result)
+
+      dispatch(userActions.setLoggedInfo(loggedInfo))
+      storage.set('loggedInfo', loggedInfo);
+      history.push('/');
+
+    } catch (e) {
+      console.log('a');
+      alert('가입된 아이디가 아니거나 비밀번호가 틀립니다.');
     }
-    axios(config)
-      .then( res => {
-      alert(`${res}/ login!`)
-      //modal로 구현할경우 아래를 제거하고 로그인 상태를 넘겨주면됨
-      history.push('/')
-    }).catch( e => {
-      console.log(e)
-    })
   }
   return (
     <Grid
@@ -53,9 +72,9 @@ const EmailLogin = ({history}) => {
           Email:
           <input 
             type="email" placeholder="이메일 주소를 입력하세요"
-            id="email"
-            value={email}
-            onChange={ e => setEmail(e.target.value)}
+            name="email"
+            value={values.email}
+            onChange={handleChange}
           ></input>
         </label>
         <br />
@@ -63,9 +82,9 @@ const EmailLogin = ({history}) => {
           Password: 
           <input 
             type="password" placeholder="비밀번호를 입력하세요"
-            id="password"
-            value={password}
-            onChange={ e => setPassword(e.target.value)}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
           ></input>
         </label>
         <Box mt={2}>
@@ -86,4 +105,4 @@ const EmailLogin = ({history}) => {
   )
 }
 
-export default EmailLogin 
+export default EmailLogin
