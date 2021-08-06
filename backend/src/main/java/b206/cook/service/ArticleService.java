@@ -1,5 +1,6 @@
 package b206.cook.service;
 
+import b206.cook.domain.dto.ArticleSaveRequestDto;
 import b206.cook.domain.entity.Article;
 import b206.cook.domain.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -28,8 +30,9 @@ public class ArticleService {
     }
 
     // 게시글 생성
-    public Article createArticle(Article article) {
-        return articleRepository.save(article);
+    public void createArticle(ArticleSaveRequestDto articleDto) {
+        Article article = articleDto.toEntity();
+        articleRepository.save(article);
     }
 
     // 게시글 내용 수정

@@ -1,5 +1,6 @@
 package b206.cook.controller;
 
+import b206.cook.domain.dto.ArticleSaveRequestDto;
 import b206.cook.domain.entity.Article;
 import b206.cook.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ public class ArticleController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<Article>> all() throws Exception {
+    public ResponseEntity<List<Article>> all() {
         return new ResponseEntity<>(articleService.feeds(), HttpStatus.OK);
     }
 
     @PostMapping("/article")
-    public Long newArticle(@RequestBody Article newArticle) {
+    public ResponseEntity<Long> newArticle(@RequestBody ArticleSaveRequestDto newArticle) {
         articleService.createArticle(newArticle);
-        return newArticle.getId();
+        return new ResponseEntity<>(newArticle.toEntity().getId(), HttpStatus.CREATED);
     }
 
     @GetMapping("/article/{articleId}")

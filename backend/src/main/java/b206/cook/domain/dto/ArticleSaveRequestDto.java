@@ -1,8 +1,8 @@
 package b206.cook.domain.dto;
 
-import b206.cook.domain.Article;
-import b206.cook.domain.Food;
-import b206.cook.domain.Member;
+import b206.cook.domain.entity.Article;
+import b206.cook.domain.entity.Food;
+import b206.cook.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,26 +12,26 @@ import lombok.NoArgsConstructor;
 public class ArticleSaveRequestDto {
 
     private String content;
-    private String imgUrl;
+    private String imgURL;
     private int report;
     private Food food;
     private Member member;
 
     @Builder
-    public ArticleSaveRequestDto(String content, String imgUrl, Food food, Member member) {
-        this.content = content;
-        this.imgUrl = imgUrl;
+    public ArticleSaveRequestDto(Article article) {
+        this.content = article.getContent();
+        this.imgURL = article.getImgURL();
         this.report = 0;
-        this.food = food;
-        this.member = member;
+        this.food = article.getFood();
+        this.member = article.getMember();
     }
 
     public Article toEntity() {
         return Article.builder()
-                .content(content)
-                .imgURL(imgUrl)
-                .food(food)
-                .member(member)
+                .content(this.content)
+                .imgURL(this.imgURL)
+                .food(this.food)
+                .member(this.member)
                 .build();
     }
 }
