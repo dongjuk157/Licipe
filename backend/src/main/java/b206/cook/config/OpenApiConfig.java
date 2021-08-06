@@ -25,4 +25,9 @@ public class OpenApiConfig {
     public GroupedOpenApi articleApis() {
         return GroupedOpenApi.builder().setGroup("article").pathsToMatch("/article/**").build();
     }
+
+    @Bean
+    public GroupedOpenApi articlesApis() {
+        return GroupedOpenApi.builder().setGroup("articles").pathsToMatch("/articles").build();
+    }
 }

@@ -43,6 +43,7 @@ public class Article {
         this.content = content;
         Assert.hasText(imgURL, "이미지를 업로드 해주세요.");
         this.imgURL = imgURL;
+        this.report = 0;
         this.food = food;
         this.member = member;
     }
