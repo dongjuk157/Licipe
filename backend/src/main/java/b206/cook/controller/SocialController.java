@@ -35,6 +35,6 @@ public class SocialController {
         System.out.println("###nickname#### : " + userInfo.get("nickname"));
         System.out.println("###profile_image#### : " + userInfo.get("profile_image"));
 
-        return "인증 완료";
+        return access_Token;
     }
 }
