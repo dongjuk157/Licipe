@@ -8,12 +8,14 @@ import {
   Tabs, 
   makeStyles,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Button,
 } from '@material-ui/core';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
 
-function TabPanel(props) {
+const TabPanel = (props) => {
+// function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -40,8 +42,10 @@ function TabPanel(props) {
 }
 
 TabPanel.propTypes = {
-  // Anything that can be rendered: numbers, strings, elements or an array
-  // (or fragment) containing these types.
+  /** 
+  * Anything that can be rendered: numbers, strings, elements or an array
+  * (or fragment) containing these types.
+  */
   children: PropTypes.node,
   // A value of any data type
   index: PropTypes.any.isRequired,
@@ -64,9 +68,7 @@ const useStyles = makeStyles((theme) => ({
 const RecipeSearch = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [check, setCheck] = useState({
-    checkedB: true,
-  });
+  const [check, setCheck] = useState({});
   const [categories, setCategories] = useState([
     'countries',
     'times',
@@ -82,18 +84,34 @@ const RecipeSearch = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  
+  /** 
+   *   let temp = {}
+   * const setButton = () => {
+   *   for (let category in subCategory) {
+   *     temp[`check${category}`] = false
+   *   }
+   * }
+  * */
 
-  const categoryArray = {}
+  // axios 값이 없어서 임시로 넣어둔 main, sub
+  const mainCategory = {}
   for (let i = 0; i < categories.length; i++) {
-    categoryArray[categories[i]] = [i, i + 1]
+    mainCategory[categories[i]] = [i]
+  }
+
+  let subCategory = []
+  for (let i = 0; i < Object.keys(mainCategory).length; i++)
+  {
+    subCategory = subCategory.concat(Object.values(mainCategory)[i])
   }
 
   const GetRecipeCateogry = () => {
     // 각 카테고리의 소분류를 받아옴
-    for (let category in categoryArray) {
+    for (let category in mainCategory) {
       axios.get(`/foods/${category}`)
       .then((res) => {
-        categoryArray[category] = res.data
+        mainCategory[category] = res.data
       })
       .catch((err) => {
         console.log(err)
@@ -104,8 +122,8 @@ const RecipeSearch = () => {
 
   useEffect(() => {
     GetRecipeCateogry();
+    // setButton();
   }, []);
-
 
   return (
     <div className={classes.root}>
@@ -137,23 +155,14 @@ const RecipeSearch = () => {
         대분류를 선택해 주세요
       </TabPanel>
       {/* 각 카테고리의 소분류를 Object에서 배열로, 2차원 배열에서 1차원으로 */}
-      {Object.values(categoryArray).map((elements, index) => {
+      {Object.values(mainCategory).map((elements, index) => {
         return(
           elements.map((element) => {
             return(
               // index 값은 화면에서 활성화된 버튼의 번호
-              <TabPanel value={value} index={index + 1}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={check.checkedB}
-                      onChange={buttonChange}
-                      name="checkedB"
-                      color="primary"
-                    />
-                  }
-                  label={element}
-                />
+              <TabPanel value={value} index={index + 1} key={element + index}>
+                {/* TODO : 컴포넌트로 불러온 레시피들을 나열해야함 */}
+                <Button>{element}</Button>
               </TabPanel>
             )
             })
