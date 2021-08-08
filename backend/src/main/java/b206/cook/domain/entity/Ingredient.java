@@ -19,10 +19,6 @@ public class Ingredient {
     private int weight;
     private String unit;
 
-// many to many
-//    @OneToMany(mappedBy = "ingredient")
-//    private List<Food_Ingredient> foodList = new ArrayList<>();
-
     public Ingredient(String name, int weight, String unit) {
         this.name = name;
         this.weight = weight;

@@ -24,7 +24,7 @@ public class ArticleController {
 
     @GetMapping("/articles")
     public ResponseEntity<List<Article>> all() {
-        return new ResponseEntity<>(articleService.feeds(), HttpStatus.OK);
+        return new ResponseEntity<>(articleService.findArticles(), HttpStatus.OK);
     }
 
     @PostMapping("/article")
@@ -40,12 +40,12 @@ public class ArticleController {
 
     @PutMapping("/article/{articleId}")
     public ResponseEntity<Long> update(@PathVariable Long articleId, @RequestBody ArticleUpdateRequestDto articleDto) {
-        return new ResponseEntity<>(articleService.updateArticle(articleId, articleDto), HttpStatus.OK);
+        return new ResponseEntity<>(articleService.modifyArticle(articleId, articleDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/article/{articleId}")
     public ResponseEntity<String> delete(@PathVariable Long articleId) {
-        articleService.deleteArticle(articleId);
+        articleService.removeArticle(articleId);
         return new ResponseEntity<>("글이 삭제되었습니다.", HttpStatus.NO_CONTENT);
     }
 }
