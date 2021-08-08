@@ -25,11 +25,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Rating> ratingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    // 부모 객체 변하면 자식 객체에서도 업데이트 cascade = CascadeType.ALL, 부모가 관계끊으면 게시글 삭제됨 orphanRemoval = true
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articleList = new ArrayList<>();
-// many to many
-//    @OneToMany(mappedBy = "member")
-//    private List<Food_Member> foodList = new ArrayList<>();
 
     @Builder
     public Member(String username, String name, String picture, String email) {

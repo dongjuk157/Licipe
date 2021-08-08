@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 public class ArticleUpdateRequestDto {
 
     private String content;
-    private String imgUrl;
+    private String imgURL;
 
     @Builder
-    public ArticleUpdateRequestDto(String content, String imgUrl) {
+    public ArticleUpdateRequestDto(String content, String imgURL) {
         this.content = content;
-        this.imgUrl = imgUrl;
+        this.imgURL = imgURL;
     }
 }

@@ -10,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
 
@@ -49,13 +50,16 @@ public class Article {
     }
 
     // Update
-    public void updateContent(String content){
+    public void update(String content, String imgURL) {
         this.content = content;
-    }
-    public void updateImage(String imgURL){
         this.imgURL = imgURL;
     }
     public void addReport() {
         this.report ++;
+    }
+
+    // Delete
+    public void delete() {
+        
     }
 }
