@@ -1,6 +1,7 @@
 package b206.cook.controller;
 
 import b206.cook.domain.dto.ArticleSaveRequestDto;
+import b206.cook.domain.dto.ArticleUpdateRequestDto;
 import b206.cook.domain.entity.Article;
 import b206.cook.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,24 @@ public class ArticleController {
     }
 
     @PostMapping("/article")
-    public ResponseEntity<Long> newArticle(@RequestBody ArticleSaveRequestDto newArticle) {
-        articleService.createArticle(newArticle);
-        return new ResponseEntity<>(newArticle.toEntity().getId(), HttpStatus.CREATED);
+    public ResponseEntity<Long> newArticle(@RequestBody ArticleSaveRequestDto articleDto) {
+        articleService.createArticle(articleDto);
+        return new ResponseEntity<>(articleDto.toEntity().getId(), HttpStatus.CREATED);
     }
 
     @GetMapping("/article/{articleId}")
     public ResponseEntity<Optional<Article>> one(@PathVariable Long articleId) {
         return new ResponseEntity<>(articleService.findArticle(articleId), HttpStatus.OK);
+    }
+
+    @PutMapping("/article/{articleId}")
+    public ResponseEntity<Long> update(@PathVariable Long articleId, @RequestBody ArticleUpdateRequestDto articleDto) {
+        return new ResponseEntity<>(articleService.updateArticle(articleId, articleDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/article/{articleId}")
+    public ResponseEntity<String> delete(@PathVariable Long articleId) {
+        articleService.deleteArticle(articleId);
+        return new ResponseEntity<>("글이 삭제되었습니다.", HttpStatus.NO_CONTENT);
     }
 }

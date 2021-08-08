@@ -1,6 +1,7 @@
 package b206.cook.service;
 
 import b206.cook.domain.dto.ArticleSaveRequestDto;
+import b206.cook.domain.dto.ArticleUpdateRequestDto;
 import b206.cook.domain.entity.Article;
 import b206.cook.domain.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
@@ -35,24 +36,23 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
-    // 게시글 내용 수정
-    @Transactional
-    public Long updateContent(Long articleId, String content) {
-        Optional<Article> article = this.findArticle(articleId);
-        article.get().updateContent(content);
-        return articleId;
+    // 게시글 수정
+    public Long updateArticle( Long articleId, ArticleUpdateRequestDto articleDto) {
+        Optional<Article> article = articleRepository.findById(articleId);
+        if (article.isPresent()) {
+            Article article1 = article.get();
+            article1.update(articleDto.getContent(), articleDto.getImgURL());
+            return articleId;
+        }
+        else {
+            System.out.println("존재하지 않는 게시글");
+            return 0L;
+        }
     }
 
-    // 게시글 이미지 수정
-    @Transactional
-    public Long updateImg(Long articleId, String imgUrl) {
-        Optional<Article> article = this.findArticle(articleId);
-        article.get().updateImage(imgUrl);
-        return articleId;
-    }
     // 게시글 삭제
-    @Transactional
     public void deleteArticle(Long articleId) {
         articleRepository.delete(articleId);
+        // member, food랑 관계 어떻게 처리할지?
     }
 }
