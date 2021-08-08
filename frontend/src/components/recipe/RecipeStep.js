@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+
 const RecipeStep = (props) => {
 	const settings = {
 		dots: true,
@@ -16,17 +17,8 @@ const RecipeStep = (props) => {
 	let steps = [];
 
 	const foodid = props.match.params.id
+	// 맨 앞의 글자가 대문자가 아닐 경우 오류발생..
 	const GetRecipeSteps = async () => {
-		// for (let i = 0; i < 20; i++) {
-		// 	axios.get(`/foods/${foodid}/recipe/steps/${i}`)
-		// 	.then((res) => {
-		// 		console.log(res)
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err)
-		// 	})
-
-		// }
 		for (let i = 1; i < 20; i++) {
 			try {
 				// props로 받은 foodid 활용
@@ -45,8 +37,7 @@ const RecipeStep = (props) => {
 	
 	return (
 		<div>
-			<h1>page check</h1>
-			<h2> Single Item</h2>
+			<h1>요리 단계</h1>
 			<Slider {...settings}>
 				<div>
 					{steps.map((step) => (

@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import RecipeInfoComponent from './RecipeInfoComponent';
 
-
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+
 const RecipeRecommend = () => {
 const classes = useStyles();
 
@@ -53,12 +53,11 @@ const target = useRef(null);
 const getMoreRecipeList = () => {
 	setRecipeList(() => {
 		axios.get('/foods')
-		.then((res) => res.json())
-		.then((data) => {
-			return [...setRecipeList, ...data];
+		.then((res) => {
+			return [...setRecipeList, ...res.data];
 		})
 		.catch((err) => {
-			console.log(err)
+			console.log(err);
 		})
 	});
 };
@@ -80,7 +79,7 @@ const getMoreRecipeList = () => {
 				}
 				getMoreRecipeList();
 				observer.unobserve(entry.target);
-				observer.observe(target.current)
+				observer.observe(target.current);
 			});
 		};
 
@@ -98,8 +97,8 @@ const getMoreRecipeList = () => {
 			<div className={classes.papers}>
 				<Grid container spacing={3}>
 					<section ref={viewport}>
-						{recipeList.map((recipe) => {
-							const lastEl = 'index' === recipeList.length - 1;
+						{recipeList.map((recipe, index) => {
+							const lastEl = index === recipeList.length - 1;
 							return (
 								<Grid item xs={6} key={recipe.id}>
 									{/* <Link to={`/recipe/${recipe.id}`}> */}
