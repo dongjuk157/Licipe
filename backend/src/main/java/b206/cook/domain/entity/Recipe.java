@@ -33,7 +33,6 @@ public class Recipe {
         this.videoUrl = videoUrl;
         this.food = food;
     }
-
     // 추후에 레시피를 직접 등록하는 기능이 생기게되면 업데이트 로직 추가필요
     // 현재 유저가 등록이 불가능한 상황에서는 업데이트로직이 필요없음
 }

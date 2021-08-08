@@ -14,21 +14,20 @@ public class JpaRecipeRepository implements RecipeRepository {
         this.em = em;
     }
 
+    // 해당 요리에 대한 레시피 전체 단계의 id 조회
     @Override
-    public Recipe save(Recipe recipe) {
-        em.persist(recipe);
-        return recipe;
-    }
-
-    @Override
-    public Optional<Recipe> findById(Long id) {
-        Recipe recipe = em.find(Recipe.class, id);
-        return Optional.ofNullable(recipe);
-    }
-
-    @Override
-    public List<Recipe> findAll() {
-        return em.createQuery("select r from Recipe r", Recipe.class)
+    public List<Recipe> findRecipe(Long foodId) {
+        return em.createQuery("select r from Recipe r where r.food.id = :foodId order by r.step", Recipe.class)
+                .setParameter("foodId", foodId)
                 .getResultList();
+    }
+
+    // 레시피 단계별 조회
+    @Override
+    public Optional<Recipe> findByStep(Long foodId, int stepNum) {
+        List<Recipe> step = em.createQuery("select r from Recipe r where r.food.id = :foodId and r.step = :stepNum", Recipe.class)
+                .setParameter("foodId", foodId)
+                .getResultList();
+        return step.stream().findAny();
     }
 }

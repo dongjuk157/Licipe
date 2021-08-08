@@ -21,7 +21,7 @@ public class ArticleService {
     }
 
     // 전체 게시글 조회
-    public List<Article> feeds() {
+    public List<Article> findArticles() {
         return articleRepository.findAll();
     }
 
@@ -37,7 +37,7 @@ public class ArticleService {
     }
 
     // 게시글 수정
-    public Long updateArticle( Long articleId, ArticleUpdateRequestDto articleDto) {
+    public Long modifyArticle(Long articleId, ArticleUpdateRequestDto articleDto) {
         Optional<Article> article = articleRepository.findById(articleId);
         if (article.isPresent()) {
             Article article1 = article.get();
@@ -51,7 +51,7 @@ public class ArticleService {
     }
 
     // 게시글 삭제
-    public void deleteArticle(Long articleId) {
+    public void removeArticle(Long articleId) {
         articleRepository.delete(articleId);
         // member, food랑 관계 어떻게 처리할지?
     }

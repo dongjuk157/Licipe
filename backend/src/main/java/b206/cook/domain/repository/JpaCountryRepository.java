@@ -4,6 +4,7 @@ import b206.cook.domain.entity.Country;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 public class JpaCountryRepository implements CountryRepository{
 
@@ -13,24 +14,10 @@ public class JpaCountryRepository implements CountryRepository{
         this.em = em;
     }
 
-//    @Override
-//    public Country save(Country country) {
-//        em.persist(country);
-//        return country;
-//    }
-//
-//    @Override
+    //    @Override
 //    public Optional<Country> findById(Long id) {
 //        Country country = em.find(Country.class, id);
 //        return Optional.ofNullable(country);
-//    }
-//
-//    @Override
-//    public Optional<Country> findByName(String name) {
-//        List<Country> result =  em.createQuery("select c from Country c where c.name = :name", Country.class)
-//                            .setParameter("name", name)
-//                            .getResultList();
-//        return result.stream().findAny();
 //    }
 
     @Override

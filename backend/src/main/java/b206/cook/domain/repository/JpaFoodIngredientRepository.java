@@ -11,6 +11,7 @@ public class JpaFoodIngredientRepository implements FoodIngredientRepository{
     public JpaFoodIngredientRepository(EntityManager em) {
         this.em = em;
     }
+
     // 메인 재료들 조회
     @Override
     public List<Food_Ingredient> findIngredients() {
@@ -25,6 +26,7 @@ public class JpaFoodIngredientRepository implements FoodIngredientRepository{
                 .setParameter("ingredientId", ingredientId)
                 .getResultList();
     }
+
     // 해당 음식의 재료 조회
     @Override
     public List<Food_Ingredient> findByFood(Long foodId) {
@@ -32,5 +34,4 @@ public class JpaFoodIngredientRepository implements FoodIngredientRepository{
                 .setParameter("foodId", foodId)
                 .getResultList();
     }
-
 }
