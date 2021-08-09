@@ -2,10 +2,12 @@ package b206.cook.service;
 
 import b206.cook.domain.entity.Recipe;
 import b206.cook.domain.repository.RecipeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
 

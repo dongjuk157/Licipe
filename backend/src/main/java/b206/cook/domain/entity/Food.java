@@ -1,6 +1,7 @@
 package b206.cook.domain.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ public class Food {
     @JoinColumn(name="time_id")
     private Time time;
 
+    @Builder
     public Food(String name, Country country, Time time) {
         this.name = name;
         this.country = country;

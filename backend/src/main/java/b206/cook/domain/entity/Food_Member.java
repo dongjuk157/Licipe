@@ -1,6 +1,7 @@
 package b206.cook.domain.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,10 +21,11 @@ public class Food_Member {
     private Food food;
 
     @ManyToOne
-    @JoinColumn(name = "member")
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    public Food_Member(boolean isClip, boolean isRecent, Food food, Member member) {
+    @Builder
+    public Food_Member(boolean isClip, Food food, Member member) {
         this.isClip = isClip;
         this.food = food;
         this.member = member;
