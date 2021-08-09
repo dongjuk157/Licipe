@@ -1,7 +1,7 @@
 package b206.cook.controller;
 
 import b206.cook.domain.dto.ArticleSaveRequestDto;
-import b206.cook.domain.dto.ArticleUpdateRequestDto;
+import b206.cook.domain.dto.ArticleModifyRequestDto;
 import b206.cook.domain.entity.Article;
 import b206.cook.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class ArticleController {
     }
 
     @PutMapping("/article/{articleId}")
-    public ResponseEntity<Long> update(@PathVariable Long articleId, @RequestBody ArticleUpdateRequestDto articleDto) {
+    public ResponseEntity<Long> update(@PathVariable Long articleId, @RequestBody ArticleModifyRequestDto articleDto) {
         return new ResponseEntity<>(articleService.modifyArticle(articleId, articleDto), HttpStatus.OK);
     }
 

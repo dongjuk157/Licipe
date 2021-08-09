@@ -26,7 +26,7 @@ public class RecipeController {
         return new ResponseEntity<>(recipeService.getByFoodId(foodId), HttpStatus.OK);
     }
 
-    @GetMapping("/foods/{foodId}/recipe/{step}")
+    @GetMapping("/foods/{foodId}/recipe/steps/{step}")
     public ResponseEntity<Optional<Recipe>> step(@PathVariable Long foodId, @PathVariable int step) {
         return new ResponseEntity<>(recipeService.getByStep(foodId, step), HttpStatus.OK);
     }
