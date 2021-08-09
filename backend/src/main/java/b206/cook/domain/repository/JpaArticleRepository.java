@@ -36,4 +36,9 @@ public class JpaArticleRepository implements ArticleRepository{
         Optional<Article> article = this.findById(id);
         article.ifPresent(em::remove);              // 존재하는 객체라면 삭제
     }
+
+    @Override
+    public List<Article> findByMember(String snsId) {
+        return em.createQuery("select a from Article a where a.member.snsId = :snsId", Article.class).getResultList();
+    }
 }

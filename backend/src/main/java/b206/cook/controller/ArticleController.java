@@ -39,7 +39,7 @@ public class ArticleController {
     }
 
     @PutMapping("/article/{articleId}")
-    public ResponseEntity<Long> update(@PathVariable Long articleId, @RequestBody ArticleModifyRequestDto articleDto) {
+    public ResponseEntity<Long> modify(@PathVariable Long articleId, @RequestBody ArticleModifyRequestDto articleDto) {
         return new ResponseEntity<>(articleService.modifyArticle(articleId, articleDto), HttpStatus.OK);
     }
 
@@ -48,4 +48,10 @@ public class ArticleController {
         articleService.removeArticle(articleId);
         return new ResponseEntity<>("글이 삭제되었습니다.", HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/member/articles")
+    public ResponseEntity<List<Article>> writtenArticles(@RequestHeader String snsId) {
+        return new ResponseEntity<>(articleService.findWrittenArticles(snsId), HttpStatus.OK);
+    }
+
 }
