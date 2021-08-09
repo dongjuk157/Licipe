@@ -30,8 +30,4 @@ public class Food_Member {
         this.food = food;
         this.member = member;
     }
-
-    public void updateClip() {
-        this.isClip = !this.isClip;
-    }
 }

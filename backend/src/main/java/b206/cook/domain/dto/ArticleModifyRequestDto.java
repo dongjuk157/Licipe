@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ArticleUpdateRequestDto {
+public class ArticleModifyRequestDto {
 
     private String content;
     private String imgURL;
 
     @Builder
-    public ArticleUpdateRequestDto(String content, String imgURL) {
+    public ArticleModifyRequestDto(String content, String imgURL) {
         this.content = content;
         this.imgURL = imgURL;
     }

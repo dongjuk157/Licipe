@@ -1,4 +1,4 @@
-package b206.cook;
+package b206.cook.config;
 
 import b206.cook.domain.repository.*;
 import org.springframework.context.annotation.Bean;

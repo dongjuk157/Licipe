@@ -1,7 +1,7 @@
 package b206.cook.service;
 
 import b206.cook.domain.dto.ArticleSaveRequestDto;
-import b206.cook.domain.dto.ArticleUpdateRequestDto;
+import b206.cook.domain.dto.ArticleModifyRequestDto;
 import b206.cook.domain.entity.Article;
 import b206.cook.domain.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class ArticleService {
     }
 
     // 게시글 수정
-    public Long modifyArticle(Long articleId, ArticleUpdateRequestDto articleDto) {
+    public Long modifyArticle(Long articleId, ArticleModifyRequestDto articleDto) {
         Optional<Article> article = articleRepository.findById(articleId);
         if (article.isPresent()) {
             Article article1 = article.get();
