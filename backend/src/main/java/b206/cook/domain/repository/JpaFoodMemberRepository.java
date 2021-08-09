@@ -1,8 +1,6 @@
 package b206.cook.domain.repository;
 
-import b206.cook.domain.entity.Food;
 import b206.cook.domain.entity.Food_Member;
-import b206.cook.domain.entity.Member;
 
 import javax.persistence.EntityManager;
 import java.util.List;

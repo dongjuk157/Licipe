@@ -55,4 +55,9 @@ public class ArticleService {
         articleRepository.delete(articleId);
         // member, food랑 관계 어떻게 처리할지?
     }
+
+    // 해당 멤버가 작성한 게시글 조회
+    public List<Article> findWrittenArticles(String snsId) {
+        return articleRepository.findByMember(snsId);
+    }
 }
