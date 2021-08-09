@@ -46,10 +46,10 @@ public class SocialController {
 
         if (memberService.findMember(sns_id).isPresent()) { // 이미 존재하는 회원이라면
             // do something
-
+            System.out.println("이미 가입된 회원입니다.");
         } else { // 신규 회원이라면
             // db에 저장하자
-
+            System.out.println("해당 회원 정보를 DB에 저장합니다.");
         }
 
         return access_Token;

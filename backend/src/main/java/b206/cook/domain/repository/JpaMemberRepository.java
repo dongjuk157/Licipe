@@ -3,6 +3,7 @@ package b206.cook.domain.repository;
 import b206.cook.domain.entity.Member;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +22,15 @@ public class JpaMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findBySnsId(String SnsId) {
-        Member member = em.find(Member.class, SnsId);
-        return Optional.ofNullable(member);
+    public Optional<Member> findBySnsId(String snsId) {
+        try {
+            return Optional.ofNullable(em.createQuery("select m from Member m where m.snsId = :snsId", Member.class)
+                    .setParameter("snsId", snsId)
+                    .getSingleResult());
+        } catch (NoResultException e) {
+            System.out.println("###NoResultException : 해당 회원 정보는 존재하지 않습니다.####");
+            return Optional.empty();
+        }
     }
 
     @Override
