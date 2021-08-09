@@ -15,9 +15,9 @@ public class JpaFoodMemberRepository implements FoodMemberRepository{
     }
 
     @Override
-    public List<Food_Member> findClippedFoods(String 식별자) {
-        return em.createQuery("select fm from Food_Member fm where fm.member.식별자 = :식별자 and fm.isClip=true", Food_Member.class)
-                .setParameter("식별자", 식별자)
+    public List<Food_Member> findClippedFoods(String snsId) {
+        return em.createQuery("select fm from Food_Member fm where fm.member.snsId = :snsId and fm.isClip=true", Food_Member.class)
+                .setParameter("snsId", snsId)
                 .getResultList();
     }
 }

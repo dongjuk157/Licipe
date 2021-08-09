@@ -23,8 +23,8 @@ public class FoodMemberController {
     }
 
     @GetMapping("/member/myclips")
-    public ResponseEntity<List<Food_Member>> clips(@RequestHeader String 식별자) {
-        return new ResponseEntity<List<Food_Member>>(foodMemberService.findClips(식별자), HttpStatus.OK);
+    public ResponseEntity<List<Food_Member>> clips(@RequestHeader String snsId) {
+        return new ResponseEntity<>(foodMemberService.findClips(snsId), HttpStatus.OK);
     }
 
 }

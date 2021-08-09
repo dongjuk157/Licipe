@@ -16,7 +16,7 @@ public class FoodMemberService {
         this.foodMemberRepository = foodMemberRepository;
     }
 
-    public List<Food_Member> findClips(String 식별자) {
-        return foodMemberRepository.findClippedFoods(식별자);
+    public List<Food_Member> findClips(String snsId) {
+        return foodMemberRepository.findClippedFoods(snsId);
     }
 }
