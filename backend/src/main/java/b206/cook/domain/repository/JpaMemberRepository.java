@@ -21,15 +21,15 @@ public class JpaMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
-        Member member = em.find(Member.class, id);
+    public Optional<Member> findBySnsId(String SnsId) {
+        Member member = em.find(Member.class, SnsId);
         return Optional.ofNullable(member);
     }
 
     @Override
-    public Optional<Member> findByNickName(String nickName) {
-        List<Member> result = em.createQuery("select m from Member m where m.nickName = :nickName", Member.class)
-                .setParameter("nickName", nickName)
+    public Optional<Member> findByNickname(String nickname) {
+        List<Member> result = em.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
+                .setParameter("nickname", nickname)
                 .getResultList();
 
         return result.stream().findAny();
