@@ -15,12 +15,16 @@ public class Member {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
-    private String name;
+    private String nickname;
 
     @Column(nullable = false)
-    private String email;
-    private String picture;
+    private String snsType; // google, kakao etc..
+
+    @Column(nullable = false)
+    private String profileImage;
+
+    @Column(nullable = false)
+    private String snsId; // 회원번호
 
     @OneToMany(mappedBy = "member")
     private List<Rating> ratingList = new ArrayList<>();
@@ -30,26 +34,21 @@ public class Member {
     private List<Article> articleList = new ArrayList<>();
 
     @Builder
-    public Member(String username, String name, String picture, String email) {
-        this.username = username;
-        this.name = name;
-        this.picture = picture;
-        this.email = email;
+    public Member(String nickname, String snsType, String profileImage, String snsId) {
+        this.nickname = nickname;
+        this.snsType = snsType;
+        this.profileImage = profileImage;
+        this.snsId = snsId;
     }
 
     // 소셜로그인상에서 업데이트 되면 업데이트하기 위해
-    public Member nameUpdate(String name){
-        this.name = name;
+    public Member nameUpdate(String nickname){
+        this.nickname = nickname;
         return this;
     }
 
-    public Member emailUpdate(String email){
-        this.email = email;
-        return this;
-    }
-
-    public Member pictureUpdate(String picture){
-        this.picture = picture;
+    public Member imageUpdate(String profileImage){
+        this.profileImage = profileImage;
         return this;
     }
 }
