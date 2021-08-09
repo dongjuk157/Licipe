@@ -30,4 +30,9 @@ public class OpenApiConfig {
     public GroupedOpenApi articlesApis() {
         return GroupedOpenApi.builder().setGroup("articles").pathsToMatch("/articles").build();
     }
+//
+//    @Bean
+//    public GroupedOpenApi recipeApis() {
+//        return GroupedOpenApi.builder().setGroup("recipe").pathsToMatch("/foods/**/recipe/**").build();
+//    }
 }
