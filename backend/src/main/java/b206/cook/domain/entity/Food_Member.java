@@ -12,7 +12,7 @@ public class Food_Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean isClip; // clip한 레시피인지
+    private boolean isClip; // clip한 레시피인지 클립을 해야 생기는 다대다 관계여서 사실 필요 없음.
 
     @ManyToOne
     @JoinColumn(name = "food_id")
