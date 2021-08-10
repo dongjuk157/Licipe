@@ -21,6 +21,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { alpha } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { Link } from 'react-router-dom';
+import storage from '../../lib/storage';
 
 const drawerWidth = 240;
 
@@ -144,6 +145,7 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
 
   return (
     <div className={classes.root}>
@@ -207,9 +209,13 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
         <Divider />
-          <ListItem>
-              <Link to='/login'>로그인</Link>
-          </ListItem>
+          { loggedInfo 
+           ? (<ListItem>
+                <Link to='/logout'>로그아웃</Link>
+            </ListItem>)
+           : (<ListItem>
+                <Link to='/login'>로그인</Link>
+            </ListItem>)}
           <ListItem>
               <Link to='/reciperecommend'>레시피</Link>
           </ListItem>
