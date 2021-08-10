@@ -1,9 +1,6 @@
 package b206.cook.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -26,6 +23,7 @@ public class Rating {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
     public Rating(int score, Food food, Member member) {
         this.score = score;
         this.food = food;
