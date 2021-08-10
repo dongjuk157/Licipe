@@ -39,7 +39,8 @@ public class ArticleController {
     }
 
     @PutMapping("/article/{articleId}")
-    public ResponseEntity<Long> modify(@PathVariable Long articleId, @RequestBody ArticleModifyRequestDto articleDto) {
+    public ResponseEntity<Long> modify(@PathVariable Long articleId,
+                                       @RequestBody ArticleModifyRequestDto articleDto) {
         return new ResponseEntity<>(articleService.modifyArticle(articleId, articleDto), HttpStatus.OK);
     }
 

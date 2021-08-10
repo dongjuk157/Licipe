@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ArticleSaveRequestDto {
 
+    private Long id;
     private String content;
     private String imgURL;
     private int report;
