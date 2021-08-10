@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
 
 const RecipeStep = (props) => {
+	const [steps, setSteps] = useState([]);
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -14,7 +15,6 @@ const RecipeStep = (props) => {
 		slidesToShow: 1,
 		slidesToScroll: 1
 	};
-	let steps = [];
 
 	const foodid = props.match.params.id
 	// 맨 앞의 글자가 대문자가 아닐 경우 오류발생..
@@ -23,8 +23,8 @@ const RecipeStep = (props) => {
 			try {
 				// props로 받은 foodid 활용
 				const response = await axios.get(`/foods/${foodid}/recipe/steps/${i}`)
-				console.log(response)
-				steps.push(response)
+				console.log(i)
+				setSteps(prevStep => [...prevStep, response.data]);
 			} catch (error) {
 				console.log(error)
 				break
@@ -32,21 +32,22 @@ const RecipeStep = (props) => {
 		};
 	}
 		useEffect(() => {
-			GetRecipeSteps()
-		}, [])
+			GetRecipeSteps();
+		}, []);
 	
+	console.log(steps)
 	return (
 		<div>
 			<h1>요리 단계</h1>
 			<Slider {...settings}>
-				<div>
-					{steps.map((step) => (
-						<div>
-							<img>step.img</img>
-							<p>step.desc</p>
+					{steps.map((step, index) => {
+						return (
+						<div key={index}>
+							<img src={`${step.img}`}></img>
+							<p>{step.description}</p>
 						</div>
-						))}
-				</div>
+						)
+					})}
 				<Link to={`/recipe/${foodid}/evaluation`}>
 					<div>
 					요리 끝! 요리 평가하기
