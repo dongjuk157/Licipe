@@ -14,6 +14,13 @@ public class MemberSaveRequestDto {
     private String profileImage;
     private String snsId;
 
+    public MemberSaveRequestDto(String nickname, String snsType, String profileImage, String snsId) {
+        this.nickname = nickname;
+        this.snsType = snsType;
+        this.profileImage = profileImage;
+        this.snsId = snsId;
+    }
+
     @Builder
     public MemberSaveRequestDto(Member member) {
         this.nickname = member.getNickname();
