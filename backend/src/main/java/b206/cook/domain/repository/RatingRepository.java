@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface RatingRepository {
     Rating save(Rating rating);
     Optional<Rating> findById(Long id);
-    List<Rating> findAll();
+    List<Rating> findByMember(String snsId);
 }
