@@ -32,4 +32,9 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    // 회원의 id 값 얻기
+    public Long getId(String snsId) {
+        return memberRepository.findId(snsId);
+    }
+
 }
