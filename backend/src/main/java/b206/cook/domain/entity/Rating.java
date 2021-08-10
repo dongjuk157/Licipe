@@ -19,7 +19,7 @@ public class Rating {
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 

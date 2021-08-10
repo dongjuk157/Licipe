@@ -9,6 +9,6 @@ public interface ArticleRepository {
     Article save(Article article);
     Optional<Article> findById(Long id);
     List<Article> findAll();
-    void delete(Long id);
+    void remove(Long id);
     List<Article> findByMember(String snsId);
 }
