@@ -31,12 +31,12 @@ const RecipeRecommend = () => {
 const classes = useStyles();
 
 const [images, setImages] = useState([]);
-const [recipeList, setRecipeList] = useState([]);
-const getRecipeList = () => {
+const [foodList, setFoodList] = useState([]);
+const getFoodList = () => {
 	axios.get('/foods')
 	.then((res) => {
 		console.log(res)
-		setRecipeList(res.data)
+		setFoodList(res.data)
 	})
 	.catch((err) => {
 		console.log(err)
@@ -44,25 +44,23 @@ const getRecipeList = () => {
 };
 
 useEffect(() => {
-	getRecipeList();
+	getFoodList();
 }, [])
 
 const viewport = useRef(null);
 const target = useRef(null);
 
-const getMoreRecipeList = () => {
-	setRecipeList(() => {
+const getMoreFoodList = () => {
+	setFoodList(() => {
 		axios.get('/foods')
 		.then((res) => {
-			return [...setRecipeList, ...res.data];
+			return [...setFoodList, ...res.data];
 		})
 		.catch((err) => {
 			console.log(err);
 		})
 	});
 };
-
-
 
 	useEffect(() => {
 		const options = {
@@ -77,7 +75,7 @@ const getMoreRecipeList = () => {
 				if (!entry.isIntersecting) {
 					return;
 				}
-				getMoreRecipeList();
+				getMoreFoodList();
 				observer.unobserve(entry.target);
 				observer.observe(target.current);
 			});
@@ -95,32 +93,32 @@ const getMoreRecipeList = () => {
 		<div>
 			<SearchAppBar></SearchAppBar>
 			<div className={classes.papers}>
-				<Grid container spacing={3}>
-					<section ref={viewport}>
-						{recipeList.map((recipe, index) => {
-							const lastEl = index === recipeList.length - 1;
+				<Grid container spacing={3} ref={viewport}>
+						{foodList.map((food, index) => {
+							const lastEl = index === foodList.length - 1;
 							return (
-								<Grid item xs={6} key={recipe.id}>
+								<Grid item xs={6} key={food.id}>
 									{/* <Link to={`/recipe/${recipe.id}`}> */}
 										<Paper 
 										className={classes.paper}
+										key ={food.id}
 										>
-											<img src={recipe.image}></img>
-											<RecipeInfoComponent recipe={recipe}></RecipeInfoComponent>
+											{food.name}
+											<img src={`${food.imgURL}`}></img>
+											<RecipeInfoComponent food={food}></RecipeInfoComponent>
 										</Paper>
 									{/* </Link> */}
 								</Grid>
 							)
 						})}
-					</section>
-					<div>
+					{/* <div>
 						<Paper className={classes.paper}>
-							{/* Material-ui V4 에서는 오류가 발생 
+							Material-ui V4 에서는 오류가 발생 
 							findDOMNode is deprecated ~~~
-							index.js의 StrictMode 삭제 및 Fragment로 변경할 시 해결 */}
+							index.js의 StrictMode 삭제 및 Fragment로 변경할 시 해결
 							<RecipeInfoComponent></RecipeInfoComponent>
 							레시피</Paper>
-					</div>
+					</div> */}
 				</Grid>
 
 			</div>
