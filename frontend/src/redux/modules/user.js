@@ -16,7 +16,7 @@ export const checkStatus = createAction(CHECK_STATUS, AuthAPI.checkStatus);
 
 const initialState = Map({
     loggedInfo: Map({ // 현재 로그인중인 유저의 정보
-        thumbnail: null,
+        accessToken: null,
         username: null,
         userid: null,
     }),
@@ -25,7 +25,11 @@ const initialState = Map({
 });
 
 export default handleActions({
-    [SET_LOGGED_INFO]: (state, action) => state.set('loggedInfo', Map(action.payload)).set('logged', true),
+    [SET_LOGGED_INFO]: (state, action) => {
+        return state
+        .set('loggedInfo', Map(action.payload))
+        .set('logged', true)
+    },
     [SET_VALIDATED]: (state, action) => state.set('validated', action.payload),
     ...pender({
         type: CHECK_STATUS,

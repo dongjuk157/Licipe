@@ -1,33 +1,27 @@
 import React, { useEffect } from "react"
-import axios from "axios"
 import { CircularProgress } from "@material-ui/core"
+import { useDispatch, useSelector } from "react-redux"
+import storage from '../../lib/storage'
+import * as authActions from '../../redux/modules/auth'
+import * as userActions from '../../redux/modules/user'
+import { useHistory } from "react-router"
 
-const KakaoOAuthHandler = ({history}) => {
+const KakaoOAuthHandler = () => {
+  const code = new URL(window.location.href).searchParams.get("code")
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const result = useSelector((state) => state.auth.get('result'))
 
-  // console.log(code)
   useEffect( () => {
-    const code = new URL(window.location.href).searchParams.get("code")
-    const BASE_URL = process.env.REACT_APP_API_URL
-    const PORT = process.env.REACT_APP_API_PORT
     async function SubmitServer() {
-      const config = {
-        method: 'get',
-        url: `${BASE_URL}:${PORT}/oauth/callback/kakao?code=${code}`,
-      }
-      // console.log(config)
-      await axios(config)
-      .then(res => {
-        console.log(res)
-        const ACCESS_TOKEN = res.data.accessToken
-        localStorage.setItem("token", ACCESS_TOKEN)
-        history.push('/')
-      }).catch(e =>{
-        // console.log(e)
-        history.push("/login")
-      })
+      await dispatch(authActions.kakaoOAuthLogin(code))
+      const loggedInfo = Object.assign(result)
+      dispatch(userActions.setLoggedInfo(loggedInfo))
+      console.log("loggedInfo", loggedInfo)
+      storage.set('loggedInfo', loggedInfo);
+      history.push('/');
     }
     SubmitServer()
-    console.log("end")
   }, [])
     
   return (
