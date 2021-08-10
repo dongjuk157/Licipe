@@ -34,7 +34,7 @@ public class JpaArticleRepository implements ArticleRepository{
     @Override
     public void delete(Long id) {
         Optional<Article> article = this.findById(id);
-        article.ifPresent(em::remove);              // 존재하는 객체라면 삭제
+        em.remove(article);
     }
 
     @Override
