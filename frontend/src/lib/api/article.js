@@ -1,4 +1,5 @@
 import axios from 'axios'
+import AWS from 'aws-sdk'
 
 const BASE_URL = process.env.REACT_APP_API_URL
 const PORT = process.env.REACT_APP_API_PORT
@@ -47,6 +48,24 @@ export const uploadImage = (formData) => {
   }
   return axios(config)
 }
+
 export const deleteImage = () => {}
 export const editImage = () => {}
 
+export const uploadS3 = (formData) => {
+  AWS.config.update({
+    region: process.env.REACT_APP_AWS_REGION,
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: process.env.REACT_APP_AWS_IDENTITY_POOL_ID
+    }),
+  })
+  const config = {
+    params: {
+      Bucket: process.env.REACT_APP_AWS_S3_BUCKET,
+      Key: formData.get('file')['name'],
+      Body: formData.get('file'),
+    },
+  }
+  const upload = new AWS.S3.ManagedUpload(config)
+  return upload.promise()
+}

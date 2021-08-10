@@ -27,8 +27,26 @@ public class JpaRatingRepository implements RatingRepository {
     }
 
     @Override
-    public List<Rating> findAll() {
-        return em.createQuery("select r from Rating r", Rating.class)
+    public List<Rating> findByMember(String snsId) {
+        return em.createQuery("select r from Rating r where r.member.snsId = :snsId", Rating.class)
+                .setParameter("snsId", snsId)
                 .getResultList();
     }
+
+    @Override
+    public void remove(Long id) {
+        Optional<Rating> rating = this.findById(id);
+        em.remove(rating);
+    }
+
+    @Override
+    public Optional<Rating> findByMemberFood(Long memberId, Long foodId) {
+        List<Rating> rating = em.createQuery("select r from  Rating r where r.member.id = :memberId and r.food.id = :foodId", Rating.class)
+                .setParameter("memberId", memberId)
+                .setParameter("foodId", foodId)
+                .getResultList();
+        return rating.stream().findAny();
+    }
+
+
 }

@@ -12,6 +12,7 @@ const EMAIL_JOIN = 'auth/EMAIL_JOIN'; // 이메일 가입
 const EMAIL_LOGIN = 'auth/EMAIL_LOGIN'; // 이메일 로그인
 const LOGOUT = 'auth/LOGOUT'; // 로그아웃
 const SET_ERROR = 'auth/SET_ERROR'; // 오류 설정
+const KAKAO_OAUTH_LOGIN = 'auth/KAKAO_OAUTH_LOGIN' // 카카오 로그인, 백엔드에 인가코드 전송
 
 
 // action creators
@@ -23,6 +24,7 @@ export const emailJoin = createAction(EMAIL_JOIN, AuthAPI.emailJoin); // { email
 export const emailLogin = createAction(EMAIL_LOGIN, AuthAPI.emailLogin); // { email, password }
 export const logout = createAction(LOGOUT, AuthAPI.logout);
 export const setError = createAction(SET_ERROR); // { form, message }
+export const kakaoOAuthLogin = createAction(KAKAO_OAUTH_LOGIN, AuthAPI.kakaoOAuthLogin) // code
 
 
 // initiate states
@@ -81,6 +83,10 @@ export default handleActions({
   }),
   ...pender({
       type: EMAIL_JOIN,
+      onSuccess: (state, action) => state.set('result', Map(action.payload.data))
+  }),
+  ...pender({
+      type: KAKAO_OAUTH_LOGIN,
       onSuccess: (state, action) => state.set('result', Map(action.payload.data))
   }),
   [SET_ERROR]: (state, action) => {

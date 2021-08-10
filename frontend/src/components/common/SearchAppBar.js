@@ -1,26 +1,29 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import InboxIcon from '@material-ui/icons/Inbox';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import MailIcon from '@material-ui/icons/Mail';
 import { alpha } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { 
+  Drawer,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  InputBase,
+} from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -198,24 +201,30 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
+        <Link to='/login'>
+            <ListItem button>
+              <ListItemText className={classes.listtext} primary='로그인'/>
+            </ListItem>
+          </Link>
+          <Link to='/reciperecommend'>
+            <ListItem button>
+              <ListItemText className={classes.listtext} primary='레시피'/>
+            </ListItem>
+          </Link>
+          <Link to='/community'>
+            <ListItem button>
+                <ListItemText className={classes.listtext} primary='커뮤니티'/>
+            </ListItem>
+          </Link>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          ))} */}
         </List>
         <Divider />
-          <ListItem>
-              <Link to='/login'>로그인</Link>
-          </ListItem>
-          <ListItem>
-              <Link to='/reciperecommend'>레시피</Link>
-          </ListItem>
-          <ListItem>
-              <Link to='/community'>커뮤니티</Link>
-          </ListItem>
       </Drawer>
  
     </div>

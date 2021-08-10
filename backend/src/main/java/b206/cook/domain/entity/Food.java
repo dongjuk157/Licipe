@@ -15,6 +15,8 @@ public class Food {
     @Column(nullable = false)
     private String name;
 
+    private String imgURL;
+
     @ManyToOne
     @JoinColumn(name="country_id")
     private Country country;
@@ -24,8 +26,9 @@ public class Food {
     private Time time;
 
     @Builder
-    public Food(String name, Country country, Time time) {
+    public Food(String name, String imgURL, Country country, Time time) {
         this.name = name;
+        this.imgURL = imgURL;
         this.country = country;
         this.time = time;
     }
