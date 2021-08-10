@@ -46,3 +46,5 @@ export const emailLogin = ({userid, password}) => {
 }
 
 export const logout = () => axios.get(`${BASE_URL}:${PORT}/logout`)
+
+export const kakaoOAuthLogin = (code) => axios.get( `${BASE_URL}:${PORT}/oauth/callback/kakao?code=${code}`)

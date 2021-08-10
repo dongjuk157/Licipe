@@ -22,7 +22,7 @@ const EmailLogin = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { form } = useSelector((state) => state.auth.getIn(['login'])).toJS()
-  const result = useSelector((state) => state.auth.get(['result']))
+  const result = useSelector((state) => state.auth.get('result'))
   // console.log(result)
   const values = Object.assign(form)
   // 초기화
@@ -53,7 +53,6 @@ const EmailLogin = () => {
       history.push('/');
 
     } catch (e) {
-      console.log('a');
       alert('가입된 아이디가 아니거나 비밀번호가 틀립니다.');
     }
   }

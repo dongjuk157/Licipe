@@ -11,6 +11,7 @@ const UPLOAD_IMAGE = 'article/UPLOAD_IMAGE'
 const GET_ARTICLE = 'article/GET_ARTICLE'
 const EDIT_ARTICLE = 'article/EDIT_ARTICLE'
 const DELETE_ARTICLE = 'article/DELETE_ARTICLE'
+const UPLOAD_S3 = 'article/UPLOAD_S3'
 
 
 
@@ -18,10 +19,11 @@ const DELETE_ARTICLE = 'article/DELETE_ARTICLE'
 export const changeInput = createAction(CHANGE_INPUT) // {name(key), value}
 export const initializeForm = createAction(INITIALIZE_FORM)
 export const uploadArticle = createAction(UPLOAD_ARTICLE, ArticleAPI.uploadArticle) // { formData }
-export const uploadImage = createAction(UPLOAD_IMAGE, ArticleAPI.uploadImage) // { userid, img }
+export const uploadImage = createAction(UPLOAD_IMAGE, ArticleAPI.uploadImage) // { userid, img } : formData
 export const getArticle = createAction(GET_ARTICLE, ArticleAPI.getArticle) // { articleid }
 export const editArticle = createAction(EDIT_ARTICLE, ArticleAPI.editArticle) // { formData, articleid }
 export const deleteArticle = createAction(DELETE_ARTICLE, ArticleAPI.deleteArticle) // { articleid }
+export const uploadS3 = createAction(UPLOAD_S3, ArticleAPI.uploadS3) // { userid, file }: formdata
 
 // initiate states
 const initialState = Map({
@@ -61,10 +63,21 @@ export default handleActions({
       const { img } = action.payload
       return state.setIn(['article','data', 'img'], img)
     },
-    ...pender({
-      type: GET_ARTICLE,
-      onSuccess: (state, action) => state.set('article', action.payload.data),
-      onFailure: (state, action) => initialState
-    }),
-  })
+  }),  
+  ...pender({
+    type: GET_ARTICLE,
+    onSuccess: (state, action) => state.set('article', action.payload.data),
+    onFailure: (state, action) => initialState
+  }),
+  ...pender({
+    type: UPLOAD_S3,
+    onSuccess: (state, action) => {
+      const { Location } = action.payload
+      return state.setIn(['article','data', 'img'], Location)
+    },
+    onFailure: (state, action) => {
+      console.log("error")
+    }
+  }),  
+  
 }, initialState)

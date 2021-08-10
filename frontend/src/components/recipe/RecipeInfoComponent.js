@@ -1,14 +1,19 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles'
+import { 
+  Drawer,
+  Button,
+  List,
+  Divider,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography,
+ } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
 
 const useStyles = makeStyles((theme) => ({
   detail: {
@@ -32,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeInfoComponent = (props) => {
   const classes = useStyles();
+  const [rating, setRating] = ([]);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -41,9 +47,25 @@ const RecipeInfoComponent = (props) => {
     setState({ ...state, right: open });
   };
 
+  const getFoodRating = () => {
+    axios.get(`/foods/${props.food.id}/recipe/rating`)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
-  const list = () => (
-    <div
+  useEffect(() => {
+    getFoodRating();
+  }, [])
+
+  return (
+    <div>
+        <Button onClick={toggleDrawer(true)}>자세히 보기</Button>
+        <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}>
+        <div
       className={classes.recipeDetail}
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
@@ -51,13 +73,12 @@ const RecipeInfoComponent = (props) => {
       <List className={classes.detail}>
         <ListItem className={classes.recipe}>
           <Paper className={classes.recipeImage}>
-            {/* 이미지 API 사용해서 이미지, 리뷰, 등등 적어넣기 */}
-              음식 사진
+            <img src={`${props.food.imgURL}`}></img>
           </Paper>
         </ListItem>
         <ListItem>
-          <span>레시피 제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <Link to={`/recipe/${props.recipe.id}/step`}>
+          <span>{props.food.name}</span>
+          <Link to={`/recipe/${props.food.id}/step`}>
             <span>요리하기</span>
           </Link>
         </ListItem>
@@ -89,58 +110,16 @@ const RecipeInfoComponent = (props) => {
         />
       </ListItem>
       <Divider component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="최고의 bbq"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-              </Typography>
-              {" — 사실은 그저 그런 bbq"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="반모지"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-              </Typography>
-              {' — 풀드포크'}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
       </List>
     </div>
-  );
-
-  return (
-    <div>
-        <Button onClick={toggleDrawer(true)}>자세히 보기</Button>
-        <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}>
-          {list()}
         </Drawer>
     </div>
   );
 };
 
 RecipeInfoComponent.defaultProps = {
-    recipe: {
-      foodid: 1,
+    food: {
+      id: 1,
     },
 };
 
