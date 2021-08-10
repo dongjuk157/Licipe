@@ -1,5 +1,6 @@
 package b206.cook.controller;
 
+import b206.cook.domain.dto.MemberSaveRequestDto;
 import b206.cook.service.MemberService;
 import b206.cook.social.kakao.KakaoUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class SocialController {
         } else { // 신규 회원이라면
             // db에 저장하자
             System.out.println("해당 회원 정보를 DB에 저장합니다.");
+            MemberSaveRequestDto memberSaveRequestDto = new MemberSaveRequestDto(nickname, "kakao", profile_image, sns_id);
+            memberService.signUp(memberSaveRequestDto);
         }
 
         return access_Token;
