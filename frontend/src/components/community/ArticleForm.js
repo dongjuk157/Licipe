@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
+import { get } from 'immutable'
 
 const ImgContainer = styled.div`
   width: 300px;
@@ -16,9 +17,19 @@ const InputContent = styled.input`
 
 const Article = () => {
   // useEffect(,[])
-  const history = useHistory()
   const location = useLocation()
+  const history = useHistory()
   const dispatch = useDispatch()
+
+  const getFoodId = {}
+  try{
+    getFoodId['foodid'] = location.state.foodid
+  }  catch {
+    alert('잘못된 접근입니다.')
+    history.push('/')
+  }
+  const {foodid} = getFoodId
+
   const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const postSuccess = useSelector((state) => state.article.get('postSuccess'))
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
@@ -29,21 +40,26 @@ const Article = () => {
     article = null
   }
   
-  // if (!currentUserInfo) {
-  //   history.push('/login')
-  // }
+  if (!currentUserInfo) {
+    history.push('/login')
+  }
   useEffect(()=>{
+    dispatch(articleActions.initializeForm('article'))
     if (article){ // edit으로 넘어온 경우
       dispatch(articleActions.getArticle(article.id))
     }
-    // else {
-    //   dispatch(articleActions.changeInput({
-    //     name: 'userid',
-    //     value: currentUserInfo.userid
-    //   }))
-    //   // food 어디서 받아와야하지?
-    // }
-    return dispatch(articleActions.initializeForm('article'))
+    else {
+      dispatch(articleActions.changeInput({
+        name: 'userid',
+        value: currentUserInfo.userid
+      }))
+      // foodid는 state값으로 받아옴
+      dispatch(articleActions.changeInput({
+        name: 'food',
+        value: foodid,
+      }))
+    }
+    
   },[])
 
   const [selectedFile, setSelectedFile] = useState(null)
@@ -80,16 +96,22 @@ const Article = () => {
   const onPost = async (event) => {
     event.preventDefault()
     // 게시글 업로드
-    const formData = new FormData()
-    formData.append('userid', userid)
-    formData.append('food', food)
-    formData.append('content', content)
-    formData.append('img', img)
-    if (article.id) {
-      await dispatch(articleActions.editArticle(formData, articleid))
+    // const formData = new FormData()
+    // formData.append('userid', userid)
+    // formData.append('food', food)
+    // formData.append('content', content)
+    // formData.append('img', img)
+    const data = {
+      member: userid,
+      food,
+      content,
+      imgURL: img,
+    }
+    if (article) {
+      await dispatch(articleActions.editArticle(data, articleid))
     }
     else {
-      await dispatch(articleActions.uploadArticle(formData))
+      await dispatch(articleActions.uploadArticle(data))
     }
     if (postSuccess)
       history.push('/community')

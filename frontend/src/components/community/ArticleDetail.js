@@ -28,7 +28,7 @@ const ArticleDetail = () => {
   const location = useLocation()
   const history = useHistory()
   const dispatch = useDispatch()
-  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data']))
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
   const article = location.state.article
   useEffect(()=>{

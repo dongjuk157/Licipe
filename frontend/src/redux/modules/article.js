@@ -18,10 +18,10 @@ const UPLOAD_S3 = 'article/UPLOAD_S3'
 // action creators
 export const changeInput = createAction(CHANGE_INPUT) // {name(key), value}
 export const initializeForm = createAction(INITIALIZE_FORM)
-export const uploadArticle = createAction(UPLOAD_ARTICLE, ArticleAPI.uploadArticle) // { formData }
+export const uploadArticle = createAction(UPLOAD_ARTICLE, ArticleAPI.uploadArticle) // { content, imgURL, food, member  }
 export const uploadImage = createAction(UPLOAD_IMAGE, ArticleAPI.uploadImage) // { userid, img } : formData
 export const getArticle = createAction(GET_ARTICLE, ArticleAPI.getArticle) // { articleid }
-export const editArticle = createAction(EDIT_ARTICLE, ArticleAPI.editArticle) // { formData, articleid }
+export const editArticle = createAction(EDIT_ARTICLE, ArticleAPI.editArticle) // { content, imgURL, food, member, articleid }
 export const deleteArticle = createAction(DELETE_ARTICLE, ArticleAPI.deleteArticle) // { articleid }
 export const uploadS3 = createAction(UPLOAD_S3, ArticleAPI.uploadS3) // { userid, file }: formdata
 

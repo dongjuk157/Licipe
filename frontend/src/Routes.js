@@ -31,8 +31,8 @@ const Routes = () => {
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
+            <Route path="/recipe/:id/recipeevaluation" component={RecipeEvaluation}/>
             <Route path="/404NotFound" component={Error404}/>
-            <Route path="/recipe/:id/evaluation" component={RecipeEvaluation}/>
             <Route path="*">
               <Redirect to="/404NotFound" />
             </Route>

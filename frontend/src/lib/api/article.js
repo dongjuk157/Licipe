@@ -4,11 +4,14 @@ import AWS from 'aws-sdk'
 const BASE_URL = process.env.REACT_APP_API_URL
 const PORT = process.env.REACT_APP_API_PORT
 
-export const uploadArticle = (formData) => {
+export const uploadArticle = (data) => {
   const config = {
     method: 'post',
     url: `${BASE_URL}:${PORT}/article`,
-    body: formData,
+    data, //content, imgURL, food, member 
+    // headers: {
+    //   'content-type': 'application/json'
+    // },
   }
   return axios(config)
 }
@@ -21,11 +24,11 @@ export const getArticle = (articleid) => {
   }
   return axios(config)
 }
-export const editArticle = (formData, articleid) => {
+export const editArticle = (data, articleid) => {
   const config = {
     method: 'put',
     url: `${BASE_URL}:${PORT}/article/${articleid}`,
-    body: formData,
+    data, // content, imgURL, food, member 
   }
   return axios(config)
 }
