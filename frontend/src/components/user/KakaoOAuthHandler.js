@@ -12,17 +12,15 @@ const KakaoOAuthHandler = () => {
   const dispatch = useDispatch()
   const result = useSelector((state) => state.auth.get('result'))
 
-  useEffect( () => {
-    async function SubmitServer() {
-      await dispatch(authActions.kakaoOAuthLogin(code))
-      const loggedInfo = Object.assign(result)
-      dispatch(userActions.setLoggedInfo(loggedInfo))
-      console.log("loggedInfo", loggedInfo)
-      storage.set('loggedInfo', loggedInfo);
-      history.push('/');
-    }
-    SubmitServer()
-  }, [])
+  async function SubmitServer() {
+    await dispatch(authActions.kakaoOAuthLogin(code))
+    const loggedInfo = Object.assign(result)
+    dispatch(userActions.setLoggedInfo(loggedInfo))
+    storage.set('loggedInfo', loggedInfo);
+    history.push('/');
+  }
+  SubmitServer()
+
     
   return (
     <CircularProgress />
