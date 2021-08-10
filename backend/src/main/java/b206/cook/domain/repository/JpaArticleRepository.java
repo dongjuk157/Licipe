@@ -32,13 +32,15 @@ public class JpaArticleRepository implements ArticleRepository{
     }
 
     @Override
-    public void delete(Long id) {
+    public void remove(Long id) {
         Optional<Article> article = this.findById(id);
         article.ifPresent(em::remove);              // 존재하는 객체라면 삭제
     }
 
     @Override
     public List<Article> findByMember(String snsId) {
-        return em.createQuery("select a from Article a where a.member.snsId = :snsId", Article.class).getResultList();
+        return em.createQuery("select a from Article a where a.member.snsId = :snsId", Article.class)
+                .setParameter("snsId", snsId)
+                .getResultList();
     }
 }

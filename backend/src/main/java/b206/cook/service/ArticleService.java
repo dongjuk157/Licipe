@@ -38,26 +38,33 @@ public class ArticleService {
 
     // 게시글 수정
     public Long modifyArticle(Long articleId, ArticleModifyRequestDto articleDto) {
-        Optional<Article> article = articleRepository.findById(articleId);
-        if (article.isPresent()) {
-            Article article1 = article.get();
-            article1.update(articleDto.getContent(), articleDto.getImgURL());
+        if (this.existArticle(articleId)) {
+            Optional<Article> article = articleRepository.findById(articleId);
+            article.get().update(articleDto.getContent(), articleDto.getImgURL());
             return articleId;
         }
         else {
-            System.out.println("존재하지 않는 게시글");
-            return 0L;
+            throw new IllegalStateException("존재하지 않는 게시글 입니다.");
         }
     }
 
     // 게시글 삭제
     public void removeArticle(Long articleId) {
-        articleRepository.delete(articleId);
-        // member, food랑 관계 어떻게 처리할지?
+        if (this.existArticle(articleId)){
+            articleRepository.remove(articleId);
+        }
+        else {
+            throw new IllegalStateException("존재하지 않는 게시글 입니다.");
+        }
     }
 
     // 해당 멤버가 작성한 게시글 조회
     public List<Article> findWrittenArticles(String snsId) {
         return articleRepository.findByMember(snsId);
+    }
+
+    // 존재하는 게시글인지 조회
+    public Boolean existArticle(Long ArticleId) {
+        return articleRepository.findById(ArticleId).isPresent();
     }
 }
