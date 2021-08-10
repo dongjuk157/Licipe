@@ -29,9 +29,7 @@ const Join = () => {
   const dispatch = useDispatch()
   const values = Object.assign(form)
   useEffect(() => {
-    return () => {
-      dispatch(authActions.initializeForm('join'))
-    };
+    dispatch(authActions.initializeForm('join'))
   },[]);
 
   const setError = (name, message) => {   
