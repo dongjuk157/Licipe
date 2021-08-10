@@ -13,13 +13,14 @@ const App = () => {
     if(!loggedInfo) return; // 로그인 정보가 없다면 여기서 멈춥니다.
     
     dispatch(userActions.setLoggedInfo(loggedInfo))
-    try {
-        await dispatch(userActions.checkStatus())
-    } catch (e) {
-        storage.remove('loggedInfo');
-        alert('로그인 정보가 만료되었습니다.')
-        window.location.href = '/auth/login';
-    }
+    // access token 을 사용해서 로그인 정보가 맞는지 확인하는 코드
+    // try {
+    //     await dispatch(userActions.checkStatus())
+    // } catch (e) {
+    //     storage.remove('loggedInfo');
+    //     alert('로그인 정보가 만료되었습니다.')
+    //     window.location.href = '/login';
+    // }
   }
 
   useEffect(()=> {

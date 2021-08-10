@@ -22,12 +22,18 @@ const Article = () => {
   const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const postSuccess = useSelector((state) => state.article.get('postSuccess'))
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
-  const article = location.state.article
+  let article = null
+  try {
+    article = location.state.article
+  } catch (e) {
+    article = null
+  }
+  
   // if (!currentUserInfo) {
   //   history.push('/login')
   // }
   useEffect(()=>{
-    if (article.id){ // edit으로 넘어온 경우
+    if (article){ // edit으로 넘어온 경우
       dispatch(articleActions.getArticle(article.id))
     }
     // else {
@@ -65,10 +71,9 @@ const Article = () => {
     
     // 사진 업로드
     const formData = new FormData()
-    formData.append('img', file)
-    formData.append('userid', userid)
-
-    await dispatch(articleActions.uploadImage(formData))
+    formData.append('file', file)
+    formData.append('userid', userid) //필요한가?
+    await dispatch(articleActions.uploadS3(formData))
 
   }
 

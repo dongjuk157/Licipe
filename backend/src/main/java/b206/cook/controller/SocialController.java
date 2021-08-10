@@ -63,12 +63,11 @@ public class SocialController {
         String id = String.valueOf(memberService.getId(sns_id));
         System.out.println("###id#### : " + id);
 
-        HashMap<String, Object> sendInfo = new HashMap<>(); // 일단 JWT 를 사용하기 전에 프론트에서의 테스트를 위한 정보를 담은 HashMap
-        sendInfo.put("accessToken" , access_Token);
-        sendInfo.put("userid", sns_id);
-        sendInfo.put("nickname", nickname);
-        sendInfo.put("id", id);
-
-        return sendInfo;
+        HashMap<String, Object> loggedInfo = new HashMap<>(); // 일단 JWT 를 사용하기 전에 프론트에서의 테스트를 위한 정보를 담은 HashMap
+        loggedInfo.put("accessToken" , access_Token);
+        loggedInfo.put("userid", id);
+        loggedInfo.put("nickname", nickname);
+        System.out.println(loggedInfo);
+        return loggedInfo;
     }
 }
