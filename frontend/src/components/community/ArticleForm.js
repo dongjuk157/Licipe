@@ -30,7 +30,7 @@ const Article = () => {
   const {foodid} = getFoodId
 
   const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
-  const postSuccess = useSelector((state) => state.article.get('postSuccess'))
+  const postSuccess = useSelector((state) => state.article.get('postSuccess')) // 이거 왜 안되냐...
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
   
   if (!currentUserInfo) {

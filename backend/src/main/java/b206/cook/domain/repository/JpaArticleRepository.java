@@ -33,7 +33,7 @@ public class JpaArticleRepository implements ArticleRepository{
 
     @Override
     public void remove(Long id) {
-        Optional<Article> article = this.findById(id);
+        Article article = em.find(Article.class, id);
         em.remove(article);
     }
 

@@ -18,10 +18,10 @@ public class Ingredient {
 
     @Column(nullable = false)
     private String name;
-    private int weight;
+    private String weight;
     private String unit;
 
-    public Ingredient(String name, int weight, String unit) {
+    public Ingredient(String name, String weight, String unit) {
         this.name = name;
         this.weight = weight;
         this.unit = unit;

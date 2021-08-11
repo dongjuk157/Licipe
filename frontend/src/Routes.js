@@ -14,6 +14,11 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import ArticleDetail from './components/community/ArticleDetail';
 import { Error404 } from './components/common/Error404';
 import RecipeEvaluation from './components/recipe/RecipeEvaluation';
+import MyPage from './components/user/MyPage'
+import EditProfile from './components/user/EditProfile'
+import MyArticles from './components/user/MyArticles'
+import MyClips from './components/user/MyClips'
+import MyRatings from './components/user/MyRatings'
 
 const Routes = () => {
   return (
@@ -32,6 +37,11 @@ const Routes = () => {
             <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
             <Route path="/recipe/:id/evaluation" component={RecipeEvaluation}/>
+            <Route exact path="/mypage" component={MyPage}/>
+            <Route exact path="/editprofile" component={EditProfile}/>
+            <Route exact path="/myarticles" component={MyArticles}/>
+            <Route exact path="/myclips" component={MyClips}/>
+            <Route exact path="/myratings" component={MyRatings}/>
             <Route path="/404NotFound" component={Error404}/>
             <Route path="*">
               <Redirect to="/404NotFound" />
