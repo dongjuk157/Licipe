@@ -13,7 +13,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
+
 
 const Evaluation = styled.div`
   margin: 100px 0 0 0;

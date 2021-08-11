@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import SearchAppBar from '../common/SearchAppBar'
 import styled from 'styled-components';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
+
 
 const Carousel = styled.div`
 	margin: 100px 0 0 0;
