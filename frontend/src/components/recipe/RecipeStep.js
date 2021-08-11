@@ -40,7 +40,7 @@ const RecipeStep = (props) => {
 		};
 	}
 		useEffect(() => {
-			GetRecipeSteps()
+			GetRecipeSteps();
 		}, [])
 	
 	return (

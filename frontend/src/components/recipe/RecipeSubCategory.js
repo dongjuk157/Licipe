@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 
 
 const RecipeSubCategory = (props) => {
-	console.log(props, '세부페이지 갱신')
 	useEffect(() => console.log('how'), [props.recipeList])
 	const classes = useStyles();
 	let recipeList = props.recipeList

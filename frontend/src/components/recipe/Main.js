@@ -9,14 +9,13 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const Carousel  = styled.div`
-  padding: 50px;
   border: solid;
   border-radius: 0.5rem;
-  margin-top: 64px;
+  margin-top: 96px;
   margin-bottom: 80px;
 `
 const RecipeImage = styled.img`
-  height: 500px;
+  height: 30vh;
 `
 
 
@@ -25,6 +24,7 @@ const Main = () => {
   const getFoodList = () => {
     axios.get('/main')
     .then((res) => {
+      console.log(res.data)
       setFoodList(res.data)
     })
     .catch((err) => {
@@ -54,21 +54,16 @@ const Main = () => {
   return (
     <div>
       <SearchAppBar></SearchAppBar>
-        <Carousel>
-					<Slider {...settings}>
-            {foodList.map((food) => {
-              <RecipeImage src={`${food.imgURL}`}>
-              </RecipeImage>
-            })}
-            <RecipeImage>
-						</RecipeImage>
-            <RecipeImage>
-						</RecipeImage>
-            <RecipeImage>
-						</RecipeImage>
-            
-					</Slider>
-        </Carousel>
+        <Slider {...settings}>
+          {foodList.map((food, index) => {
+            return (
+            <Carousel key={index}>
+              <RecipeImage src={`${food.imgURL}`}></RecipeImage>
+              <p>{food.name}</p>
+            </Carousel>
+            )
+          })}      
+        </Slider>
         <Box display="flex">
           <Card></Card>
           <Card></Card>

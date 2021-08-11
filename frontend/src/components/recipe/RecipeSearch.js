@@ -72,6 +72,7 @@ const RecipeSearch = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [recipeList, setRecipeList] = useState([]);
+  const [mainCategory, setMainCategory] = useState([])
   const [categories, setCategories] = useState([
     'countries',
     'times',
@@ -83,66 +84,27 @@ const RecipeSearch = () => {
     setValue(newValue);
   };
 
-  const getRecipeList = (selectCategory) => {
-    console.log('갱신', recipeList)
-    let selectMainCategory = ''
-    Object.keys(mainCategory).find((key) => {
-      // mainCategory value 값에 axios로 받아온 값이 없으면 오류 발생
-      if (selectCategory in mainCategory[key]) {
-        selectMainCategory = key  
-      }
-    })
-    axios.get(`/foods/${selectMainCategory}/${selectCategory}`)
-    .then((res) => {
-      // setState 메소드는 해당 컴포넌트의 재 렌더링을 발생
-      setRecipeList(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  };
-  
-  /** 
-   *   let temp = {}
-   * const setButton = () => {
-   *   for (let category in subCategory) {
-   *     temp[`check${category}`] = false
-   *   }
-   * }
-  * */
-
-  // axios 값이 없어서 임시로 넣어둔 main, sub
-  const mainCategory = {}
-  for (let i = 0; i < categories.length; i++) {
-    mainCategory[categories[i]] = [`${i}`]
-  }
-
-  let subCategory = []
-  for (let i = 0; i < Object.keys(mainCategory).length; i++)
-  {
-    subCategory = subCategory.concat(Object.values(mainCategory)[i])
-  }
-
   const GetRecipeCateogry = () => {
-    // 각 카테고리의 소분류를 받아옴
-    for (let category in mainCategory) {
+    // 각 카테고리의 대분류를 받아옴
+    for (let category of categories) {
       axios.get(`/foods/${category}`)
       .then((res) => {
-        mainCategory[category] = res.data
+        setMainCategory(prevState => [...prevState, res.data])
       })
       .catch((err) => {
         console.log(err)
       })
-
     }
   };
+
+  const getRecipeList = (category) => {
+    console.log(category, 'list')
+  }
 
   useEffect(() => {
     GetRecipeCateogry();
   }, []);
-  // useEffect(() => {
-  //   <RecipeSubCategory></RecipeSubCategory>
-  // }, [recipeList])
+
 
   return (
     <div>
@@ -176,14 +138,15 @@ const RecipeSearch = () => {
           대분류를 선택해 주세요
         </TabPanel>
         {/* 각 카테고리의 소분류를 Object에서 배열로, 2차원 배열에서 1차원으로 */}
-        {Object.values(mainCategory).map((elements, index) => {
+        {mainCategory.map((elements, index) => {
+          console.log(mainCategory, '정체가뭐니')
           return(
             elements.map((element) => {
               return(
                 // index 값은 화면에서 활성화된 버튼의 번호
-                <TabPanel value={value} index={index + 1} key={element + index}>
+                <TabPanel value={value} index={index + 1} key={element.id + index}>
                   {/* TODO : 컴포넌트로 불러온 레시피들을 나열해야함 */}
-                  <Button onClick={() => getRecipeList(element)}>{element}</Button>
+                  <Button onClick={() => getRecipeList(element)}>{element.name}</Button>
                 </TabPanel>
               )
               })
