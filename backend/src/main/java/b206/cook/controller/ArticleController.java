@@ -55,4 +55,8 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.findWrittenArticles(snsId), HttpStatus.OK);
     }
 
+    @GetMapping("/foods/{foodId}/articles")
+    public ResponseEntity<List<Article>> foodArticles(@PathVariable Long foodId) {
+        return new ResponseEntity<>(articleService.findArticlesByFood(foodId), HttpStatus.OK);
+    }
 }
