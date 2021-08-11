@@ -60,14 +60,12 @@ const MyPage = () => {
           <MyButton variant="contained" onClick={evaluatedRecipe}>평가한 요리</MyButton>
         </div>
         <div>
-          <p style={{display:'flex', justifyContent:'space-between'}}>
-            <h3>
-            스크랩한 레시피
-            </h3>
+          <div style={{display:'flex', justifyContent:'space-between'}}>
+            <h3 style={{display:'inline'}}> 스크랩한 레시피</h3>
             <PointingSpan onClick={scrapedRecipe}>
             전체보기
             </PointingSpan>
-          </p>
+          </div>
           <div>
             최대 5개 보여주기
           </div>
