@@ -153,12 +153,12 @@ export default function PersistentDrawerLeft() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <div style={{height:64}}></div>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
-        
       >
         <Toolbar>
           <IconButton
@@ -171,8 +171,8 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            <Link to='/'>
-              앱 만들다 살찜
+            <Link to='/' style={{textDecoration:'none', color:'white'}}>
+              리시피
             </Link>
           </Typography>
           <div className={classes.search}>
@@ -205,12 +205,24 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
+        <Link to='/'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='홈'/>
+          </ListItem>
+        </Link>
         { loggedInfo ? (
-          <Link to='/logout'>
-            <ListItem button>
-              <ListItemText className={classes.listtext} primary='로그아웃'/>
-            </ListItem>
-           </Link>
+          <>
+            <Link to='/logout'>
+              <ListItem button>
+                <ListItemText className={classes.listtext} primary='로그아웃'/>
+              </ListItem>
+            </Link>
+            <Link to='/MyPage'>
+              <ListItem button>
+                <ListItemText className={classes.listtext} primary='마이페이지'/>
+              </ListItem>
+            </Link>
+           </>
           ) : (
           <Link to='/login'>
            <ListItem button>
