@@ -1,11 +1,12 @@
-import React from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-import Card from '../common/Card'
+import React, { useState, useEffect } from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import Card from '../common/Card';
 import Box from '@material-ui/core/Box';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Carousel  = styled.div`
   padding: 50px;
@@ -14,12 +15,26 @@ const Carousel  = styled.div`
   margin-top: 64px;
   margin-bottom: 80px;
 `
-const RecipeImage = styled.div`
+const RecipeImage = styled.img`
   height: 500px;
 `
 
 
 const Main = () => {
+  const [foodList, setFoodList] = useState([]);
+  const getFoodList = () => {
+    axios.get('/main')
+    .then((res) => {
+      setFoodList(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  };
+
+  useEffect(() => {
+    getFoodList();
+  }, [])
   const settings = {
     // customPaging: function(i) {
     //   return (
@@ -41,20 +56,15 @@ const Main = () => {
       <SearchAppBar></SearchAppBar>
         <Carousel>
 					<Slider {...settings}>
-						<RecipeImage>
-							<h3>1</h3>
-						</RecipeImage>
-						<RecipeImage>
-							<h3>2</h3>
+            {foodList.map((food) => {
+              <RecipeImage src={`${food.imgURL}`}>
+              </RecipeImage>
+            })}
+            <RecipeImage>
 						</RecipeImage>
             <RecipeImage>
-							<h3>3</h3>
 						</RecipeImage>
             <RecipeImage>
-							<h3>4</h3>
-						</RecipeImage>
-            <RecipeImage>
-							<h3>5</h3>
 						</RecipeImage>
             
 					</Slider>

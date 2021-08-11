@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import RecipeInfoComponent from './RecipeInfoComponent';
 import styled from 'styled-components'
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const FoodImg = styled.img`
 	width: 100%;

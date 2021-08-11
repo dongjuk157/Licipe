@@ -12,7 +12,8 @@ import {
   Button,
 } from '@material-ui/core';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
+
 
 const TabPanel = (props) => {
 // function TabPanel(props) {
