@@ -17,12 +17,9 @@ const Logout = () => {
     storage.remove('loggedInfo')
     window.location.href = '/' // 홈페이지로 새로고침
   }
+  onLogout()
   return (
     <>
-      { user['logged']
-        ? (<Button onClick={onLogout}>로그아웃</Button>)
-        : <></> 
-      }
     </>
   )
 }

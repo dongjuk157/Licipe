@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './components/user/Login'
+import Logout from './components/user/Logout'
 import KakaoOAuthHandler from './components/user/KakaoOAuthHandler';
 import Main from './components/recipe/Main'
 import RecipeRecommend from './components/recipe/RecipeRecommend';
@@ -21,6 +22,7 @@ const Routes = () => {
             <Route exact path="/" component={Main}/>
             <Route path="/reciperecommend" component={RecipeRecommend}/>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/logout" component={Logout}/>
             <Route path="/login/email" component={EmailLogin}/>
             <Route path="/recipe/category" component={RecipeSearch}/>
             <Route path="/recipe/:id/step" component={RecipeStep}/>
@@ -29,8 +31,8 @@ const Routes = () => {
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
             <Route exact path="/community" component={Community}/>
+            <Route path="/recipe/:id/recipeevaluation" component={RecipeEvaluation}/>
             <Route path="/404NotFound" component={Error404}/>
-            <Route path="/recipe/:id/evaluation" component={RecipeEvaluation}/>
             <Route path="*">
               <Redirect to="/404NotFound" />
             </Route>

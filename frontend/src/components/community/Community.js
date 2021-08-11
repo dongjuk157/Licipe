@@ -37,6 +37,7 @@ const Community = () => {
       .then(res => {
         const newFeeds = [...feeds, ...res.data]
         setFeeds(newFeeds)
+        console.log(newFeeds)
     }).catch(error => {
       console.log(error)
     })

@@ -9,7 +9,7 @@ const maxWidth  = 345
 const useStyles = makeStyles({
   root: {
     maxWidth: maxWidth,
-    margin: '1rem',
+    // margin: '1rem',
   },
   media: {
     backgroundColor: 'lightgray',
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
 });
 
 export default function MediaCard({article}) {
+  console.log(article)
   const classes = useStyles()
   const history = useHistory()
   // height 변경 필요함
@@ -39,21 +40,23 @@ export default function MediaCard({article}) {
   }
 
   return (
-    <Card 
-      className={classes.root}
-      onClick={onCardClick}
-    >
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={article.download_url}
-          // image={article.Img}
-          style={{
-            height: height,
-            objectFit: 'cover'
-          }}
-        />
-      </CardActionArea>
-    </Card>
+    <div style={{padding:'0.5rem'}}>
+      <Card 
+        className={classes.root}
+        onClick={onCardClick}
+      >
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            // image={article.download_url}
+            image={article.imgURL}
+            style={{
+              height: 200,
+              objectFit: 'contain'
+            }}
+          />
+        </CardActionArea>
+      </Card>
+    </div>
   );
 }

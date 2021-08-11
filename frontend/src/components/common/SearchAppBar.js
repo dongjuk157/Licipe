@@ -9,6 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
 import { alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import storage from '../../lib/storage';
 import styled from 'styled-components';
 import { 
   Drawer,
@@ -147,6 +148,7 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
 
   return (
     <div className={classes.root}>
@@ -201,21 +203,30 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
-        <Link to='/login'>
+        { loggedInfo ? (
+          <Link to='/logout'>
             <ListItem button>
-              <ListItemText className={classes.listtext} primary='로그인'/>
+              <ListItemText className={classes.listtext} primary='로그아웃'/>
             </ListItem>
+           </Link>
+          ) : (
+          <Link to='/login'>
+           <ListItem button>
+             <ListItemText className={classes.listtext} primary='로그인'/>
+           </ListItem>
           </Link>
-          <Link to='/reciperecommend'>
-            <ListItem button>
-              <ListItemText className={classes.listtext} primary='레시피'/>
-            </ListItem>
-          </Link>
-          <Link to='/community'>
-            <ListItem button>
-                <ListItemText className={classes.listtext} primary='커뮤니티'/>
-            </ListItem>
-          </Link>
+         )}
+
+        <Link to='/reciperecommend'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='레시피'/>
+          </ListItem>
+        </Link>
+        <Link to='/community'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='커뮤니티'/>
+          </ListItem>
+        </Link>
         <List>
           {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>

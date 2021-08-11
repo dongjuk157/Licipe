@@ -16,34 +16,52 @@ const InputContent = styled.input`
 
 const Article = () => {
   // useEffect(,[])
-  const history = useHistory()
   const location = useLocation()
+  const history = useHistory()
   const dispatch = useDispatch()
-  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+
+  const getFoodId = {}
+  try{
+    getFoodId['foodid'] = location.state.foodid
+  }  catch {
+    alert('잘못된 접근입니다.')
+    history.push('/')
+  }
+  const {foodid} = getFoodId
+
+  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const postSuccess = useSelector((state) => state.article.get('postSuccess'))
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
+  
+  if (!currentUserInfo) {
+    alert('로그인정보가 만료되었습니다.')
+    history.push('/login')
+  }
+
   let article = null
   try {
     article = location.state.article
+
   } catch (e) {
     article = null
   }
-  
-  // if (!currentUserInfo) {
-  //   history.push('/login')
-  // }
+
   useEffect(()=>{
+    dispatch(articleActions.initializeForm('article'))
     if (article){ // edit으로 넘어온 경우
       dispatch(articleActions.getArticle(article.id))
     }
-    // else {
-    //   dispatch(articleActions.changeInput({
-    //     name: 'userid',
-    //     value: currentUserInfo.userid
-    //   }))
-    //   // food 어디서 받아와야하지?
-    // }
-    return dispatch(articleActions.initializeForm('article'))
+    else {
+      dispatch(articleActions.changeInput({
+        name: 'userid',
+        value: currentUserInfo.userid
+      }))
+      // foodid는 state값으로 받아옴
+      dispatch(articleActions.changeInput({
+        name: 'food',
+        value: {id:foodid},
+      }))
+    }
   },[])
 
   const [selectedFile, setSelectedFile] = useState(null)
@@ -80,23 +98,29 @@ const Article = () => {
   const onPost = async (event) => {
     event.preventDefault()
     // 게시글 업로드
-    const formData = new FormData()
-    formData.append('userid', userid)
-    formData.append('food', food)
-    formData.append('content', content)
-    formData.append('img', img)
-    if (article.id) {
-      await dispatch(articleActions.editArticle(formData, articleid))
+
+    const data = {
+      member: {id:userid},
+      food,
+      content,
+      imgURL,
+    }
+    if (article) {
+      await dispatch(articleActions.editArticle(data, articleid))
     }
     else {
-      await dispatch(articleActions.uploadArticle(formData))
+      await dispatch(articleActions.uploadArticle(data))
     }
-    if (postSuccess)
+    if (article){
+      history.push(`/article/${article.id}`)
+    } else {
       history.push('/community')
+    }
   }
   const onSkip = () => {
     history.push('/')
   }
+  
   return (
     <Grid
       container
@@ -109,18 +133,16 @@ const Article = () => {
         item
       > 
         <ImgContainer>
-          { selectedFile 
-            ?
+          { selectedFile || imgURL ? (
             <img 
-              src={selectedFile}
+              src={selectedFile || imgURL}
               alt="selectedFileImage"
               style={{
                 'objectFit': 'contain',
                 width: '100%',
               }}
             />
-            :
-            <></>
+            ) : (<></>)
           }
         </ImgContainer>
         <form 
@@ -148,6 +170,7 @@ const Article = () => {
       >
         <form>
           <InputContent
+            value={content}
             placeholder="음식에 대해 간략하게 평가해주세요"
             name="content"
             onChange={handleChange}
@@ -156,10 +179,10 @@ const Article = () => {
           <br/>
           <Button
             onClick={onPost}
-          >인증하기</Button>
+          >{article ? "수정" :"인증하기"}</Button>
           <Button
             onClick={onSkip}
-          >인증 안 할래요</Button>
+          >{article ? "취소" : "인증 안 할래요"}</Button>
         </form>
       </Grid>
     </Grid>

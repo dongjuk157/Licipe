@@ -28,21 +28,24 @@ const ArticleDetail = () => {
   const location = useLocation()
   const history = useHistory()
   const dispatch = useDispatch()
-  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
+  
   const article = location.state.article
   useEffect(()=>{
     dispatch(articleActions.getArticle(article.id))
-    return () => {
-      dispatch(articleActions.initializeForm('article'))
-    }
+    return dispatch(articleActions.initializeForm('article'))
   }, [])
+
   
   const handleThumbup = () => {
     // 좋아요 안만들겠지?
   }
   const handleEdit = () => {
-    if (currentUserInfo.userid !== userid) return
+    if (Number(currentUserInfo.userid) !== userid.id) {
+      alert('잘못된 접근입니다.')
+      return
+    }
     history.push({
       pathname:`/article/`, 
       state: {
@@ -51,32 +54,35 @@ const ArticleDetail = () => {
     })
   }
   const handleDelete = async () => {
-    if (currentUserInfo.userid !== userid) return
+    if (Number(currentUserInfo.userid) !== userid.id) {
+      alert('잘못된 접근입니다.')
+      return
+    }
     dispatch(articleActions.deleteArticle(articleid))
-    history('/community')
+    history.push('/community')
   }
 
   return (
     <ArticleContainer>
       <ImageContainer>
-        { img 
-        ? <img 
-            src={img}
+        { imgURL ? 
+        (<img 
+            src={imgURL}
             alt="articleImage"
             style={{
               width:"100%",
             }}
-          />
-        : <div style={{height:300, width:300}}> </div>
+          />)
+        : (<div style={{height:300, width:300}}> </div>)
         }
       </ImageContainer>
       <div>
         <p style={{display:'flex', justifyContent:'space-around'}}>
           <span>
-            작성자: {userid}
+            작성자: {userid.nickname}
           </span>
           <span>
-            음식: {food}
+            음식: {food.name}
           </span>
         </p>
         { content
@@ -85,11 +91,11 @@ const ArticleDetail = () => {
         }
         <Button onClick={handleThumbup}>❤</Button>
       
-      { currentUserInfo.userid === userid 
-        ? (<div>
+      { Number(currentUserInfo.userid) === userid.id 
+        ? (<span>
             <Button onClick={handleEdit}>수정</Button>
             <Button onClick={handleDelete}>삭제</Button>
-          </div>)
+          </span>)
         : <></>
       }
       
