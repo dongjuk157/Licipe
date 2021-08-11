@@ -21,8 +21,13 @@ public class FoodController {
         this.foodService = foodService;
     }
 
+    @GetMapping("/main")
+    public ResponseEntity<List<Food>> mainpage() throws Exception {
+        return new ResponseEntity<>(foodService.mainFoods(), HttpStatus.OK);
+    }
+
     @GetMapping("/foods")
-    public ResponseEntity<List<Food>> list() throws Exception{
+    public ResponseEntity<List<Food>> list() throws Exception {
         return new ResponseEntity<>(foodService.findFoods(), HttpStatus.OK);
     }
 
