@@ -1,5 +1,5 @@
 import axios from 'axios'
-import storage from '../..//lib/storage';
+import storage from '../../lib/storage';
 
 const BASE_URL = process.env.REACT_APP_API_URL
 const PORT = process.env.REACT_APP_API_PORT

@@ -57,9 +57,17 @@ const RecipeStep = (props) => {
 						)
 					})}
 					<Link to={`/recipe/${foodid}/evaluation`}>
-					<div>
-					요리 끝! 요리 평가하기
-					</div>
+						<div>
+							요리 끝! 요리 평가하기
+						</div>
+					</Link>
+					<Link to={{
+						pathname: `/article`,
+						state: { foodid },
+						}}>
+						<div>
+							사진찍고 요리 인증하기
+						</div>
 					</Link>
 				</Slider>
 			</Carousel>
