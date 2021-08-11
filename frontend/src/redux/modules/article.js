@@ -12,18 +12,20 @@ const GET_ARTICLE = 'article/GET_ARTICLE'
 const EDIT_ARTICLE = 'article/EDIT_ARTICLE'
 const DELETE_ARTICLE = 'article/DELETE_ARTICLE'
 const UPLOAD_S3 = 'article/UPLOAD_S3'
+const UPDATE_FEED = 'article/UPDATE_FEED'
 
 
 
 // action creators
 export const changeInput = createAction(CHANGE_INPUT) // {name(key), value}
 export const initializeForm = createAction(INITIALIZE_FORM)
-export const uploadArticle = createAction(UPLOAD_ARTICLE, ArticleAPI.uploadArticle) // { formData }
+export const uploadArticle = createAction(UPLOAD_ARTICLE, ArticleAPI.uploadArticle) // { content, imgURL, food, member  }
 export const uploadImage = createAction(UPLOAD_IMAGE, ArticleAPI.uploadImage) // { userid, img } : formData
 export const getArticle = createAction(GET_ARTICLE, ArticleAPI.getArticle) // { articleid }
-export const editArticle = createAction(EDIT_ARTICLE, ArticleAPI.editArticle) // { formData, articleid }
+export const editArticle = createAction(EDIT_ARTICLE, ArticleAPI.editArticle) // { content, imgURL, food, member, articleid }
 export const deleteArticle = createAction(DELETE_ARTICLE, ArticleAPI.deleteArticle) // { articleid }
 export const uploadS3 = createAction(UPLOAD_S3, ArticleAPI.uploadS3) // { userid, file }: formdata
+export const updateFeed = createAction(UPDATE_FEED, ArticleAPI.updateFeed) // {page?}
 
 // initiate states
 const initialState = Map({
@@ -32,7 +34,7 @@ const initialState = Map({
       userid: '',
       food: '',
       content: '',
-      img: '',
+      imgURL: '',
       articleid: null,
     }),
   }),
@@ -58,22 +60,38 @@ export default handleActions({
     },
   }),
   ...pender({
+    type: EDIT_ARTICLE,
+    onSuccess: (state, action) => {
+      return state.set(['postSuccess'], true)
+    },
+  }),
+  ...pender({
     type: UPLOAD_IMAGE,
     onSuccess: (state, action) => {
-      const { img } = action.payload
-      return state.setIn(['article','data', 'img'], img)
+      const { imgURL } = action.payload
+      return state.setIn(['article','data', 'imgURL'], imgURL)
     },
   }),  
   ...pender({
     type: GET_ARTICLE,
-    onSuccess: (state, action) => state.set('article', action.payload.data),
+    onSuccess: (state, action) => {
+      // console.log(action.payload.data)
+      const {member, food, content, id, imgURL} = action.payload.data
+      //userid, food, content, imgURL, articleid,
+      return state
+      .setIn(['article','data','userid'], member)
+      .setIn(['article','data','food'], food)
+      .setIn(['article','data','content'], content)
+      .setIn(['article','data','imgURL'], imgURL)
+      .setIn(['article','data','articleid'], id)
+    },
     onFailure: (state, action) => initialState
   }),
   ...pender({
     type: UPLOAD_S3,
     onSuccess: (state, action) => {
       const { Location } = action.payload
-      return state.setIn(['article','data', 'img'], Location)
+      return state.setIn(['article','data', 'imgURL'], Location)
     },
     onFailure: (state, action) => {
       console.log("error")

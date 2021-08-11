@@ -65,4 +65,9 @@ public class RatingService {
                     throw new IllegalStateException("이미 평가한 레시피 입니다.");
                 });
     }
+
+    // 평균
+    public Double ratingAvg(Long foodId) {
+        return ratingRepository.avg(foodId);
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
@@ -14,7 +14,6 @@ const Carousel = styled.div`
 `
 
 const RecipeStep = (props) => {
-	const [steps, setSteps] = useState([]);
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -22,6 +21,7 @@ const RecipeStep = (props) => {
 		slidesToShow: 1,
 		slidesToScroll: 1
 	};
+	let steps = [];
 
 	const foodid = props.match.params.id
 	// 맨 앞의 글자가 대문자가 아닐 경우 오류발생..
@@ -30,8 +30,8 @@ const RecipeStep = (props) => {
 			try {
 				// props로 받은 foodid 활용
 				const response = await axios.get(`/foods/${foodid}/recipe/steps/${i}`)
-				console.log(i)
-				setSteps(prevStep => [...prevStep, response.data]);
+				console.log(response)
+				steps.push(response)
 			} catch (error) {
 				console.log(error)
 				break
@@ -39,12 +39,12 @@ const RecipeStep = (props) => {
 		};
 	}
 		useEffect(() => {
-			GetRecipeSteps();
-		}, []);
+			GetRecipeSteps()
+		}, [])
 	
-	console.log(steps)
 	return (
 		<div>
+<<<<<<< HEAD
 			<SearchAppBar></SearchAppBar>
 			<Carousel>
 				<h1>요리 단계</h1>
@@ -64,6 +64,34 @@ const RecipeStep = (props) => {
 					</Link>
 				</Slider>
 			</Carousel>
+=======
+			<h1>요리 단계</h1>
+			<Slider {...settings}>
+				<div>
+					{steps.map((step) => (
+						<div>
+							<img>step.img</img>
+							<p>step.desc</p>
+						</div>
+						))}
+				</div>
+				<Link to={`/recipe/${foodid}/evaluation`}>
+					<div>
+					요리 끝! 요리 평가하기
+					</div>
+				</Link>
+				<Link to={{
+					pathname: `/article`,
+					state: {
+						foodid,
+					},
+				}}>
+					<div>
+					사진찍고 요리 인증하기
+					</div>
+				</Link>
+			</Slider>
+>>>>>>> e7803aee2f512808b6b19c62e5a1265acbd92007
 		</div>
 	)
 }

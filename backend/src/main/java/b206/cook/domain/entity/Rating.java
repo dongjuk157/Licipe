@@ -3,6 +3,8 @@ package b206.cook.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Getter
@@ -12,6 +14,8 @@ public class Rating {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Max(value = 5)
+    @Min(value = 1)
     @Column(nullable = false)
     private int score;
 

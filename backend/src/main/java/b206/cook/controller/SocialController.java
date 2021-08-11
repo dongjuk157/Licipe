@@ -67,6 +67,7 @@ public class SocialController {
         loggedInfo.put("accessToken" , access_Token);
         loggedInfo.put("userid", id);
         loggedInfo.put("nickname", nickname);
+        loggedInfo.put("snsId", sns_id);
         System.out.println(loggedInfo);
         return loggedInfo;
     }
