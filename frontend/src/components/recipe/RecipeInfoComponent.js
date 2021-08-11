@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Drawer,
@@ -14,6 +15,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+
+const FoodImg = styled.img`
+	width: 100%;
+  height: 90%;
+  align-items: center;
+`
 
 const useStyles = makeStyles((theme) => ({
   detail: {
@@ -37,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeInfoComponent = (props) => {
   const classes = useStyles();
-  const [rating, setRating] = ([]);
-  const [state, setState] = React.useState({
+  const [rating, setRating] = useState([]);
+  const [state, setState] = useState({
     right: false,
   });
 
@@ -48,9 +55,9 @@ const RecipeInfoComponent = (props) => {
   };
 
   const getFoodRating = () => {
-    axios.get(`/foods/${props.food.id}/recipe/rating`)
+    axios.get(`/foods/${props.food.id}/recipe/rating/average`)
     .then((res) => {
-      console.log(res)
+      setRating(res.data)
     })
     .catch((err) => {
       console.log(err)
@@ -73,10 +80,11 @@ const RecipeInfoComponent = (props) => {
       <List className={classes.detail}>
         <ListItem className={classes.recipe}>
           <Paper className={classes.recipeImage}>
-            <img src={`${props.food.imgURL}`}></img>
+            <FoodImg src={`${props.food.imgURL}`}></FoodImg>
           </Paper>
         </ListItem>
         <ListItem>
+          <p>후기 {rating}</p>
           <span>{props.food.name}</span>
           <Link to={`/recipe/${props.food.id}/step`}>
             <span>요리하기</span>

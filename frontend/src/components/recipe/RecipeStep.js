@@ -3,8 +3,15 @@ import axios from 'axios';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import SearchAppBar from '../common/SearchAppBar'
+import styled from 'styled-components';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+
+const Carousel = styled.div`
+	margin: 100px 0 0 0;
+	align-items: center;
+`
 
 const RecipeStep = (props) => {
 	const settings = {
@@ -37,32 +44,25 @@ const RecipeStep = (props) => {
 	
 	return (
 		<div>
-			<h1>요리 단계</h1>
-			<Slider {...settings}>
-				<div>
-					{steps.map((step) => (
-						<div>
-							<img>step.img</img>
-							<p>step.desc</p>
+			<SearchAppBar></SearchAppBar>
+			<Carousel>
+				<h1>요리 단계</h1>
+				<Slider {...settings}>
+					{steps.map((step, index) => {
+						return (
+						<div key={index}>
+							<img src={`${step.img}`}></img>
+							<p>{step.description}</p>
 						</div>
-						))}
-				</div>
-				<Link to={`/recipe/${foodid}/evaluation`}>
+						)
+					})}
+					<Link to={`/recipe/${foodid}/evaluation`}>
 					<div>
 					요리 끝! 요리 평가하기
 					</div>
-				</Link>
-				<Link to={{
-					pathname: `/article`,
-					state: {
-						foodid,
-					},
-				}}>
-					<div>
-					사진찍고 요리 인증하기
-					</div>
-				</Link>
-			</Slider>
+					</Link>
+				</Slider>
+			</Carousel>
 		</div>
 	)
 }

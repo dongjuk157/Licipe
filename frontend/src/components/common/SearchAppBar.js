@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -11,6 +11,7 @@ import { alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import storage from '../../lib/storage';
 import styled from 'styled-components';
+import axios from 'axios';
 import { 
   Drawer,
   CssBaseline,
@@ -31,7 +32,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -171,7 +171,9 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            리시피
+            <Link to='/' style={{textDecoration:'none', color:'white'}}>
+              리시피
+            </Link>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

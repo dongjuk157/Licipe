@@ -6,8 +6,15 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import RecipeInfoComponent from './RecipeInfoComponent';
+import styled from 'styled-components'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+
+const FoodImg = styled.img`
+	width: 100%;
+  height: 80%;
+  align-items: center;
+`
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -103,8 +110,9 @@ const getMoreFoodList = () => {
 										className={classes.paper}
 										key ={food.id}
 										>
+											<FoodImg src={`${food.imgURL}`}></FoodImg>
 											{food.name}
-											<img src={`${food.imgURL}`}></img>
+
 											<RecipeInfoComponent food={food}></RecipeInfoComponent>
 										</Paper>
 									{/* </Link> */}

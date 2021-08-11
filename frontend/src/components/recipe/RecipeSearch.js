@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeSubCategory from './RecipeSubCategory';
 import axios from 'axios';
+import SearchAppBar from './../common/SearchAppBar'
 import { 
   Box, 
   Typography, 
@@ -10,7 +11,6 @@ import {
   makeStyles,
   Button,
 } from '@material-ui/core';
-import { PureComponent } from 'react';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
 
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     height: 350,
     marginBottom: 50,
+    marginTop: 100,
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -144,6 +145,7 @@ const RecipeSearch = () => {
 
   return (
     <div>
+      <SearchAppBar></SearchAppBar>
       <div className={classes.root}>
         <Tabs
         // Tabs need to be connected to their corresponding [role="tabpanel"] 
