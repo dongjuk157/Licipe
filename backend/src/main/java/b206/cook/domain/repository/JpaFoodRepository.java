@@ -21,6 +21,13 @@ public class JpaFoodRepository implements FoodRepository{
     }
 
     @Override
+    public List<Food> fiveFoods() {
+        return em.createQuery("select f from Food f order by f.id desc", Food.class)
+                .setMaxResults(5)
+                .getResultList();
+    }
+
+    @Override
     public Optional<Food> findById(Long id) {
         Food food = em.find(Food.class, id);
         return Optional.ofNullable(food);

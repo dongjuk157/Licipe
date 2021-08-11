@@ -21,6 +21,12 @@ public class FoodService {
         return foodRepository.findAll();
     }
 
+    // 메인에 띄울 레시피 5개 조회
+    public List<Food> mainFoods() {
+        return foodRepository.fiveFoods();
+    }
+
+
     // 레시피 조회
     public Optional<Food> findOne(Long foodId) {
         return foodRepository.findById(foodId);
