@@ -44,7 +44,6 @@ const RecipeStep = (props) => {
 	
 	return (
 		<div>
-<<<<<<< HEAD
 			<SearchAppBar></SearchAppBar>
 			<Carousel>
 				<h1>요리 단계</h1>
@@ -64,34 +63,6 @@ const RecipeStep = (props) => {
 					</Link>
 				</Slider>
 			</Carousel>
-=======
-			<h1>요리 단계</h1>
-			<Slider {...settings}>
-				<div>
-					{steps.map((step) => (
-						<div>
-							<img>step.img</img>
-							<p>step.desc</p>
-						</div>
-						))}
-				</div>
-				<Link to={`/recipe/${foodid}/evaluation`}>
-					<div>
-					요리 끝! 요리 평가하기
-					</div>
-				</Link>
-				<Link to={{
-					pathname: `/article`,
-					state: {
-						foodid,
-					},
-				}}>
-					<div>
-					사진찍고 요리 인증하기
-					</div>
-				</Link>
-			</Slider>
->>>>>>> e7803aee2f512808b6b19c62e5a1265acbd92007
 		</div>
 	)
 }
