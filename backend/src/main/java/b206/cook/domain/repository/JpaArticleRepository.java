@@ -43,4 +43,11 @@ public class JpaArticleRepository implements ArticleRepository{
                 .setParameter("snsId", snsId)
                 .getResultList();
     }
+
+    @Override
+    public List<Article> findByFood(Long foodId) {
+        return em.createQuery("select a from Article a where a.food.id = :foodId", Article.class)
+                .setParameter("foodId", foodId)
+                .getResultList();
+    }
 }

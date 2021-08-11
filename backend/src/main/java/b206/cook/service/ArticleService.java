@@ -63,6 +63,11 @@ public class ArticleService {
         return articleRepository.findByMember(snsId);
     }
 
+    // 해당 음식에 대한 게시글 조회
+    public List<Article>findArticlesByFood(Long foodId) {
+        return articleRepository.findByFood(foodId);
+    }
+
     // 존재하는 게시글인지 조회
     public Boolean existArticle(Long ArticleId) {
         return articleRepository.findById(ArticleId).isPresent();
