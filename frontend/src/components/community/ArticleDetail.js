@@ -59,7 +59,7 @@ const ArticleDetail = () => {
       return
     }
     dispatch(articleActions.deleteArticle(articleid))
-    history('/community')
+    history.push('/community')
   }
 
   return (
