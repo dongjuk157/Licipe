@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
-import { get } from 'immutable'
 
 const ImgContainer = styled.div`
   width: 300px;
@@ -30,19 +29,23 @@ const Article = () => {
   }
   const {foodid} = getFoodId
 
-  const { userid, food, content, img, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const postSuccess = useSelector((state) => state.article.get('postSuccess'))
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
+  
+  if (!currentUserInfo) {
+    alert('로그인정보가 만료되었습니다.')
+    history.push('/login')
+  }
+
   let article = null
   try {
     article = location.state.article
+
   } catch (e) {
     article = null
   }
-  
-  if (!currentUserInfo) {
-    history.push('/login')
-  }
+
   useEffect(()=>{
     dispatch(articleActions.initializeForm('article'))
     if (article){ // edit으로 넘어온 경우
@@ -56,10 +59,9 @@ const Article = () => {
       // foodid는 state값으로 받아옴
       dispatch(articleActions.changeInput({
         name: 'food',
-        value: foodid,
+        value: {id:foodid},
       }))
     }
-    
   },[])
 
   const [selectedFile, setSelectedFile] = useState(null)
@@ -96,16 +98,12 @@ const Article = () => {
   const onPost = async (event) => {
     event.preventDefault()
     // 게시글 업로드
-    // const formData = new FormData()
-    // formData.append('userid', userid)
-    // formData.append('food', food)
-    // formData.append('content', content)
-    // formData.append('img', img)
+
     const data = {
-      member: userid,
+      member: {id:userid},
       food,
       content,
-      imgURL: img,
+      imgURL,
     }
     if (article) {
       await dispatch(articleActions.editArticle(data, articleid))
@@ -113,12 +111,16 @@ const Article = () => {
     else {
       await dispatch(articleActions.uploadArticle(data))
     }
-    if (postSuccess)
+    if (article){
+      history.push(`/article/${article.id}`)
+    } else {
       history.push('/community')
+    }
   }
   const onSkip = () => {
     history.push('/')
   }
+  
   return (
     <Grid
       container
@@ -131,18 +133,16 @@ const Article = () => {
         item
       > 
         <ImgContainer>
-          { selectedFile 
-            ?
+          { selectedFile || imgURL ? (
             <img 
-              src={selectedFile}
+              src={selectedFile || imgURL}
               alt="selectedFileImage"
               style={{
                 'objectFit': 'contain',
                 width: '100%',
               }}
             />
-            :
-            <></>
+            ) : (<></>)
           }
         </ImgContainer>
         <form 
@@ -170,6 +170,7 @@ const Article = () => {
       >
         <form>
           <InputContent
+            value={content}
             placeholder="음식에 대해 간략하게 평가해주세요"
             name="content"
             onChange={handleChange}
@@ -178,10 +179,10 @@ const Article = () => {
           <br/>
           <Button
             onClick={onPost}
-          >인증하기</Button>
+          >{article ? "수정" :"인증하기"}</Button>
           <Button
             onClick={onSkip}
-          >인증 안 할래요</Button>
+          >{article ? "취소" : "인증 안 할래요"}</Button>
         </form>
       </Grid>
     </Grid>

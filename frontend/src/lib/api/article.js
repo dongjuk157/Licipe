@@ -72,3 +72,12 @@ export const uploadS3 = (formData) => {
   const upload = new AWS.S3.ManagedUpload(config)
   return upload.promise()
 }
+
+export const updateFeed = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/articles`,
+    // url: `https://picsum.photos/v2/list?page=${count}&limit=10`, // test용도
+  }
+  return axios(config)
+}
