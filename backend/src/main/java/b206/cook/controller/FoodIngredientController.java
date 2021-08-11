@@ -33,7 +33,7 @@ public class FoodIngredientController {
         return new ResponseEntity<>(foodIngredientService.findFoodByIngredient(ingredientId), HttpStatus.OK);
     }
 
-    @GetMapping("foods/{foodId}/ingredients")
+    @GetMapping("/foods/{foodId}/ingredients")
     public ResponseEntity<List<Food_Ingredient>> ingredientListForFood(@PathVariable Long foodId) {
         return new ResponseEntity<>(foodIngredientService.findIngredientByFood(foodId), HttpStatus.OK);
     }
