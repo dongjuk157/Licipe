@@ -36,9 +36,15 @@ public class RatingController {
         return new ResponseEntity<>("평가 삭제 완료", HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/foods/{foodId}/recipe/rating/average")
+    public ResponseEntity<Double> ratingAvgByFood(@PathVariable Long foodId) {
+        return new ResponseEntity<>(ratingService.ratingAvg(foodId), HttpStatus.OK);
+    }
+
     @GetMapping("/member/ratings")
     public ResponseEntity<List<Rating>> list(@RequestHeader String snsId) {
         System.out.println(snsId);
         return new ResponseEntity<>(ratingService.ratings(snsId), HttpStatus.OK);
     }
+
 }
