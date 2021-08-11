@@ -1,8 +1,10 @@
 package b206.cook.domain.repository;
 
 import b206.cook.domain.entity.Rating;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +50,10 @@ public class JpaRatingRepository implements RatingRepository {
         return rating.stream().findAny();
     }
 
-
+    @Override
+    public Double avg(Long foodId) {
+        return (Double) em.createQuery("select avg(r.score) from Rating r where r.food.id = :foodId")
+                .setParameter("foodId",foodId)
+                .getSingleResult();
+    }
 }
