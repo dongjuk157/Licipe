@@ -3,15 +3,11 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/Inbox';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import MailIcon from '@material-ui/icons/Mail';
 import { alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import storage from '../../lib/storage';
-import styled from 'styled-components';
-import axios from 'axios';
 import { 
   Drawer,
   CssBaseline,
@@ -22,7 +18,6 @@ import {
   Divider,
   IconButton,
   ListItem,
-  ListItemIcon,
   ListItemText,
   InputBase,
 } from '@material-ui/core';
@@ -32,17 +27,23 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    backgroundColor: '#FFFFFF'
   },
   appBar: {
+    color: '#000000',
+    backgroundColor: '#FFFFFF',
+    boxShadow: 'none',
+    width: '100%',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-
     }),
   },
   appBarShift: {
     // width: `calc(100% - ${drawerWidth}px)`,
     width: '100%',
+    color: '#000000',
+    backgroundColor: '#FFFFFF',
     marginLeft: 0,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
@@ -61,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   hide: {
-    // display: 'none',
     display: 'hidden',
   },
   drawer: {
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(1, 1, 1, 1),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
@@ -155,7 +155,7 @@ export default function PersistentDrawerLeft() {
       <CssBaseline />
       <div style={{height:64}}></div>
       <AppBar
-        position="fixed"
+        position="relative"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
