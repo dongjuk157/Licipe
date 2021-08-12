@@ -3,6 +3,7 @@ package b206.cook.domain.repository;
 import b206.cook.domain.entity.Recipe;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,14 @@ public class JpaRecipeRepository implements RecipeRepository {
     // 레시피 단계별 조회
     @Override
     public Optional<Recipe> findByStep(Long foodId, int stepNum) {
-        return Optional.ofNullable(em.createQuery("select r from Recipe r where r.food.id = :foodId and r.step = :stepNum", Recipe.class)
-                .setParameter("foodId", foodId)
-                .setParameter("stepNum", stepNum)
-                .getSingleResult());
+        try {
+            return Optional.ofNullable(em.createQuery("select r from Recipe r where r.food.id = :foodId and r.step = :stepNum", Recipe.class)
+                    .setParameter("foodId", foodId)
+                    .setParameter("stepNum", stepNum)
+                    .getSingleResult());
+        }
+        catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }
