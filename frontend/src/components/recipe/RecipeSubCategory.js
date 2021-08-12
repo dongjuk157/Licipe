@@ -1,4 +1,4 @@
-import react, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	 Typography,
@@ -9,70 +9,52 @@ import {
 	 CardActionArea,
 	 Card,
 	 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
-	root: {
+	food: {
 		maxWidth: 345,
 	},
 });
 
-
 const RecipeSubCategory = (props) => {
-	useEffect(() => console.log('how'), [props.recipeList])
 	const classes = useStyles();
-	let recipeList = props.recipeList
+	const [foodList, setFoodList] = useState([]);
+	useEffect(() => {
+		setFoodList(props.categoryFoodList[0]);
+	})
     return (
 			<div>
-				<Card className={classes.root}>
-					<CardActionArea>
-						<CardMedia
-							component="img"
-							alt="Contemplative Reptile"
-							height="140"
-							image="/static/images/cards/contemplative-reptile.jpg"
-							title="Contemplative Reptile"
-						/>
-						<CardContent>
-							<Typography gutterBottom variant="h5" component="h2">
-								레시피이름
-							</Typography>
-						</CardContent>
-					</CardActionArea>
-					<CardActions>
-						<Button size="small" color="primary">
-							요리하러 가기
-						</Button>
-						<Button size="small" color="primary">
-							후기
-						</Button>
-					</CardActions>
-				</Card>
-				{recipeList.map((recipe, index) => {
+				{foodList && foodList.map((food, index) => {
 					return (
-						<Card className={classes.root} key={index}>
+						<div>
+						<Card className={classes.food} key={food.name + index}>
 							<CardActionArea>
 								<CardMedia
 									component="img"
 									alt="Contemplative Reptile"
 									height="140"
-									image="/static/images/cards/contemplative-reptile.jpg"
+									image={`${food.imgURL}`}
 									title="Contemplative Reptile"
 								/>
 								<CardContent>
 									<Typography gutterBottom variant="h5" component="h2">
-										레시피이름
+										{food.name}
 									</Typography>
 								</CardContent>
 							</CardActionArea>
 							<CardActions>
-								<Button size="small" color="primary">
-									요리하러 가기
-								</Button>
+								<Link to={`/recipe/${food.id}/step`}>
+									<Button size="small" color="primary">
+										요리하러 가기
+									</Button>
+								</Link>
 								<Button size="small" color="primary">
 									후기
 								</Button>
 							</CardActions>
 						</Card>
+						</div>
 					)
 				})}
 			</div>

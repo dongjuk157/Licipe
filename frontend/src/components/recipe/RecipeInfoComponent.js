@@ -67,7 +67,7 @@ const RecipeInfoComponent = (props) => {
 
   useEffect(() => {
     getFoodRating();
-  }, [])
+  }, [rating])
 
   return (
     <div>
