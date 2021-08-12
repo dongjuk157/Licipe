@@ -241,6 +241,11 @@ export default function PersistentDrawerLeft() {
             <ListItemText className={classes.listtext} primary='커뮤니티'/>
           </ListItem>
         </Link>
+        <Link to='/recipe/category'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='카테고리별 레시피'/>
+          </ListItem>
+        </Link>
         <List>
           {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
