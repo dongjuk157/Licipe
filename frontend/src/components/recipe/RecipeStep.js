@@ -62,11 +62,6 @@ const RecipeStep = (props) => {
 						</div>
 						)
 					})}
-					<Link to={`/recipe/${foodid}/evaluation`}>
-						<div>
-							요리 끝! 요리 평가하기
-						</div>
-					</Link>
 					<Link to={{
 						pathname: `/article`,
 						state: { foodid },
@@ -75,9 +70,6 @@ const RecipeStep = (props) => {
 							사진찍고 요리 인증하기
 						</div>
 					</Link>
-					<video controls>
-						<source src="https://s3.ap-northeast-2.amazonaws.com/ssafy.b206.cook/Steak+-+16406.mp4"></source>
-					</video>
 				</Slider>
 			</Carousel>
 		</div>
