@@ -31,11 +31,6 @@ const TabPanel = (props) => {
       {value === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
-          <Typography>
-          {/* {categories.map(category => category.map((element) => {
-          
-        }))} */}
-          </Typography>
         </Box>
       )}
     </div>
@@ -71,25 +66,23 @@ const useStyles = makeStyles((theme) => ({
 const RecipeSearch = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [recipeList, setRecipeList] = useState([]);
+  const [foodList, setFoodList] = useState([]);
   const [mainCategory, setMainCategory] = useState([])
   const [categories, setCategories] = useState([
     'countries',
     'times',
     'situations',
-    'ingredients',
   ]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const GetRecipeCateogry = async () => {
+  const GetFoodCateogry = async () => {
     // 각 카테고리의 대분류를 받아옴
     for (let category of categories) {
       await axios.get(`/foods/${category}`)
       .then((res) => {
-        console.log(category)
         setMainCategory(prevState => [...prevState, res.data])
       })
       .catch((err) => {
@@ -98,12 +91,18 @@ const RecipeSearch = () => {
     }
   };
 
-  const getRecipeList = (subCategory, mainCategory) => {
-    console.log(subCategory, mainCategory)
+  const getFoodList = async (subCategory, mainCategory) => {
+    await axios.get(`/foods/${mainCategory}/${subCategory.id}`)
+    .then((res) => {
+      setFoodList([res.data])
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   useEffect(() => {
-    GetRecipeCateogry();
+    GetFoodCateogry();
   }, []);
 
 
@@ -121,13 +120,10 @@ const RecipeSearch = () => {
           className={classes.tabs}
         >
           <Tab label='선택'/>
-          {/* tab들의 index를 할당 */}
-          {categories.map((category, index) => {
-            return (
-              // 카테고리의 세로 대분류 부분을 표시
-              <Tab label={category} key={index}/>
-            )
-          })}
+          <Tab label='국가별'/>
+          <Tab label='시간별'/>
+          <Tab label='상황별'/>
+          <Tab label='재료별'/>
         </Tabs>
 
         {/* The value of the corresponding Tab. Must use the index of 
@@ -140,21 +136,20 @@ const RecipeSearch = () => {
         </TabPanel>
         {/* 각 카테고리의 소분류를 Object에서 배열로, 2차원 배열에서 1차원으로 */}
         {mainCategory.map((elements, index) => {
-          console.log(mainCategory, '정체가뭐니')
           return(
             elements.map((element) => {
               return(
                 // index 값은 화면에서 활성화된 버튼의 번호
                 <TabPanel value={value} index={index + 1} key={Object.values(element)[index]}>
                   {/* TODO : 컴포넌트로 불러온 레시피들을 나열해야함 */}
-                  <Button onClick={() => getRecipeList(element, categories[index])}>{element.name ? element.name : element.maxTime}</Button>
+                  <Button onClick={() => getFoodList(element, categories[index])}>{element.name ? element.name : <span>{element.maxTime}분</span> }</Button>
                 </TabPanel>
               )
               })
           )
         })}
       </div>
-      <RecipeSubCategory recipeList={recipeList}></RecipeSubCategory>
+      <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
     </div>
   );
 }
