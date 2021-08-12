@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import SearchAppBar from '../common/SearchAppBar'
 import styled from 'styled-components';
+import SpeechToText from '../common/SpeechToText'
+import { useSelector } from 'react-redux';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
@@ -37,20 +39,23 @@ const RecipeStep = (props) => {
 			console.log(err)
 		})
 	}
-		useEffect(() => {
-			GetRecipeSteps();
-		}, [])
+	useEffect(() => {
+		GetRecipeSteps();
+	}, [])
 	
+	const command = useSelector((state) => state.stt.get('command'))
+	console.log("command: ", command)
 	return (
 		<div>
 			<SearchAppBar></SearchAppBar>
+			<SpeechToText/>
 			<Carousel>
 				<h1>요리 단계</h1>
 				<Slider {...settings}>
 					{steps.map((step, index) => {
 						return (
 						<div key={index}>
-							<video controls crossorigin="anonymous">
+							<video controls crossOrigin="anonymous">
 								<source src={`${step.videoUrl}`}></source>
 							</video>
 							<p>{step.description}</p>
