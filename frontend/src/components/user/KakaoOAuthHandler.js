@@ -19,8 +19,11 @@ const KakaoOAuthHandler = () => {
     storage.set('loggedInfo', loggedInfo);
     history.push('/');
   }
-  SubmitServer()
-
+  try {
+    SubmitServer()
+  } catch (e) {
+    history.push('/login')
+  }
     
   return (
     <CircularProgress />
