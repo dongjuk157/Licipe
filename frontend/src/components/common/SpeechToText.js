@@ -6,7 +6,7 @@ import * as sttActions from '../../redux/modules/stt';
 
 // props.putValue: 상위 컴포넌트에서 내리는 값
 // props.getValue: 상위 올리는 값
-const SpeechToText = () => {
+const SpeechToText = (props) => {
   const dispatch = useDispatch()
   // const command = useSelector((state) => state.stt.get('command'))
   const status = useSelector((state) => state.stt.get('status'))
@@ -45,15 +45,16 @@ const SpeechToText = () => {
     },
     {
       command: ['이전(.)', ' 이전 단계(.)'],
-      callback: () => dispatch(sttActions.changeInput({name:'command', value:'previous'}))
+      callback: () => dispatch(sttActions.changeInput({name:'command', value:'previous'})),
     },
     {
       command: ['다음(.)', '다음 단계(.)'],
-      callback: () => dispatch(sttActions.changeInput({name:'command', value:'next'}))
+      callback: () => dispatch(sttActions.changeInput({name:'command', value:'next'})),
     },
   ]
 
   const {
+    finalTranscript,
     transcript,
     listening,
     resetTranscript,
@@ -64,21 +65,25 @@ const SpeechToText = () => {
     return SpeechRecognition.startListening({continuous: true, language:'ko-kr'})
   }, [])
   const onSttStop = useCallback((status) => { 
-    console.log(status)
     if (status)
       return SpeechRecognition.stopListening()
   }, [])
-
 
   useEffect(()=>{
     onSttStart()
     onSttStop(status)
   },[onSttStart, onSttStop, status])
 
-  
+  useEffect(()=>{
+    if (!props.micState)
+      dispatch(sttActions.changeInput({name:'command', value:'end'}))
+  },[props.micState, dispatch])
+
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
+
+  
   
   return (
     <>
