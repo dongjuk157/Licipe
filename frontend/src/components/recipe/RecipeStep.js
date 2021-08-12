@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ const Carousel = styled.div`
 `
 
 const RecipeStep = (props) => {
+	const [steps, setSteps] = useState([]);
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -22,22 +23,19 @@ const RecipeStep = (props) => {
 		slidesToShow: 1,
 		slidesToScroll: 1
 	};
-	let steps = [];
 
 	const foodid = props.match.params.id
 	// 맨 앞의 글자가 대문자가 아닐 경우 오류발생..
 	const GetRecipeSteps = async () => {
-		for (let i = 1; i < 20; i++) {
-			try {
-				// props로 받은 foodid 활용
-				const response = await axios.get(`/foods/${foodid}/recipe/steps/${i}`)
-				console.log(response)
-				steps.push(response)
-			} catch (error) {
-				console.log(error)
-				break
-			}
-		};
+		// props로 받은 foodid 활용
+		axios.get(`/foods/${foodid}/recipe`)
+		.then((res) => {
+			console.log(res.data)
+			setSteps(res.data)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 	}
 		useEffect(() => {
 			GetRecipeSteps();
@@ -52,7 +50,9 @@ const RecipeStep = (props) => {
 					{steps.map((step, index) => {
 						return (
 						<div key={index}>
-							<img src={`${step.img}`}></img>
+							<video controls crossorigin="anonymous">
+								<source src={`${step.videoUrl}`}></source>
+							</video>
 							<p>{step.description}</p>
 						</div>
 						)
@@ -70,6 +70,9 @@ const RecipeStep = (props) => {
 							사진찍고 요리 인증하기
 						</div>
 					</Link>
+					<video controls>
+						<source src="https://s3.ap-northeast-2.amazonaws.com/ssafy.b206.cook/Steak+-+16406.mp4"></source>
+					</video>
 				</Slider>
 			</Carousel>
 		</div>

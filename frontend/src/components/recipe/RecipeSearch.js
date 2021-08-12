@@ -77,18 +77,19 @@ const RecipeSearch = () => {
     'countries',
     'times',
     'situations',
-    'ingrediants',
+    'ingredients',
   ]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const GetRecipeCateogry = () => {
+  const GetRecipeCateogry = async () => {
     // 각 카테고리의 대분류를 받아옴
     for (let category of categories) {
-      axios.get(`/foods/${category}`)
+      await axios.get(`/foods/${category}`)
       .then((res) => {
+        console.log(category)
         setMainCategory(prevState => [...prevState, res.data])
       })
       .catch((err) => {
@@ -97,8 +98,8 @@ const RecipeSearch = () => {
     }
   };
 
-  const getRecipeList = (category) => {
-    console.log(category, 'list')
+  const getRecipeList = (subCategory, mainCategory) => {
+    console.log(subCategory, mainCategory)
   }
 
   useEffect(() => {
@@ -144,9 +145,9 @@ const RecipeSearch = () => {
             elements.map((element) => {
               return(
                 // index 값은 화면에서 활성화된 버튼의 번호
-                <TabPanel value={value} index={index + 1} key={element.id + index}>
+                <TabPanel value={value} index={index + 1} key={Object.values(element)[index]}>
                   {/* TODO : 컴포넌트로 불러온 레시피들을 나열해야함 */}
-                  <Button onClick={() => getRecipeList(element)}>{element.name}</Button>
+                  <Button onClick={() => getRecipeList(element, categories[index])}>{element.name ? element.name : element.maxTime}</Button>
                 </TabPanel>
               )
               })
