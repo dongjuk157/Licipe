@@ -3,6 +3,7 @@ pipeline {
 	stages {
 		stage('Build') {
 		steps {
+			echo 'not here'
 			sh 'ls'
 			sh 'cp -r ./frontend ~/dist'
 			}
