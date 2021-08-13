@@ -25,6 +25,7 @@ pipeline {
 		stage ('Docker run') {
 			steps {
 				dir ('frontend') {
+					sh 'docker ps -a'
 					sh 'docker run -d --rm --name nginx -p 80:80 licipe:front'
 					sh 'docker cp jenkins/jenkins:/var/jenkins_home/workspace/frontend/frontend ~/dist'
 				}
