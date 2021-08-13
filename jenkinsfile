@@ -3,7 +3,8 @@ pipeline {
 	stages {
 		stage('Build') {
 		steps {
-			echo 'prepare'
+			sh 'cd frontend'
+			sh 'pwd'
 			}
 		}
 	}
