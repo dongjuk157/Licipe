@@ -110,27 +110,30 @@ const RecipeSearch = () => {
     <div>
       <SearchAppBar></SearchAppBar>
       <div className={classes.root}>
-        <Tabs
-        // Tabs need to be connected to their corresponding [role="tabpanel"] 
+        <div class="col-3">
+          <Tabs
+          // Tabs need to be connected to their corresponding [role="tabpanel"] 
           orientation="vertical"
           variant="scrollable"
           value={value}
           // 탭이 변할 때 마다 setValue 값이 value로 변함
           onChange={handleChange}
           className={classes.tabs}
-        >
-          <Tab label='선택'/>
-          <Tab label='국가별'/>
-          <Tab label='시간별'/>
-          <Tab label='상황별'/>
-          <Tab label='재료별'/>
-        </Tabs>
+          >
+            <Tab label='레시피 선택'/>
+            <Tab label='나라'/>
+            <Tab label='소요 시간'/>
+            <Tab label='상황'/>
+            {/* <Tab label='재료별'/> */}
+          </Tabs>
+        </div>
 
         {/* The value of the corresponding Tab. Must use the index of 
         the Tab when no value was passed to Tab. 
         탭을 전환할 때 모든 TabPanel의 index 값과 활성화된 Tab의 value를 비교 
         변경된 value state를 꾸준히 보내서 체크
         */}
+        <div class="row col-9">
         <TabPanel value={value} index={0}>
           대분류를 선택해 주세요
         </TabPanel>
@@ -140,14 +143,18 @@ const RecipeSearch = () => {
             elements.map((element) => {
               return(
                 // index 값은 화면에서 활성화된 버튼의 번호
+                <div class="col-3"> 
+
                 <TabPanel value={value} index={index + 1} key={Object.values(element)[index]}>
                   {/* TODO : 컴포넌트로 불러온 레시피들을 나열해야함 */}
-                  <Button onClick={() => getFoodList(element, categories[index])}>{element.name ? element.name : <span>{element.maxTime}분</span> }</Button>
+                  <button class="circle-btn btn" onClick={() => getFoodList(element, categories[index])}>{element.name ? <span class="">{element.name}</span> : <span>{element.maxTime}분</span> }</button>
                 </TabPanel>
+                </div>
               )
-              })
-          )
-        })}
+            })
+            )
+          })}
+          </div>
       </div>
       <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
     </div>
