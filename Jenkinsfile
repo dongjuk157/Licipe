@@ -26,6 +26,7 @@ pipeline {
 			steps {
 				dir ('frontend') {
 					sh 'docker ps -a'
+					sh 'docker stop nginx'
 					sh 'docker run --name nginx -d -p 80:80 -v ~/dist:/usr/share/nginx/html nginx'
 					sh 'docker cp jenkins_front:/var/jenkins_home/workspace/frontend/frontend ~/dist'
 				}
