@@ -14,6 +14,7 @@ pipeline {
 		stage('Docker build') {
 			steps {
 				dir ('frontend') {
+					sh 'docker -v'
 					sh 'pwd'
 					sh 'ls'
 					sh 'docker build -t licipe_front:latest.'
