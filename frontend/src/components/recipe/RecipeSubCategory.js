@@ -27,8 +27,8 @@ const RecipeSubCategory = (props) => {
 			<div>
 				{foodList && foodList.map((food, index) => {
 					return (
-						<div>
-						<Card className={classes.food} key={food.name + index}>
+						<div key={food.name + index}>
+						<Card className={classes.food} >
 							<CardActionArea>
 								<CardMedia
 									component="img"

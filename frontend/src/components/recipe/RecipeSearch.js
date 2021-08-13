@@ -107,31 +107,42 @@ const RecipeSearch = () => {
           
         <Tab eventKey="country" title="나라" >
         <Tab.Container id="left-tabs-example">
-          { countries.length > 0 && countries[0].map((element, index) => {
-          return(
-            <Row key={index}>
-            <Col sm={3}> 
-              <Nav variant="pills" className="flex-column">
-                <Nav.Item>
-                  <Nav.Link eventKey={element.id} onClick={() => 
-                    getFoodList('countries', element.id)}>{element.name}</Nav.Link>
-                </Nav.Item>
-              </Nav>
-              
+          <Row>
+            <Col sm={3}>
+              { countries.length > 0 && countries[0].map((element, index) => {
+              return(
+                  <Col
+                    key={element.name+'nav'+index}
+                  > 
+                    <Nav variant="pills" className="flex-column">
+                      <Nav.Item>
+                        <Nav.Link eventKey={element.id} onClick={() => 
+                          getFoodList('countries', element.id)}>{element.name}</Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                  </Col>
+              )
+              })}
             </Col>
             <Col sm={9}>
-              <Tab.Content>
-                <Tab.Pane eventKey={element.id}>
-                  {/* 요리 리스트 */}
-                  <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
-                </Tab.Pane>
-              </Tab.Content>
+              { countries.length > 0 && countries[0].map((element, index) => {
+                return(
+                  <Col 
+                    key={element.name+'tab'+index}
+                  >
+                    <Tab.Content>
+                      <Tab.Pane eventKey={element.id}>
+                        {/* 요리 리스트 */}
+                        <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
+                      </Tab.Pane>
+                    </Tab.Content>
+                  </Col>
+                )
+              })}
             </Col>
           </Row>
-          )
-          })}
         </Tab.Container>
-        </Tab>
+      </Tab>
 
         <Tab eventKey="time" title="소요시간" onClick={() => GetTimes()}>
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
