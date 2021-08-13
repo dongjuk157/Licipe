@@ -212,53 +212,53 @@ export default function PersistentDrawerLeft() {
         <Divider />
 
         <Link to='/'>
-        <button class="btn px-3 py-2" id="unique-transparent-btn">
-          <span class="" >Home</span>
+        <button className="btn px-3 py-2" id="unique-transparent-btn">
+          <span className="" >Home</span>
             {/* <ListItemText className={classes.listtext} primary='홈'/> */}
           </button>
         </Link>        
 
         <Link to='/reciperecommend'>
-        <button class="btn px-3 py-2" id="unique-transparent-btn">
-              <span class="gradient-underline">둘러보기</span>
+        <button className="btn px-3 py-2" id="unique-transparent-btn">
+              <span className="gradient-underline">둘러보기</span>
             </button>
         </Link>
 
         <Link to='/recipe/category'>
-          <button class="btn px-3 py-2" id="unique-transparent-btn">
-            <span class="gradient-underline">레시피 고르기</span>
+          <button className="btn px-3 py-2" id="unique-transparent-btn">
+            <span className="gradient-underline">레시피 고르기</span>
           </button>
         </Link>
         
         <Link to='/community'>
-          <button class="btn px-3 py-2" id="unique-transparent-btn">
-            <span class="gradient-underline">요리 자랑</span>
+          <button className="btn px-3 py-2" id="unique-transparent-btn">
+            <span className="gradient-underline">요리 자랑</span>
           </button>
         </Link>
         
         { loggedInfo ? (
           <>
             <Link to='/MyPage'>
-              <button class="btn px-3 py-2" id="unique-transparent-btn">
-                <span class="" >마이페이지</span>
+              <button className="btn px-3 py-2" id="unique-transparent-btn">
+                <span className="" >마이페이지</span>
               </button>
             </Link>
 
             <Link to='/logout'>
-              <button class="btn px-3 py-2" id="unique-transparent-btn">
-                <span class="" >로그아웃</span>
+              <button className="btn px-3 py-2" id="unique-transparent-btn">
+                <span className="" >로그아웃</span>
               </button>
             </Link>
           </>
           ) : (
           <Link to='/login'>
-            <button class="btn px-3 py-2" id="unique-transparent-btn">
-              <span class="gradient-underline">로그인</span>
+            <button className="btn px-3 py-2" id="unique-transparent-btn">
+              <span className="gradient-underline">로그인</span>
             </button>
           </Link>
          )}
 
-        <div class="m-2 position-absolute bottom-0 text-secondary row">
+        <div className="m-2 position-absolute bottom-0 text-secondary row">
           <div>
           <small>Copyright, Team 앱만들다살찜,</small>
           </div>
