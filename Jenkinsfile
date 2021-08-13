@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				sh 'cp -r ./frontend ubuntu@i5b206.p.ssafy.io:/dist'
+				sh 'cp -r ./frontend ~/dist'
 			}
 		}
 
