@@ -3,8 +3,8 @@ pipeline {
 	stages {
 		stage('Build') {
 		steps {
-			sh 'cd frontend'
 			sh 'ls'
+			sh 'cd frontend'
 			sh 'pwd'
 			sh 'ls'
 			}
