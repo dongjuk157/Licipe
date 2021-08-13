@@ -3,6 +3,11 @@ pipeline {
 	tools {nodejs 'node'}
 	stages {
 		stage('Build') {
+			agent {
+				docker {
+					image 'node:16-alpine
+				}
+			}
 			steps {
 				dir('frontend') {
 					sh "npm install -g yarn"
