@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import SpeechToText from '../common/SpeechToText'
 import { useDispatch, useSelector } from 'react-redux';
 import * as sttActions from '../../redux/modules/stt';
+import Timer from '../common/Timer'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
@@ -67,8 +68,12 @@ const RecipeStep = (props) => {
 			// console.log(video, speed, video.playbackRate)
 		}
 	}, [stepIndex])
-	const command = useSelector((state) => state.stt.get('command'));
-	const slider = useRef();
+
+
+	const command = useSelector((state) => state.stt.get('command'))
+	const slider = useRef()
+	const timer = document.querySelector(`#timer${stepIndex}`) 
+	const currentTimer = useRef
 	switch (command){
 		case 'next': 
 			if (stepIndex < steps.length){
@@ -97,40 +102,19 @@ const RecipeStep = (props) => {
 		case 'speed normal':
 			dispatch(sttActions.changeSpeed('normal'))
 			break
+		case 'timer start':
+		case 'timer stop':
+			const buttonStartStop = timer.querySelector( '.handleStartStop')
+			console.log(buttonStartStop)
+			buttonStartStop.click()
+			break
+		case 'timer reset':
+			const buttonReset = timer.querySelector( '.handleReset')
+			console.log(buttonReset)
+			buttonReset.click()
+			break
 		default:
 	}
-	// if (command === 'next'){
-	// 	if (stepIndex < steps.length){
-	// 		setStepIndex(stepIndex + 1)
-	// 		slider.current.slickNext()
-	// 	}
-	// }
-	// else if (command === 'previous'){
-	// 	if (stepIndex > 0){
-	// 		setStepIndex(stepIndex - 1)
-	// 		slider.current.slickPrev()
-	// 	}
-	// }
-	// else if (command === 'start'){
-	// 	handlePlay()
-	// }
-	// else if (command === 'stop'){
-	// 	handlePause()
-	// }
-	// else if (command === 'speed slower'){
-	// 	setPlaybackRateIndex(playbackRateIndex <= 0 ? 0 : playbackRateIndex - 1)
-	// 	handleSpeed(playbackRate[playbackRateIndex])
-	// }
-	// else if (command === 'speed faster'){
-	// 	setPlaybackRateIndex(playbackRateIndex >= playbackRate.length - 1 ? playbackRate.length - 1 : playbackRateIndex + 1)
-	// 	handleSpeed(playbackRate[playbackRateIndex])
-	// }
-	// else if (command === 'speed normal'){
-	// 	const normalSpeedIndex = playbackRate.findIndex((element)=> element===1)
-	// 	setPlaybackRateIndex(normalSpeedIndex)
-	// 	handleSpeed(playbackRate[playbackRateIndex])
-	// }
-	//
 
 	// 명령 한번 수행하고 커맨드 초기화
 	dispatch(sttActions.changeInput({name:'command', value:''}))
@@ -142,6 +126,8 @@ const RecipeStep = (props) => {
 	if (micState && steps.length !==0 && stepIndex === steps.length){
 		setMicState(false)
 	}
+
+	
 
 	return (
 		<div>
@@ -162,11 +148,17 @@ const RecipeStep = (props) => {
 								controls crossOrigin="anonymous"
 								muted={isMuted}
 								autoPlay={true}
-								onEnded={()=>	dispatch(sttActions.changeInput({name:'command', value:'next'}))}
+								// onEnded={()=>	dispatch(sttActions.changeInput({name:'command', value:'next'}))}
 							>
 								<source src={`${step.videoUrl}`}></source>
 							</video>
 							<p>{step.description}</p>
+							{
+								step.timer > 0 && 
+								<Timer 
+									timer={step.timer} index={index}
+								/>
+							}
 						</div>
 						)
 					})}
