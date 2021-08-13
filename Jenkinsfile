@@ -5,9 +5,16 @@ pipeline {
 		steps {
 			sh 'ls'
 			dir('frontend') {
-				sh 'pwd'
-				sh 'ls'
+				sh 'cp -r / ~/dist'
 			}
+			}
+		}
+
+		stage('Start') {
+			steps {
+				dir('frontend') {
+					sh 'ls'
+				}
 			}
 		}
 	}
