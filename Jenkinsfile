@@ -14,7 +14,6 @@ pipeline {
 		stage('Docker build') {
 			steps {
 				dir ('frontend') {
-					sh 'sudo apt-get install -y docker-ce-cli'
 					sh 'pwd'
 					sh 'ls'
 					sh 'docker build -t licipe_front:latest.'
