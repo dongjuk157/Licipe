@@ -17,4 +17,9 @@ pipeline {
 			}
 		}
 	}
+	post {
+		success {
+			'i am her'
+		}
+	}
 }
