@@ -37,7 +37,7 @@ const RecipeStep = (props) => {
 		// props로 받은 foodid 활용
 		axios.get(`/foods/${foodid}/recipe`)
 		.then((res) => {
-			console.log(res.data)
+			// console.log(res.data)
 			setSteps(res.data)
 		})
 		.catch((err) => {
@@ -105,12 +105,12 @@ const RecipeStep = (props) => {
 		case 'timer start':
 		case 'timer stop':
 			const buttonStartStop = timer.querySelector( '.handleStartStop')
-			console.log(buttonStartStop)
+			// console.log(buttonStartStop)
 			buttonStartStop.click()
 			break
 		case 'timer reset':
 			const buttonReset = timer.querySelector( '.handleReset')
-			console.log(buttonReset)
+			// console.log(buttonReset)
 			buttonReset.click()
 			break
 		default:
