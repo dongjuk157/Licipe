@@ -4,13 +4,15 @@
   border: 0;
   height: 5rem;
   padding: 0 30px;
-  font-size: 1.2rem;
   align-self: center;
   background: #ff4a6b;
   box-shadow: 0 3px 5px 2px rgb(255 105 135 / 30%);
   margin-top: 5rem;
   border-radius: 10px;
   font-size: 1.5rem;
+  @media screen and (min-width:768px) and (orientation: landscape) {
+      font-size: 1.8rem;
+  }
 }
 .btn-style:hover {
   background: #fffdc7;
@@ -21,8 +23,45 @@
   display: block;
   color: #595858;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   @media screen and (min-width:768px) and (orientation: landscape) {
-      font-size: 2.0rem;
+      font-size: 1.8rem;
   }
+}
+
+#unique-transparent-btn a {
+  /* margin: 10px;
+  padding: 20px; */
+  color: #ff4a6b;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  overflow:hidden;
+  transition: .3s;
+  font-size: 1.5rem;
+  @media screen and (min-width:768px) and (orientation: landscape) {
+      font-size: 1.8rem;
+  }
+}
+#unique-transparent-btn a:after {
+    position: absolute;
+    transition: .3s;
+    content: '';
+    width: 0;
+    left: 0;
+    bottom: -3px;
+    height: 2px;
+    background: #ff4a6b;
+  }
+
+#unique-transparent-btn a:hover {
+  /* cursor: pointer; */
+  /* background-color: #fffcc8; */
+  transition: .3s;
+}
+
+#unique-transparent-btn a:hover:after {
+  width: 100%;
+  left: 0;
 }
