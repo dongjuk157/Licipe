@@ -18,7 +18,7 @@ pipeline {
 					sh 'docker -v'
 					sh 'pwd'
 					sh 'ls'
-					sh 'docker build -t licipe_front:latest.'
+					sh 'docker build -t licipe:front .'
 				}
 			}
 		}
