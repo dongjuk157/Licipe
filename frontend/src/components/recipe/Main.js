@@ -8,6 +8,7 @@ import axios from 'axios';
 // jj
 import { makeStyles } from '@material-ui/core/styles';
 import main from '../../style/main.css';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
   const [foodList, setFoodList] = useState([]);
@@ -65,7 +66,12 @@ const Main = () => {
                 <div key={index} class="mt-5 mt-lg-2 mx-auto d-flex flex-column align-items-center">
                   <img src={`${food.imgURL}`} class="w-100 mb-3 center">
                   </img>
-                  <p class="title-style mt-3">{food.name}</p>
+                  <button class="btn btn-lg p-3" id="unique-transparent-btn">
+                  {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
+                  <Link to=''>
+                    <span>{food.name}</span>
+                  </Link>
+                  </button>
                 </div>
               )
             })}      

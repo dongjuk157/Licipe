@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
+    color: '#ff4a6b',
     marginRight: theme.spacing(2),
   },
   title: {
@@ -65,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'hidden',
   },
   drawer: {
-    width: drawerWidth,
+    // width: drawerWidth,
+    width: 0,
     flexShrink: 0,
   },
   drawerPaper: {
@@ -125,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    // marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
