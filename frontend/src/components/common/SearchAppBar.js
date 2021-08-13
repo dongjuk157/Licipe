@@ -1,45 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { alpha } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
 import { Link } from 'react-router-dom';
+import storage from '../../lib/storage';
+import { 
+  Drawer,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemText,
+  InputBase,
+} from '@material-ui/core';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-
+    backgroundColor: '#FFFFFF'
   },
   appBar: {
+    color: '#000000',
+    backgroundColor: '#FFFFFF',
+    boxShadow: 'none',
+    width: '100%',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-      justifyContent: 'center'
-
     }),
   },
   appBarShift: {
     // width: `calc(100% - ${drawerWidth}px)`,
     width: '100%',
+    color: '#000000',
+    backgroundColor: '#FFFFFF',
     marginLeft: 0,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
@@ -47,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
+    color: '#ff4a6b',
     marginRight: theme.spacing(2),
   },
   title: {
@@ -58,11 +63,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   hide: {
-    // display: 'none',
     display: 'hidden',
   },
   drawer: {
-    width: drawerWidth,
+    // width: drawerWidth,
+    width: 0,
     flexShrink: 0,
   },
   drawerPaper: {
@@ -95,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(1, 1, 1, 1),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
@@ -122,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    // marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -136,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -145,16 +150,17 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
 
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <div style={{height:64}}></div>
       <AppBar
-        position="fixed"
+        position="relative"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
-        
       >
         <Toolbar>
           <IconButton
@@ -167,7 +173,9 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            앱 만들다 살찜
+            <Link to='/' style={{textDecoration:'none', color:'white'}}>
+              리시피
+            </Link>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -199,21 +207,56 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
+        <Link to='/'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='홈'/>
+          </ListItem>
+        </Link>
+        { loggedInfo ? (
+          <>
+            <Link to='/logout'>
+              <ListItem button>
+                <ListItemText className={classes.listtext} primary='로그아웃'/>
+              </ListItem>
+            </Link>
+            <Link to='/MyPage'>
+              <ListItem button>
+                <ListItemText className={classes.listtext} primary='마이페이지'/>
+              </ListItem>
+            </Link>
+           </>
+          ) : (
+          <Link to='/login'>
+           <ListItem button>
+             <ListItemText className={classes.listtext} primary='로그인'/>
+           </ListItem>
+          </Link>
+         )}
+
+        <Link to='/reciperecommend'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='레시피'/>
+          </ListItem>
+        </Link>
+        <Link to='/community'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='커뮤니티'/>
+          </ListItem>
+        </Link>
+        <Link to='/recipe/category'>
+          <ListItem button>
+            <ListItemText className={classes.listtext} primary='카테고리별 레시피'/>
+          </ListItem>
+        </Link>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          ))} */}
         </List>
         <Divider />
-          <ListItem>
-              <Link to='/login'>로그인</Link>
-          </ListItem>
-          <ListItem>
-              <Link to='/reciperecommend'>레시피</Link>
-          </ListItem>
       </Drawer>
  
     </div>

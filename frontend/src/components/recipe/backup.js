@@ -1,76 +1,39 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import Paper from '@material-ui/core/Paper';
+import React, { Component } from "react";
+import Slider from "react-slick";
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    width: 700,
-  },
-  recipeImage: {
-    width: theme.spacing(40),
-    height: theme.spacing(40),
-    padding: theme.spacing(2),
-  },
-  recipeInfo: {
-    
-    alignItems: 'center',
+export default class SimpleSlider extends Component {
+  render() {
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
+    return (
+      <div>
+        <h2> Single Item</h2>
+        <Slider {...settings}>
+          <div>
+            <h3>1</h3>
+          </div>
+          <div>
+            <h3>2</h3>
+          </div>
+          <div>
+            <h3>3</h3>
+          </div>
+          <div>
+            <h3>4</h3>
+          </div>
+          <div>
+            <h3>5</h3>
+          </div>
+          <div>
+            <h3>6</h3>
+          </div>
+        </Slider>
+      </div>
+    );
   }
-}));
-
-const RecipeDetail = (props) => {
-  const classes = useStyles();
-  const [state, setState] = React.useState({
-    right: false,
-  });
-
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    setState({ ...state, [anchor]: open });
-  };
-
-  const list = (anchor) => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List className={classes.recipeInfo}>
-          <Paper className={classes.recipeImage}>
-              
-              음식 사진
-          </Paper>
-      </List>
-      <Divider />
-    </div>
-  );
-
-  return (
-    <div>
-      {['right'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>자세히 보기</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
-    </div>
-  );
-};
-
-RecipeDetail.defaultProps = {
-    recipe: null,
-};
-
-export default RecipeDetail;
+}

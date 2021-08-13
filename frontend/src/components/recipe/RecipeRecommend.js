@@ -3,9 +3,17 @@ import SearchAppBar from '../common/SearchAppBar'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import axios from'axios';
-import { Link } from 'react-router-dom';
-import RecipeDetail from './RecipeDetail'
+import axios from 'axios';
+import RecipeInfoComponent from './RecipeInfoComponent';
+import styled from 'styled-components'
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
+
+const FoodImg = styled.img`
+	width: 100%;
+  height: 80%;
+  align-items: center;
+`
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -24,39 +32,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PORT
+
 const RecipeRecommend = () => {
 const classes = useStyles();
 
-const [recipeList, setRecipeList] = useState([]);
-const getRecipeList = () => {
-	axios.get('/recipe')
-	.then((res) => res.json())
-	.then((data) => {
-		let result = data
-		setRecipeList(result)
+const [images, setImages] = useState([]);
+const [foodList, setFoodList] = useState([]);
+const getFoodList = () => {
+	axios.get('/foods')
+	.then((res) => {
+		console.log(res)
+		setFoodList(res.data)
 	})
 	.catch((err) => {
 		console.log(err)
 	});
 };
 
+useEffect(() => {
+	getFoodList();
+}, [])
+
 const viewport = useRef(null);
 const target = useRef(null);
 
-const getMoreRecipeList = () => {
-	setRecipeList((prevState) => {
-		axios.get(`/recipe/${prevState.length + 1}`)
-		.then((res) => res.json())
-		.then((data) => {
-			return [...setRecipeList, ...data];
+const getMoreFoodList = () => {
+	setFoodList(() => {
+		axios.get('/foods')
+		.then((res) => {
+			return [...setFoodList, ...res.data];
 		})
 		.catch((err) => {
-			console.log(err)
+			console.log(err);
 		})
 	});
 };
-
 
 	useEffect(() => {
 		const options = {
@@ -71,9 +81,9 @@ const getMoreRecipeList = () => {
 				if (!entry.isIntersecting) {
 					return;
 				}
-				getMoreRecipeList();
+				getMoreFoodList();
 				observer.unobserve(entry.target);
-				observer.observe(target.current)
+				observer.observe(target.current);
 			});
 		};
 
@@ -89,36 +99,38 @@ const getMoreRecipeList = () => {
 		<div>
 			<SearchAppBar></SearchAppBar>
 			<div className={classes.papers}>
-				<Grid container spacing={3}>
-					<section ref={viewport}>
-						{recipeList.map((recipe) => {
-							const lastEl = 'index' === recipeList.length - 1;
+				<Grid container spacing={3} ref={viewport}>
+						{foodList.map((food, index) => {
+							const lastEl = index === foodList.length - 1;
 							return (
-								<Grid item xs={6}>
+								<Grid item xs={6} key={food.id}>
 									{/* <Link to={`/recipe/${recipe.id}`}> */}
 										<Paper 
 										className={classes.paper}
+										key ={food.id}
 										>
-											<img src={recipe.image}></img>
-											<RecipeDetail recipe={recipe}></RecipeDetail>
+											<FoodImg src={`${food.imgURL}`}></FoodImg>
+											{food.name}
+
+											<RecipeInfoComponent food={food}></RecipeInfoComponent>
 										</Paper>
 									{/* </Link> */}
 								</Grid>
 							)
 						})}
-					</section>
-					<div>
+					{/* <div>
 						<Paper className={classes.paper}>
-							{/* Material-ui V4 에서는 오류가 발생 
+							Material-ui V4 에서는 오류가 발생 
 							findDOMNode is deprecated ~~~
-							index.js의 StrictMode 삭제 및 Fragment로 변경할 시 해결 */}
-							<RecipeDetail></RecipeDetail>
+							index.js의 StrictMode 삭제 및 Fragment로 변경할 시 해결
+							<RecipeInfoComponent></RecipeInfoComponent>
 							레시피</Paper>
-					</div>
+					</div> */}
 				</Grid>
+
 			</div>
 		</div>
-    );
+	);
 }
 
 export default RecipeRecommend;
