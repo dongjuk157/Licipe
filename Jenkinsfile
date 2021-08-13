@@ -4,9 +4,7 @@ pipeline {
 		stage('Build') {
 		steps {
 			sh 'ls'
-			dir('frontend') {
-				sh 'cp -r / ~/dist'
-			}
+			sh 'cp -r /frontend ~/dist'
 			}
 		}
 
