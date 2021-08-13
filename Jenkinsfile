@@ -9,7 +9,7 @@ pipeline {
 				}
 			}
 			steps {
-				dir('frontend') {
+				dir ('frontend') {
 					sh "npm install -g yarn"
 					sh 'yarn install'
 					sh 'yarn build'
@@ -18,7 +18,9 @@ pipeline {
 		}
 		stage('Docker build') {
 			steps {
-				sh 'docker build -t licipe_front:latest.'
+				dir ('frontend') {
+					sh 'docker build -t licipe_front:latest.'
+				}
 			}
 		}
 		stage ('Docker run') {
