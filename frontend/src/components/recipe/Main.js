@@ -37,7 +37,7 @@ const Main = () => {
     infinite: true,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 2000,
+    speed: 500,
     autoplaySpeed: 2000,
     appendDots: dots => (
       <div
@@ -68,9 +68,9 @@ const Main = () => {
                   </img>
                   <button class="btn btn-lg p-3" id="unique-transparent-btn">
                   {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
-                  <Link to=''>
-                    <span>{food.name}</span>
-                  </Link>
+                    <Link to='/login'>
+                      <span class="gradient-underline" >{food.name}</span>
+                    </Link>
                   </button>
                 </div>
               )
