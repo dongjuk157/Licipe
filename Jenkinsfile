@@ -2,9 +2,11 @@ pipeline {
 	agent any
 	stages {
 		stage('Build') {
-			dir('frontend') {
-				sh 'yarn install'
-				sh 'yarn build'
+			steps {
+				dir('frontend') {
+					sh 'yarn install'
+					sh 'yarn build'
+				}
 			}
 		}
 		stage('Docker build') {
