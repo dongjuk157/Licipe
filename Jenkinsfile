@@ -14,6 +14,7 @@ pipeline {
 		stage('Docker build') {
 			steps {
 				dir ('frontend') {
+					sh 'apt-get update && apt-get install -y docker.io'
 					sh 'docker -v'
 					sh 'pwd'
 					sh 'ls'
