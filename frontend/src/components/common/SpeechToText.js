@@ -12,7 +12,7 @@ const SpeechToText = (props) => {
   const status = useSelector((state) => state.stt.get('status'))
   const commands = [
     {
-      command: ['다시(.)', '시작(.)'],
+      command: ['다시(.)', '시작(.)', '재생(.)'],
       callback: () => dispatch(sttActions.changeInput({name:'command', value:'start'}))
     },
     {
@@ -51,6 +51,19 @@ const SpeechToText = (props) => {
       command: ['다음(.)', '다음 단계(.)'],
       callback: () => dispatch(sttActions.changeInput({name:'command', value:'next'})),
     },
+    {
+      command: ['타이머 시작(.)'],
+      callback: () => dispatch(sttActions.changeInput({name:'command', value:'timer start'})),
+    },
+    {
+      command: ['타이머 멈춰(.)', '타이머 그만(.)'],
+      callback: () => dispatch(sttActions.changeInput({name:'command', value:'timer stop'})),
+    },
+    {
+      command: ['타이머 리셋(.)', '타이머 다시(.)'],
+      callback: () => dispatch(sttActions.changeInput({name:'command', value:'timer reset'})),
+    },
+    
   ]
 
   const {
