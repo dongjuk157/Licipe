@@ -9,7 +9,7 @@ pipeline {
 		}
 		stage('Docker build') {
 			steps {
-				sh 'docker build -t licipe_front:latest."
+				sh 'docker build -t licipe_front:latest.'
 			}
 		}
 		stage ('Docker run') {
