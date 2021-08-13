@@ -11,16 +11,12 @@ pipeline {
 		}
 		stage('Docker build') {
 			steps {
-				step {
-					sh 'docker build -t licipe_front:latest.'
-				}
+				sh 'docker build -t licipe_front:latest.'
 			}
 		}
 		stage ('Docker run') {
-			stpes {
-				step {
-					sh 'docker run -d --name nginx -p 80:80 licipe_front:latest'
-				}
+			steps {
+				sh 'docker run -d --name nginx -p 80:80 licipe_front:latest'
 			}
 		}
 	}
