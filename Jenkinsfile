@@ -2,7 +2,9 @@ pipeline {
 	agent any
 	stages {
 		stage('Build') {
-			sh 'cp -r ./frontend ubuntu@ip-172-26-15-131:~/dist'
+			steps {
+				sh 'cp -r ./frontend ubuntu@ip-172-26-15-131:~/dist'
+			}
 		}
 
 		stage('Start') {
