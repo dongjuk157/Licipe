@@ -15,7 +15,7 @@ pipeline {
 	}
 	post {
 		success {
-			'i am her'
+			echo 'i am her'
 		}
 	}
 }
