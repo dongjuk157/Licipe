@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage ('Docker run') {
 			steps {
-				sh 'docker run -d --name nginx -p 80:80 licipe_front:latest'
+				sh 'docker run -d --name nginx -p 80:80 licipe:front'
 			}
 		}
 	}
