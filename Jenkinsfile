@@ -5,8 +5,8 @@ pipeline {
 		stage('Build') {
 			steps {
 				dir('frontend') {
-					sh 'npm install'
-					sh 'npm build'
+					sh 'yarn install'
+					sh 'yarn build'
 				}
 			}
 		}
