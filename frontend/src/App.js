@@ -4,6 +4,7 @@ import Routes from './Routes'
 import storage from './lib/storage';
 import * as userActions from './redux/modules/user';
 import { useDispatch } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const dispatch = useDispatch()
