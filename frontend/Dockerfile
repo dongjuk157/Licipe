@@ -12,6 +12,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 FROM ubuntu
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y nodejs \
     npm 
