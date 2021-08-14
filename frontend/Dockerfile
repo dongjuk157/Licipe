@@ -6,8 +6,8 @@ RUN apt-get update \
       && rm -rf /var/lib/apt/lists/*
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+RUN mkdir /app
 WORKDIR /app
-
 ENV PATH /app/node_modules/.bin:$PATH
 
 FROM ubuntu
@@ -21,14 +21,17 @@ RUN apt-get update && apt-get upgrade -y && \
 COPY package.json /app/package.json
 RUN npm install 
 RUN npm install react-scripts@3.0.1 -g
-
+COPY . /app
+RUN npm run build
 
 CMD ["npm", "start"]
 
 USER jenkins
 
 FROM nginx:latest
-VOLUME /raor_dev_volume
 RUN rm -rf /etc/nginx/conf.d/default.conf
-ADD ./nginx.conf /etc/nginx/conf.d/default.conf
-ADD ./build /usr/share/nginx/html
+COPY conf /etc/nginx
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
