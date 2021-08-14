@@ -10,7 +10,6 @@ pipeline {
 			}
 			steps {
 				dir ('frontend') {
-					sh "npm install -g yarn"
 					sh 'rm -f package-lock.json'
 					sh 'yarn install'
 					sh 'yarn build'
