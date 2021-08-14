@@ -3,6 +3,11 @@ pipeline {
 	tools {nodejs 'nodejs'}
 	stages {
 		stage('Build') {
+			agent {
+				docker {
+					image 'node:11-alpine'
+				}
+			}
 			steps {
 				dir ('frontend') {
 					sh "npm install -g yarn"
@@ -12,12 +17,9 @@ pipeline {
 			}
 		}
 		stage('Docker build') {
+			agent any
 			steps {
 				dir ('frontend') {
-					sh 'apt-get update && apt-get install -y docker.io'
-					sh 'docker -v'
-					sh 'pwd'
-					sh 'ls'
 					sh 'docker build -t licipe:front .'
 				}
 			}
@@ -25,9 +27,10 @@ pipeline {
 		stage ('Docker run') {
 			steps {
 				dir ('frontend') {
-					sh 'docker ps -a'	
-					sh 'docker run -p 8888:80 --rm licipe:front'
-
+				sh 'docker ps -f name=nginx-react-container -q | xargs --no-run-if-empty docker container stop'
+                sh 'docker container ls -a -fname=nginx-react-container -q | xargs -r docker container rm'
+                sh 'docker rmi $(docker images -f "dangling=true" -q)'
+                sh 'docker run -d --name nginx-react-container -p 80:80 nginx-react-image:latest'
 				}
 			}
 		}
