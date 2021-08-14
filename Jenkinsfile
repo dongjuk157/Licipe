@@ -14,8 +14,6 @@ pipeline {
 		stage('Docker build') {
 			steps {
 				dir ('frontend') {
-					sh 'cp -rf /var/jenkins_home/workspace/frontend/frontend/. ~/dist'
-					sh 'docker cp jenkins_front:/var/jenkins_home/workspace/frontend/frontend/. ~/dist'
 					sh 'apt-get update && apt-get install -y docker.io'
 					sh 'docker -v'
 					sh 'pwd'
