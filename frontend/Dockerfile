@@ -10,6 +10,8 @@ WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
 
+FROM ubuntu
+
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y nodejs \
     npm 
