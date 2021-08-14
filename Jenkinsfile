@@ -30,7 +30,6 @@ pipeline {
 				dir ('frontend') {
 				sh 'docker ps -f name=licipe -q | xargs --no-run-if-empty docker container stop'
                 sh 'docker container ls -a -fname=licipe -q | xargs -r docker container rm'
-                sh 'docker rmi $(docker images -f "dangling=true" -q)'
                 sh 'docker run -d --name licipe -p 80:80 nginx-react-image:latest'
 				}
 			}
