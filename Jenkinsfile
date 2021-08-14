@@ -25,6 +25,7 @@ pipeline {
 			}
 		}
 		stage ('Docker run') {
+			agent any
 			steps {
 				dir ('frontend') {
 				sh 'docker ps -f name=nginx-react-container -q | xargs --no-run-if-empty docker container stop'
