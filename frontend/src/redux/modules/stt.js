@@ -6,11 +6,14 @@ import { pender } from 'redux-pender'
 const CHANGE_INPUT = 'stt/CHANGE_INPUT'
 const INITIALIZE_FORM = 'stt/INITIALIZE_FORM'
 const CHANGE_SPEED = 'stt/CHANGE_SPEED'
+const CHANGE_TIMER_STATE = 'stt/CHANGE_TIMER_STATE'
+
 
 // action creators
 export const changeInput = createAction(CHANGE_INPUT)
 export const initializeForm = createAction(INITIALIZE_FORM)
 export const changeSpeed = createAction(CHANGE_SPEED)
+export const changeTimerState = createAction(CHANGE_TIMER_STATE)
 
 // initiate states
 const initialState = Map({
@@ -19,6 +22,7 @@ const initialState = Map({
   playbackLength: 9,
   playbackRate: [0.6, 0.7, 0.8, 0.9, 1, 1.25, 1.5, 1.75, 2],
   playbackRateIndex: 4,
+  timerState: '',
 })
 
 // reducer
@@ -50,5 +54,8 @@ export default handleActions({
       const normalSpeedIndex = playbackRate.findIndex((element)=> element===1)
       return state.set('playbackRateIndex', normalSpeedIndex)
     }
+  },
+  [CHANGE_TIMER_STATE]: (state, action) => {
+    return state.set('timerState', action.payload)
   },
 }, initialState)
