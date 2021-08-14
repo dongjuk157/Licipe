@@ -22,6 +22,9 @@ import {
   InputBase,
 } from '@material-ui/core';
 
+// jj
+import main from '../../style/main.css';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -174,7 +177,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
             <Link to='/' style={{textDecoration:'none', color:'white'}}>
-              리시피
+              로고 (리시피))
             </Link>
           </Typography>
           <div className={classes.search}>
@@ -182,7 +185,7 @@ export default function PersistentDrawerLeft() {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -207,55 +210,70 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
+
         <Link to='/'>
-          <ListItem button>
-            <ListItemText className={classes.listtext} primary='홈'/>
-          </ListItem>
+        <button className="btn px-3 py-2" id="unique-transparent-btn">
+          <span className="" >Home</span>
+            {/* <ListItemText className={classes.listtext} primary='홈'/> */}
+          </button>
+        </Link>        
+
+        <Link to='/reciperecommend'>
+        <button className="btn px-3 py-2" id="unique-transparent-btn">
+              <span className="gradient-underline">둘러보기</span>
+            </button>
         </Link>
+
+        <Link to='/recipe/category'>
+          <button className="btn px-3 py-2" id="unique-transparent-btn">
+            <span className="gradient-underline">레시피 고르기</span>
+          </button>
+        </Link>
+        
+        <Link to='/community'>
+          <button className="btn px-3 py-2" id="unique-transparent-btn">
+            <span className="gradient-underline">요리 자랑</span>
+          </button>
+        </Link>
+        
         { loggedInfo ? (
           <>
-            <Link to='/logout'>
-              <ListItem button>
-                <ListItemText className={classes.listtext} primary='로그아웃'/>
-              </ListItem>
-            </Link>
             <Link to='/MyPage'>
-              <ListItem button>
-                <ListItemText className={classes.listtext} primary='마이페이지'/>
-              </ListItem>
+              <button className="btn px-3 py-2" id="unique-transparent-btn">
+                <span className="" >마이페이지</span>
+              </button>
             </Link>
-           </>
+
+            <Link to='/logout'>
+              <button className="btn px-3 py-2" id="unique-transparent-btn">
+                <span className="" >로그아웃</span>
+              </button>
+            </Link>
+          </>
           ) : (
           <Link to='/login'>
-           <ListItem button>
-             <ListItemText className={classes.listtext} primary='로그인'/>
-           </ListItem>
+            <button className="btn px-3 py-2" id="unique-transparent-btn">
+              <span className="gradient-underline">로그인</span>
+            </button>
           </Link>
          )}
 
-        <Link to='/reciperecommend'>
-          <ListItem button>
-            <ListItemText className={classes.listtext} primary='레시피'/>
-          </ListItem>
-        </Link>
-        <Link to='/community'>
-          <ListItem button>
-            <ListItemText className={classes.listtext} primary='커뮤니티'/>
-          </ListItem>
-        </Link>
-        <Link to='/recipe/category'>
-          <ListItem button>
-            <ListItemText className={classes.listtext} primary='카테고리별 레시피'/>
-          </ListItem>
-        </Link>
-        <List>
-          {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        <div className="m-2 position-absolute bottom-0 text-secondary row">
+          <div>
+          <small>Copyright, Team 앱만들다살찜,</small>
+          </div>
+          <div>
+          <small>All Rights Reserved.</small>
+          </div>
+        </div>
+        {/* <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
-          ))} */}
-        </List>
+          ))}
+        </List> */}
         <Divider />
       </Drawer>
  
