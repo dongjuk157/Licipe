@@ -1,5 +1,5 @@
 pipeline {
-	agent any
+	agent none
 	tools {nodejs 'nodejs'}
 	stages {
 		stage('Build') {
@@ -11,6 +11,7 @@ pipeline {
 			steps {
 				dir ('frontend') {
 					sh "npm install -g yarn"
+					sh 'rm -f package-lock.json'
 					sh 'yarn install'
 					sh 'yarn build'
 				}
