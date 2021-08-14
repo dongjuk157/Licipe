@@ -58,8 +58,8 @@
   text-transform: uppercase;
   text-decoration: none;
   position: relative;
-  overflow:hidden;
-  transition: .3s;
+  /* overflow:hidden; */
+  /* transition: .3s; */
   font-size: 1.5rem;
   @media screen and (min-width:768px) and (orientation: landscape) {
       font-size: 1.8rem;
@@ -73,8 +73,6 @@
   text-decoration: none;
   box-shadow: fffdc7 3px;
   position: relative;
-  overflow:hidden;
-  transition: .3s;
   /* @media screen and (min-width:768px) and (orientation: landscape) {
       font-size: 1rem;
   } */
