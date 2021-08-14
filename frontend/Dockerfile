@@ -5,7 +5,18 @@ RUN apt-get update \
       && apt-get install -y \
       && rm -rf /var/lib/apt/lists/*
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
- 
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package.json /app/package.json
+RUN npm install 
+RUN npm install react-scripts@3.0.1 -g
+
+
+CMD ["npm", "start"]
+
 USER jenkins
 
 FROM nginx:latest
