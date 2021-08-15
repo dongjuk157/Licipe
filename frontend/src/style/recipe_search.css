@@ -1,0 +1,41 @@
+.middle-text-style {
+  /* display: block; */
+  color: #595858;
+  text-align: center;
+  background:#fffdc7;
+  font-size: 1rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  @media screen and (min-width:768px) {
+      font-size: 1rem;
+  }
+  background:#ff4a6b;
+}
+  /* #ff4a6b  #fffdc7 */
+.middle-text-style ::selection {
+  font-family: 'Noto Sans KR', sans-serif;
+  display: block;
+  color: #595858;
+  background-color:#ff4a6b;
+  text-align: center;
+  font-size: 1.5rem;
+  @media screen and (min-width:768px) {
+      font-size: 1.5rem;
+  }
+}
+
+.gradient-underline {
+  padding-bottom: 4px;
+  /* position: relative; */
+  text-decoration: none;
+}
+
+.gradient-underline:active {
+  /* background: #ff4a6b; */
+  background: linear-gradient(to right, #ff4a6b 30%, #fffdc7 100%);  
+  content: "";
+  position: absolute;
+  bottom: -0.4rem;
+  left: 0;
+  height: 2px;
+  width: 103%;
+}
