@@ -2,59 +2,39 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	 Typography,
-	 Button,
-	 CardMedia,
-	 CardContent,
-	 CardActions,
-	 CardActionArea,
-	 Card,
+	//  CardMedia,
+	//  CardContent,
+	//  CardActions,
+	//  CardActionArea,
+	//  Card,
 	 } from '@material-ui/core';
+
+import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles({
-	food: {
-		maxWidth: 345,
-	},
-});
 
 const RecipeSubCategory = (props) => {
-	const classes = useStyles();
 	const [foodList, setFoodList] = useState([]);
 	useEffect(() => {
 		setFoodList(props.categoryFoodList[0]);
 	})
     return (
-			<div>
+			<div className="d-flex flex-wrap mb-3">
 				{foodList && foodList.map((food, index) => {
 					return (
-						<div key={food.name + index}>
-						<Card className={classes.food} >
-							<CardActionArea>
-								<CardMedia
-									component="img"
-									alt="Contemplative Reptile"
-									height="140"
-									image={`${food.imgURL}`}
-									title="Contemplative Reptile"
-								/>
-								<CardContent>
-									<Typography gutterBottom variant="h5" component="h2">
-										{food.name}
-									</Typography>
-								</CardContent>
-							</CardActionArea>
-							<CardActions>
-								<Link to={`/recipe/${food.id}/step`}>
-									<Button size="small" color="primary">
-										요리하러 가기
+						<Container key={food.name + index} className="row col-6 col-lg-4">
+							<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3">
+								<Card.Img variant="top" src={food.imgURL} fluid/>
+								<Card.Body className="px-1">
+									<Card.Text className="overflow-auto pb-5 fs-6" style={{height: '10rem;'}}>{food.name}</Card.Text>
+									<Button variant="outline-primary" className="position-absolute bottom-0 end-0 m-3">
+										<Link className="text-decoration-none" to={`/recipe/${food.id}/step`}>
+											요리하러 가기
+										</Link>
 									</Button>
-								</Link>
-								<Button size="small" color="primary">
-									후기
-								</Button>
-							</CardActions>
-						</Card>
-						</div>
+								</Card.Body>
+							</Card>
+						</Container>
 					)
 				})}
 			</div>
