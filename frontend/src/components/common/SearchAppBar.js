@@ -150,6 +150,17 @@ export default function PersistentDrawerLeft() {
     setOpen(true);
   };
 
+  const sidebar = document.querySelector('.MuiPaper-root')
+  window.addEventListener('click', (event) => {
+    if (open === false || sidebar === null) {
+      return
+    }
+    if (open === false || sidebar.contains(event.target)) {
+      return
+    }
+    setOpen(false);
+  })
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -168,7 +179,6 @@ export default function PersistentDrawerLeft() {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
