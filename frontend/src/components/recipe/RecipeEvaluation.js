@@ -57,7 +57,7 @@ const RecipeEvaluation = (props) => {
           />
         </Box>
         <Input 
-        placeholder='어떠셧나요'
+        placeholder='어떠셨나요'
         onChange={(event) => {
           setEvalu(event.target.value);
         }}></Input>
