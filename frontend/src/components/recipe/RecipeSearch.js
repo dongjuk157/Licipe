@@ -138,12 +138,14 @@ const RecipeSearch = () => {
               })}
             </Col>
             <Col sm={8} className="mt-3 pt-2">
+            
               { countries.length > 0 && countries[0].map((element, index) => {
                 return(
                   <Col 
                     key={element.name+'tab'+index}
                   >
                     <Tab.Content>
+                      
                       <Tab.Pane eventKey={element.id}>
                         {/* 요리 리스트 */}
                         <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
@@ -166,7 +168,7 @@ const RecipeSearch = () => {
                   <Col 
                     key={element.maxTime+'nav'+index}
                   > 
-                    <Nav variant="pills" className="m-2 fs-5">
+                    <Nav variant="pills" cclassName="m-2 fs-5">
                       <Nav.Link className="btn my-2 rounded-3 shadow-sm w-100"  eventKey={element.id} onClick={() => 
                         getFoodList('times', element.id)}>{element.maxTime} 분 </Nav.Link>
                     </Nav>
