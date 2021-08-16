@@ -81,7 +81,7 @@ const RecipeInfoComponent = (props) => {
 
   return (
     <div>
-        <Button onClick={toggleDrawer(true)} className="mx-2"><i className="fas fa-search"></i></Button>
+        <Button onClick={toggleDrawer(true)}><i class="fas fa-search"></i></Button>
         <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}
         className={classes.drawer}
         >
@@ -103,7 +103,7 @@ const RecipeInfoComponent = (props) => {
           </div>
           <Button variant="outline-primary" className="ms-auto me-1" size="lg">
             <Link className="text-decoration-none" to={`/recipe/${props.food.id}/step`}>
-            <i className="fas fa-utensils"></i>
+            <i class="fas fa-utensils"></i>
             </Link>
           </Button>
         </ListItem>
