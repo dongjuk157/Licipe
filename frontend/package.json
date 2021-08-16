@@ -12,6 +12,7 @@
     "aws-sdk": "^2.958.0",
     "axios": "^0.21.1",
     "bootstrap": "5.0.2",
+    "caniuse-lite": "^1.0.30001251",
     "history": "4.10.1",
     "immutable": "^4.0.0-rc.14",
     "loadsh": "^0.0.4",
@@ -34,7 +35,6 @@
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.0",
-    "styled-components-breakpoint": "^3.0.0-preview.20",
     "validator": "^13.6.0",
     "web-vitals": "^1.0.1"
   },
