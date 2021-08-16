@@ -70,7 +70,7 @@ const Main = () => {
                   <img src={`${food.imgURL}`} className="w-100 mb-3 center" alt={food.name+'img'}>
                   </img>
                     <Link to={`/recipe/${food.id}`}>
-                      <button className="btn btn-lg p-3" id="unique-transparent-btn">
+                      <button className="btn btn-lg p-3 unique-transparent-btn">
                       {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
                         <span className="gradient-underline" >{food.name}</span>
                       </button>
