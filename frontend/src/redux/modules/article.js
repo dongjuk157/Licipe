@@ -1,7 +1,8 @@
 import { createAction, handleActions } from "redux-actions"
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 import { pender } from "redux-pender"
 import * as ArticleAPI from '../../lib/api/article'
+import * as _ from 'loadsh'
 
 // action types
 const CHANGE_INPUT = 'article/CHANGE_INPUT'
@@ -13,7 +14,7 @@ const EDIT_ARTICLE = 'article/EDIT_ARTICLE'
 const DELETE_ARTICLE = 'article/DELETE_ARTICLE'
 const UPLOAD_S3 = 'article/UPLOAD_S3'
 const UPDATE_FEED = 'article/UPDATE_FEED'
-
+const GET_ARTICLES_PAGE = 'article/GET_ARTICLE_PAGE'
 
 
 // action creators
@@ -26,6 +27,7 @@ export const editArticle = createAction(EDIT_ARTICLE, ArticleAPI.editArticle) //
 export const deleteArticle = createAction(DELETE_ARTICLE, ArticleAPI.deleteArticle) // { articleid }
 export const uploadS3 = createAction(UPLOAD_S3, ArticleAPI.uploadS3) // { userid, file }: formdata
 export const updateFeed = createAction(UPDATE_FEED, ArticleAPI.updateFeed) // {page?}
+export const getArticlesPage = createAction(GET_ARTICLES_PAGE, ArticleAPI.getArticlesPage) // { articleid }
 
 // initiate states
 const initialState = Map({
@@ -40,6 +42,7 @@ const initialState = Map({
   }),
   postSuccess: false,
   result: Map({}),
+  articles: List([]),
 })
 
 
@@ -84,6 +87,19 @@ export default handleActions({
       .setIn(['article','data','content'], content)
       .setIn(['article','data','imgURL'], imgURL)
       .setIn(['article','data','articleid'], id)
+    },
+    onFailure: (state, action) => initialState
+  }),
+  ...pender({
+    type: GET_ARTICLES_PAGE,
+    onSuccess: (state, action) => {
+      // console.log(action.payload.data)
+      const feeds = state.get('articles')
+      const intersectionFeeds = _.intersectionBy(feeds, action.payload.data,'id')
+      const newFeeds = _.unionBy([...intersectionFeeds, ...action.payload.data], 'id')
+      // console.log(newFeeds)
+      return state
+      .set('articles', newFeeds)
     },
     onFailure: (state, action) => initialState
   }),
