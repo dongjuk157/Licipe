@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import SearchAppBar from '../common/SearchAppBar'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +58,8 @@ const RecipeDetail = (props) => {
 
   return (
     <div>
-        <div className={classes.recipeDetail}>
+      <SearchAppBar></SearchAppBar>
+      <div className={classes.recipeDetail}>
         <List className={classes.detail}>
         <ListItem className={classes.recipe}>
           <Paper className={classes.recipeImage}>
@@ -103,7 +104,7 @@ const RecipeDetail = (props) => {
       <Divider component="li" />
       </List>
     </div>
-    </div>
+  </div>
   );
 };
 
