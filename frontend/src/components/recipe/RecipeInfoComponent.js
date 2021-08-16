@@ -32,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   detail: {
-    padding: theme.spacing(1),
+    position: 'relative',
+    boxSizing: 'border-box',
+    height: '100vh',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    padding: '30px',
   },
   recipeDetail: {
     width: '50vw',
@@ -51,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inline: {
     marginBottom: '3px'
+  },
+  container: {
+
   }
 }));
 
@@ -81,7 +89,7 @@ const RecipeInfoComponent = (props) => {
 
   return (
     <div>
-        <Button onClick={toggleDrawer(true)} className="mx-2"><i className="fas fa-search"></i></Button>
+        {/* <Button onClick={toggleDrawer(true)} className="mx-2"><i className="fas fa-search"></i></Button>
         <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}
         className={classes.drawer}
         >
@@ -89,8 +97,19 @@ const RecipeInfoComponent = (props) => {
       className={classes.recipeDetail}
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
-    >
-      <Container className={classes.detail}>
+    > */}
+      <Container className={
+        classes.detail, 'bg-light'} 
+        style={{    
+          position: 'relative',
+          boxSizing: 'border-box',
+          height: '90vh',
+          // overflowX: 'hidden',
+          overflowY: 'scroll',
+          alignItems: 'center',
+          justifyContent: 'center', 
+          marginTop:'20px'
+        }}>
         <ListItem className={classes.recipe}>
           <Paper className={classes.recipeImage}>
             <FoodImg src={`${props.food.imgURL}`}></FoodImg>
@@ -145,8 +164,8 @@ const RecipeInfoComponent = (props) => {
       </ListItem>
       <Divider/>
       </Container>
-    </div>
-        </Drawer>
+    {/* </div>
+        </Drawer> */}
     </div>
   );
 };
