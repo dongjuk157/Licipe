@@ -12,7 +12,7 @@ const KakaoLogin = () => {
   const URL = `https://${HOST}/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
   // console.log(URL)
   return (
-    <a href={URL}>
+    <a href={URL} style={{textDecoration: 'none'}}>
       <Button>
         카카오로 간편 로그인
       </Button>
