@@ -164,6 +164,7 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
   const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
 
   return (
@@ -228,13 +229,14 @@ export default function PersistentDrawerLeft() {
             {/* <ListItemText className={classes.listtext} primary='홈'/> */}
           </button>
         </Link>        
-
         <Link to='/reciperecommend'>
         <button className="btn px-3 py-2">
               <span className="gradient-underline">둘러보기</span>
             </button>
         </Link>
-
+        <Link to='/reciperecommend' className="btn px-3 py-2 unique-transparent-btn">
+          <span className="gradient-underline">둘러보기2</span>
+        </Link>
         <Link to='/recipe/category'>
           <button className="btn px-3 py-2">
             <span className="gradient-underline">레시피 고르기</span>
