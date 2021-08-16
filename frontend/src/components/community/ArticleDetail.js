@@ -59,6 +59,8 @@ const ArticleDetail = () => {
       return
     }
     dispatch(articleActions.deleteArticle(articleid))
+    // window.location.href('/community')
+    // 새로고침 안됨
     history.push('/community')
   }
 
