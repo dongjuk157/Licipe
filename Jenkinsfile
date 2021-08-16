@@ -5,7 +5,7 @@ pipeline {
 		stage('Build') {
 			agent {
 				docker {
-					image 'node:12-alpine'
+					image 'node:16-alpine'
 				}
 			}
 			steps {
@@ -37,7 +37,7 @@ pipeline {
 	}
 	post {
 		success {
-			echo 'i am here'
+			echo 'done'
 		}
 	}
 }
