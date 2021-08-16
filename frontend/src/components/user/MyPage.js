@@ -58,7 +58,9 @@ const MyPage = () => {
           <MyButton variant="contained" onClick={editUserProfile} disabled>유저 정보 관리</MyButton>
           <MyButton variant="contained" onClick={postedArticle}>인증한 글</MyButton>
           <MyButton variant="contained" onClick={evaluatedRecipe}>평가한 요리</MyButton>
+          <MyButton variant="contained" onClick={scrapedRecipe}>스크랩한 레시피</MyButton>
         </div>
+        {/* 스크랩한 레시피에서 다섯개만 불러오는 REST API가 없어서 그냥 버튼으로 대체
         <div>
           <div style={{display:'flex', justifyContent:'space-between'}}>
             <h3 style={{display:'inline'}}> 스크랩한 레시피</h3>
@@ -69,7 +71,8 @@ const MyPage = () => {
           <div>
             최대 5개 보여주기
           </div>
-        </div>
+        </div> 
+        */}
       </MyPageContainer>
     </>
   )
