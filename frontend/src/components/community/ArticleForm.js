@@ -98,13 +98,23 @@ const Article = () => {
   const onPost = async (event) => {
     event.preventDefault()
     // 게시글 업로드
-
     const data = {
       member: {id:userid},
       food,
       content,
       imgURL,
     }
+    for (const key in data) {
+      if (Object.hasOwnProperty.call(data, key)) {
+        const element = data[key];
+        if (element === null || element === ''){
+          alert('모든 내용을 채워주세요')
+          return
+        }
+
+      }
+    }
+
     if (article) {
       await dispatch(articleActions.editArticle(data, articleid))
     }
