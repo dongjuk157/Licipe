@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components'
+import { makeStyles } from '@material-ui/core/styles'
+import { 
+  Drawer,
+  Button,
+  List,
+  Divider,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography,
+ } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import SearchAppBar from '../common/SearchAppBar'
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
+
+
+const FoodImg = styled.img`
+	width: 100%;
+  height: 90%;
+  align-items: center;
+`
 
 const useStyles = makeStyles((theme) => ({
   detail: {
@@ -32,45 +43,51 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-const RecipeDetail = (props) => {
-  console.log(props)
+const RecipeInfoComponent = (props) => {
   const classes = useStyles();
-  const [food, setFood] = useState({
-    imgURL: '',
-    name: '불러오는 중',
-    id: '0',
+  const [rating, setRating] = useState([]);
+  const [state, setState] = useState({
+    right: false,
   });
-  const foodid = props.match.params.id
-  const getFoodInfo = async () => {
-    await axios.get(`/foods/${foodid}`)
+
+
+  const toggleDrawer = (open) => (event) => {
+    setState({ ...state, right: open });
+  };
+
+  const getFoodRating = () => {
+    axios.get(`/foods/${props.food.id}/recipe/rating/average`)
     .then((res) => {
-      setFood(res.data);
+      setRating(res.data)
     })
     .catch((err) => {
       console.log(err)
     })
-  } 
+  }
 
   useEffect(() => {
-    getFoodInfo();
-  }, [])
+    getFoodRating();
+  }, [rating])
 
   return (
     <div>
-      <SearchAppBar></SearchAppBar>
-      <div className={classes.recipeDetail}>
-        <List className={classes.detail}>
+        <Button onClick={toggleDrawer(true)}>자세히 보기</Button>
+        <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}>
+        <div
+      className={classes.recipeDetail}
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List className={classes.detail}>
         <ListItem className={classes.recipe}>
           <Paper className={classes.recipeImage}>
-            <img src={`${food.imgURL}`}></img>
+            <FoodImg src={`${props.food.imgURL}`}></FoodImg>
           </Paper>
         </ListItem>
         <ListItem>
-          <p>후기</p>
-          <span>{food.name}</span>
-          <span>{food.name}</span>
-          <Link to={`/recipe/${food.id}/step`}>
+          <p>후기 {rating}</p>
+          <span>{props.food.name}</span>
+          <Link to={`/recipe/${props.food.id}/step`}>
             <span>요리하기</span>
           </Link>
         </ListItem>
@@ -104,9 +121,15 @@ const RecipeDetail = (props) => {
       <Divider component="li" />
       </List>
     </div>
-  </div>
+        </Drawer>
+    </div>
   );
 };
 
+RecipeInfoComponent.defaultProps = {
+    food: {
+      id: 1,
+    },
+};
 
-export default RecipeDetail;
+export default RecipeInfoComponent;

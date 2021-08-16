@@ -7,15 +7,15 @@ import axios from 'axios';
 
 // jj
 import { makeStyles } from '@material-ui/core/styles';
-import main from '../../style/main.css';
+import '../../style/main.css';
 import { Link } from 'react-router-dom';
 
 const Main = () => {
   const [foodList, setFoodList] = useState([]);
+  const [nowFood, setNowFood] = useState(0);
   const getFoodList = () => {
     axios.get('/main')
     .then((res) => {
-      console.log(res.data)
       setFoodList(res.data)
     })
     .catch((err) => {
@@ -33,12 +33,14 @@ const Main = () => {
     getFoodList();
   }, [])
   const settings = {
-    dots: true,
+    // dots true => false 이유는 76번 줄 주석
+    dots: false,
     infinite: true,
     slidesToScroll: 1,
     autoplay: true,
     speed: 500,
     autoplaySpeed: 2000,
+    slidesToShow: 1,
     appendDots: dots => (
       <div
         style={{
@@ -66,19 +68,22 @@ const Main = () => {
                 <div key={index} class="mt-5 mt-lg-2 mx-auto d-flex flex-column align-items-center">
                   <img src={`${food.imgURL}`} class="w-100 mb-3 center">
                   </img>
-                  <button class="btn btn-lg p-3" id="unique-transparent-btn">
-                  {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
-                    <Link to='/login'>
-                      <span class="gradient-underline" >{food.name}</span>
+                    <Link to={`/recipe/${food.id}`}>
+                      <button class="btn btn-lg p-3" id="unique-transparent-btn">
+                      {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
+                        <span class="gradient-underline" >{food.name}</span>
+                      </button>
                     </Link>
-                  </button>
+                  {/* dot을 없애야 slider 안에서 food 변수를 사용 가능 */}
+                  {/* <div class="d-grid col-8 col-md-6 mx-auto"> */}
+                    <Link to={`/recipe/${food.id}/step`}>
+                      <button class="btn-style">요리 시작 🤤</button>
+                    </Link>
+                  {/* </div> */}
                 </div>
               )
             })}      
           </Slider>
-          <div class="d-grid col-8 col-md-6 mx-auto">
-            <button class="btn-style">요리 시작 🤤</button>
-          </div>
         </div>
       </div>
     </div>
