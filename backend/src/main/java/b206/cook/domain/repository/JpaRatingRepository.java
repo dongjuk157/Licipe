@@ -36,6 +36,14 @@ public class JpaRatingRepository implements RatingRepository {
     }
 
     @Override
+    public List<Rating> findRecent(String snsId) {
+        return em.createQuery("select r from Rating r where r.member.snsId = :snsId", Rating.class)
+                .setParameter("snsId", snsId)
+                .setMaxResults(5)
+                .getResultList();
+    }
+
+    @Override
     public void remove(Long id) {
         Optional<Rating> rating = this.findById(id);
         em.remove(rating);
