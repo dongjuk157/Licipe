@@ -75,4 +75,33 @@
   to {
     transform: rotate(360deg);
   }
+<<<<<<< HEAD
+=======
+}
+
+
+/* react-masonry-css */
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  /* gutter size offset */
+  /* margin-left: -30px;  */
+  width: auto;
+  padding: 1rem;
+}
+.my-masonry-grid_column {
+  /* gutter size */
+  /* padding-left: 30px;  */
+  background-clip: padding-box;
+  padding: 0.5rem;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: white;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  /* padding: 1rem; */
+>>>>>>> 782078980588c4c51373783b3e7a37a865048202
 }

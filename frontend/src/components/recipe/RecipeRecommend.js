@@ -105,9 +105,9 @@ const getMoreFoodList = () => {
 							const lastEl = index === foodList.length - 1;
 							return (
 
-							<Container className="row col-6 col-lg-4 center">
+							<Container className="row col-6 col-lg-4 center" key={index}>
 								<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3">
-								<Card.Img variant="top" src={food.imgURL} fluid />
+								<Card.Img variant="top" src={food.imgURL} className="img-fluid" />
 									<Card.Body className="">
 										<Row>
 
@@ -128,7 +128,7 @@ const getMoreFoodList = () => {
 											<Col className="">
 												<Button variant="outline-primary" className="">
 													<Link className="text-decoration-none" to={`/recipe/${food.id}/step`}>
-													<i class="fas fa-utensils"></i>
+													<i className="fas fa-utensils"></i>
 													</Link>
 												</Button>
 											</Col>
@@ -146,9 +146,9 @@ const getMoreFoodList = () => {
 
 		/* <Col>
 			<Button variant="outline-primary" className="position-absolute bottom-0 end-0">
-				<i class="fas fa-bookmark"></i> 
+				<i className="fas fa-bookmark"></i> 
 				북마크 안한거면 아래꺼?
-				<i class="far fa-bookmark"></i>
+				<i className="far fa-bookmark"></i>
 			</Button>
 		</Col> */
 
