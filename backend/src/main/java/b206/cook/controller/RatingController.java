@@ -47,4 +47,8 @@ public class RatingController {
         return new ResponseEntity<>(ratingService.ratings(snsId), HttpStatus.OK);
     }
 
+    @GetMapping("/member/ratings/recent")
+    public ResponseEntity<List<Rating>> recentList(@RequestHeader String snsId) {
+        return new ResponseEntity<>(ratingService.recentRatings(snsId), HttpStatus.OK);
+    }
 }
