@@ -106,11 +106,11 @@ const RecipeSearch = () => {
         </Tab>
           
         <Tab eventKey="country" title="나라" >
-        <Tab.Container id="left-tabs-example">
-          <Row>
-            <Col sm={3}>
-              { countries.length > 0 && countries[0].map((element, index) => {
-              return(
+          <Tab.Container id="left-tabs-example">
+            <Row>
+              <Col sm={3}>
+                { countries.length > 0 && countries[0].map((element, index) => {
+                return (
                   <Col
                     key={element.name+'nav'+index}
                   > 
@@ -121,13 +121,52 @@ const RecipeSearch = () => {
                       </Nav.Item>
                     </Nav>
                   </Col>
-              )
-              })}
-            </Col>
-            <Col sm={9}>
-              { countries.length > 0 && countries[0].map((element, index) => {
+                  )
+                })}
+              </Col>
+              <Col sm={9}>
+                { countries.length > 0 && countries[0].map((element, index) => {
+                  return(
+                    <Col 
+                      key={element.name+'tab'+index}
+                    >
+                      <Tab.Content>
+                        <Tab.Pane eventKey={element.id}>
+                          {/* 요리 리스트 */}
+                          <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
+                        </Tab.Pane>
+                      </Tab.Content>
+                    </Col>
+                  )
+                })}
+              </Col>
+            </Row>
+          </Tab.Container>
+        </Tab>
+
+        <Tab eventKey="time" title="소요시간" onClick={() => GetTimes()}>
+          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+            <Row>
+              <Col sm={3}> 
+                { times.length > 0 && times[0].map((element, index) => {
                 return(
-                  <Col 
+                  <Col
+                    key={element.name+'nav'+index}
+                  >
+                    <Nav variant="pills" className="flex-column">
+                      <Nav.Item>
+                        <Nav.Link eventKey={element.id} onClick={() => 
+                          getFoodList('times', element.id)}>{element.maxTime}분</Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                  </Col>
+                )
+                })}
+              </Col>
+              <Col sm={9}>
+                { times.length > 0 && times[0].map((element, index) => {
+                return(
+                  <Col
                     key={element.name+'tab'+index}
                   >
                     <Tab.Content>
@@ -137,67 +176,46 @@ const RecipeSearch = () => {
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>
-                )
-              })}
-            </Col>
-          </Row>
-        </Tab.Container>
-      </Tab>
-
-        <Tab eventKey="time" title="소요시간" onClick={() => GetTimes()}>
-        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-        { times.length > 0 && times[0].map((element, index1) => {
-          return(
-            <Row key={index1}>
-            <Col sm={3}> 
-              <Nav variant="pills" className="flex-column">
-                <Nav.Item>
-                  <Nav.Link eventKey={element.id} onClick={() => 
-                    getFoodList('times', element.id)}>{element.maxTime}분</Nav.Link>
-                </Nav.Item>
-              </Nav>
-              
-            </Col>
-            <Col sm={9}>
-              <Tab.Content>
-                <Tab.Pane eventKey={element.id}>
-                  {/* 요리 리스트 */}
-                  <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
-                </Tab.Pane>
-              </Tab.Content>
-            </Col>
-          </Row>
-          )
-          })}
-        </Tab.Container>
+                  )
+                })}
+              </Col>
+            </Row>
+          </Tab.Container>
         </Tab>
 
         <Tab eventKey="situations" title="상황" onClick={() => GetSituations()}>
-        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-        { situations.length > 0 && situations[0].map((element, index2) => {
-          return(
-            <Row key={index2}>
-            <Col sm={3}> 
-              <Nav variant="pills" className="flex-column">
-                <Nav.Item>
-                  <Nav.Link eventKey={element.id} onClick={() => 
-                    getFoodList('situations', element.id)}>{element.name}</Nav.Link>
-                </Nav.Item>
-              </Nav>
-              
-            </Col>
-            <Col sm={9}>
-              <Tab.Content>
-                <Tab.Pane eventKey={element.id}>
-                  {/* 요리 리스트 */}
-                  <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
-                </Tab.Pane>
-              </Tab.Content>
-            </Col>
-          </Row>
-          )
-          })}
-        </Tab.Container>
+          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+            <Row key>
+              <Col sm={3}> 
+                { situations.length > 0 && situations[0].map((element, index) => {
+                  return(
+                    <Col>
+                      <Nav variant="pills" className="flex-column">
+                        <Nav.Item>
+                          <Nav.Link eventKey={element.id} onClick={() => 
+                            getFoodList('situations', element.id)}>{element.name}</Nav.Link>
+                        </Nav.Item>
+                      </Nav>
+                    </Col>
+                  )
+                })}
+              </Col>
+              <Col sm={9}>
+                { situations.length > 0 && situations[0].map((element, index) => {
+                  return(
+                    <Col>
+                      <Tab.Content>
+                        <Tab.Pane eventKey={element.id}>
+                          {/* 요리 리스트 */}
+                          <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
+                        </Tab.Pane>
+                      </Tab.Content>
+                    </Col>
+                  )
+                })}
+              </Col>
+            </Row>
+          </Tab.Container>
         </Tab>
 
       </Tabs>
