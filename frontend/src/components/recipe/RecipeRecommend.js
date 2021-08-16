@@ -113,6 +113,7 @@ const getMoreFoodList = () => {
 
 										<Card.Text className="col-10 overflow-auto fs-6 my-auto text-center" style={{ height: '4rem'}}>{food.name} 
 										</Card.Text>
+										{/* 수정중 */}
 											<Link className=" col-1 far fa-heart text-start my-1 text-decoration-none" style={{ fontSize: '1rem', color: '#ff4a6b' }}>
 											</Link>
 											{/* className="fas fa-bookmark" */}
