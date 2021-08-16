@@ -77,12 +77,14 @@ const RecipeStep = (props) => {
 	switch (command){
 		case 'next': 
 			if (stepIndex < steps.length){
+				handlePause()
 				setStepIndex(stepIndex + 1)
 				slider.current.slickNext()
 			}
 			break
 		case 'previous':
 			if (stepIndex > 0){
+				handlePause()
 				setStepIndex(stepIndex - 1)
 				slider.current.slickPrev()
 			}
@@ -146,8 +148,8 @@ const RecipeStep = (props) => {
 							<video 
 								id={'video'+index}
 								controls crossOrigin="anonymous"
-								muted={isMuted}
-								autoPlay={true}
+								// muted={isMuted}
+								// autoPlay={true}
 								// onEnded={()=>	dispatch(sttActions.changeInput({name:'command', value:'next'}))}
 							>
 								<source src={`${step.videoUrl}`}></source>

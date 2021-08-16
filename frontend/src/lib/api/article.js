@@ -16,7 +16,13 @@ export const uploadArticle = (data) => {
   return axios(config)
 }
 
-export const getArticlesPage = (page) => {}
+export const getArticlesPage = (page=null) => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/articles${page?'/'+page:''}`,
+  }
+  return axios(config)
+}
 export const getArticle = (articleid) => {
   const config = {
     method: 'get',
