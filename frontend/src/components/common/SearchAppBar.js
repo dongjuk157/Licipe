@@ -235,9 +235,7 @@ export default function PersistentDrawerLeft() {
               >둘러보기</span>
             </button>
         </Link>
-        <Link to='/reciperecommend' className="btn px-3 py-2 unique-transparent-btn">
-          <span className="gradient-underline">둘러보기2</span>
-        </Link>
+        
         <Link to='/recipe/category'>
           <button className="btn px-3 py-2 unique-transparent-btn">
             <span className="gradient-underline">레시피 고르기</span>
