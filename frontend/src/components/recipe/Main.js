@@ -6,9 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 
 // jj
-import { makeStyles } from '@material-ui/core/styles';
 import '../../style/main.css';
 import { Link } from 'react-router-dom';
+
+import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
 
 const Main = () => {
   const [foodList, setFoodList] = useState([]);
@@ -23,12 +24,6 @@ const Main = () => {
     });
   };
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-  }));
-
   useEffect(() => {
     getFoodList();
   }, [])
@@ -38,7 +33,7 @@ const Main = () => {
     infinite: true,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 500,
+    speed: 2000,
     autoplaySpeed: 2000,
     slidesToShow: 1,
     appendDots: dots => (
@@ -55,37 +50,32 @@ const Main = () => {
     fade: true,
   };
 
-  const classes = useStyles();
   return (
     
-    <div class="mx-auto w-100 pb-5 pb-lg-1 bg-white">
+    <div class="mx-auto w-100 bg-white h-100">
       <SearchAppBar></SearchAppBar>
-      <div class="col-12 col-lg-8 mx-auto mt-1 bg-white">
-        <div className={classes.root}>
+      <Row class="col-12 col-lg-8 mx-auto bg-white align-items-center">
           <Slider {...settings}>
             {foodList.map((food, index) => {
               return (
-                <div key={index} class="mt-5 mt-lg-2 mx-auto d-flex flex-column align-items-center">
-                  <img src={`${food.imgURL}`} class="w-100 mb-3 center">
+                <div key={index} className="d-flex flex-column align-items-center">
+                  <img src={`${food.imgURL}`} className="w-100 mb-3">
                   </img>
-                    <Link to={`/recipe/${food.id}`}>
-                      <button class="btn btn-lg p-3" id="unique-transparent-btn">
+                    <Link to={`/recipe/${food.id}`} className="mt-3 btn btn-lg p-3">
                       {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
-                        <span class="gradient-underline" >{food.name}</span>
-                      </button>
+                        <span className="gradient-underline-title" >{food.name}</span>
                     </Link>
                   {/* dot을 없애야 slider 안에서 food 변수를 사용 가능 */}
                   {/* <div class="d-grid col-8 col-md-6 mx-auto"> */}
                     <Link to={`/recipe/${food.id}/step`}>
-                      <button class="btn-style">요리 시작 🤤</button>
+                      <i class="fas fa-utensils" style={{ fontSize:'2rem' }}></i>
                     </Link>
                   {/* </div> */}
                 </div>
               )
             })}      
           </Slider>
-        </div>
-      </div>
+      </Row>
     </div>
   )
 }
