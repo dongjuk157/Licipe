@@ -53,7 +53,7 @@ const Main = () => {
   return (
     <div class="mx-auto w-100 bg-white h-100">
       <SearchAppBar></SearchAppBar>
-      <Row class="col-12 col-lg-8 mx-auto bg-white align-items-center">
+      <div class="col-12 col-lg-8 mx-auto bg-white align-items-center">
           <Slider {...settings}>
             {foodList.map((food, index) => {
               console.log(food.id)
@@ -75,7 +75,7 @@ const Main = () => {
               )
             })}      
           </Slider>
-      </Row>
+      </div>
     </div>
   )
 }
