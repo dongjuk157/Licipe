@@ -29,7 +29,7 @@ const RecipeSubCategory = (props) => {
 									<Card.Text className="overflow-auto pb-5 fs-6" style={{height: '10rem;'}}>{food.name}</Card.Text>
 									<Button variant="outline-primary" className="position-absolute bottom-0 end-0 m-3">
 										<Link className="text-decoration-none" to={`/recipe/${food.id}/step`}>
-											요리하러 가기
+										<i class="fas fa-utensils"></i>
 										</Link>
 									</Button>
 								</Card.Body>
