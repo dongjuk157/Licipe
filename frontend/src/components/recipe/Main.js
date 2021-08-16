@@ -64,6 +64,7 @@ const Main = () => {
         <div className={classes.root}>
           <Slider {...settings}>
             {foodList.map((food, index) => {
+              console.log(food.id)
               return (
                 <div key={index} className="mt-5 mt-lg-2 mx-auto d-flex flex-column align-items-center">
                   <img src={`${food.imgURL}`} className="w-100 mb-3 center" alt={food.name+'img'}>
