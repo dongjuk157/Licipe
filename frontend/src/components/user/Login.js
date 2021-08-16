@@ -21,13 +21,13 @@ const Login = ({history}) => {
         justifyContent="center"
       >
         <KakaoLogin />
-        <Button>
+        <Button disabled>
           Google
         </Button>
-        <Button>
+        <Button  disabled>
           Naver
         </Button>
-        <Button onClick={()=>{history.push('/login/email')}}>
+        <Button disabled onClick={()=>{history.push('/login/email')}}>
           Email로 로그인
         </Button>
       </Grid>
