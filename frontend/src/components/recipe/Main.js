@@ -52,31 +52,35 @@ const Main = () => {
 
   return (
     
-    <div class="mx-auto w-100 bg-white h-100">
+    <div className="mx-auto w-100 pb-5 pb-lg-1 bg-white">
       <SearchAppBar></SearchAppBar>
-      <Carousel className="col-12 col-lg-8 mx-auto bg-white align-items-center">
-        {foodList.map((food, index) => {
-          return (
-            <Carousel.Item interval={1000} key={index}>
-              <img
-                className="d-block w-100"
-                src={`${food.imgURL}`}
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <Link to={`/recipe/${food.id}`} className="mt-3 btn btn-lg p-3">
-                  {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
-                    <span className="gradient-underline-title" >{food.name}</span>
-                </Link>
-                <Link to={`/recipe/${food.id}/step`}>
-                  <i class="fas fa-utensils" style={{ fontSize:'2rem' }}></i>
-                </Link>
-              </Carousel.Caption>
-            </Carousel.Item>
-          )
-        })}
-        </Carousel>
-    
+      <div className="col-12 col-lg-8 mx-auto mt-1 bg-white">
+        <div className={classes.root}>
+          <Slider {...settings}>
+            {foodList.map((food, index) => {
+              console.log(food.id)
+              return (
+                <div key={index} className="mt-5 mt-lg-2 mx-auto d-flex flex-column align-items-center">
+                  <img src={`${food.imgURL}`} className="w-100 mb-3 center" alt={food.name+'img'}>
+                  </img>
+                    <Link to={`/recipe/${food.id}`}>
+                      <button className="btn btn-lg p-3 unique-transparent-btn">
+                      {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
+                        <span className="gradient-underline" >{food.name}</span>
+                      </button>
+                    </Link>
+                  {/* dot을 없애야 slider 안에서 food 변수를 사용 가능 */}
+                  {/* <div className="d-grid col-8 col-md-6 mx-auto"> */}
+                    <Link to={`/recipe/${food.id}/step`}>
+                      <button className="btn-style">요리 시작 🤤</button>
+                    </Link>
+                  {/* </div> */}
+                </div>
+              )
+            })}      
+          </Slider>
+        </div>
+      </div>
     </div>
   )
 }
