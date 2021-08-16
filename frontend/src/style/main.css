@@ -42,14 +42,14 @@
     /* background: #ff4a6b; */
     background: linear-gradient(to right, #ff4a6b 30%, #fffdc7 100%);  
     content: "";
-    position: absolute;
-    bottom: -0.4rem;
+    /* position: absolute; */
+    /* bottom: -0.4rem; */
     left: 0;
     height: 2px;
     width: 103%;
  }
 
-#unique-transparent-btn a {
+.unique-transparent-btn a {
   /* margin: 10px;
   padding: 20px; */
   color: #595858;
