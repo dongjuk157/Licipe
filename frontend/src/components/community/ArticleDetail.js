@@ -59,6 +59,8 @@ const ArticleDetail = () => {
       return
     }
     dispatch(articleActions.deleteArticle(articleid))
+    // window.location.href('/community')
+    // 새로고침 안됨
     history.push('/community')
   }
 
@@ -89,7 +91,7 @@ const ArticleDetail = () => {
         ? <p>{content}</p>
         : <>정말 맛있어요</>
         }
-        <Button onClick={handleThumbup}>❤</Button>
+        {/* <Button onClick={handleThumbup}>❤</Button> */}
       
       { Number(currentUserInfo.userid) === userid.id 
         ? (<span>
