@@ -31,7 +31,6 @@ pipeline {
 					sh 'docker ps -f name=licipe -q | xargs --no-run-if-empty docker container stop'
 					sh 'docker container ls -a -fname=licipe -q | xargs -r docker container rm'
 					sh 'docker run -d --name licipe -p 8000:80 licipe:front'
-					sh 'docker cp licipe:/usr/share/nginx/html/ ~/dist/html'
 				}
 			}
 		}
