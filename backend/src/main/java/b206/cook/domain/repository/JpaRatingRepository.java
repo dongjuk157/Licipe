@@ -37,7 +37,7 @@ public class JpaRatingRepository implements RatingRepository {
 
     @Override
     public List<Rating> findRecent(String snsId) {
-        return em.createQuery("select r from Rating r where r.member.snsId = :snsId", Rating.class)
+        return em.createQuery("select r from Rating r where r.member.snsId = :snsId order by r.id desc", Rating.class)
                 .setParameter("snsId", snsId)
                 .setMaxResults(5)
                 .getResultList();
