@@ -3,7 +3,6 @@ import SearchAppBar from '../common/SearchAppBar'
 import FeedCard from '../common/FeedCard'
 import { useDispatch, useSelector } from 'react-redux'
 import * as articleAction from '../../redux/modules/article'
-import { Col } from 'react-bootstrap'
 import Masonry from 'react-masonry-css'
 
 const breakpointColumnsObject = {
@@ -14,7 +13,7 @@ const breakpointColumnsObject = {
 
 }
 
-const Community = () => {
+const Community = ({match}) => {
   const dispatch = useDispatch()
   const articles = useSelector((state)=> state.article.get('articles'))
   // console.log(articles, typeof(articles))
@@ -27,7 +26,7 @@ const Community = () => {
       setCount(count + 1) // infinity scroll
     }
     updateFeed()
-  }, [])
+  }, [match.params.url])
 
   return (
     <>
