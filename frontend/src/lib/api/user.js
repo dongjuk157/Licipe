@@ -57,4 +57,15 @@ export const getUserClips = () => {
     }
   }
   return axios(config)
+
+}
+export const getUserRatingsRecent = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/member/ratings`,
+    headers: {
+      snsId: loggedInfo.snsId,
+    }
+  }
+  return axios(config)
 }
