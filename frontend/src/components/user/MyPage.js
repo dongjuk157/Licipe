@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2'
 
-const MyPage = () => {
+const MyPage = ({match}) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const loggedInfo = storage.get('loggedInfo'); // 로그인 정보
@@ -21,7 +21,8 @@ const MyPage = () => {
       await dispatch(userActions.getUserClipsRecent())
     }
     getClips()
-  }, [])
+    return dispatch(userActions.initializeForm('result'))
+  }, [match.params.url])
 
   if(!loggedInfo) { // 로그인 정보가 없으면 로그인페이지 전환
     alert('로그인 정보가 만료되었습니다.')
@@ -40,7 +41,10 @@ const MyPage = () => {
     })
   }
   const postedArticle = () => {
-    history.push('/myarticles')
+    history.push({
+      pathname: '/myarticles',
+      state: { ratingButton: true },
+    })
   }
   const evaluatedRecipe = () => {
     history.push('/myratings')

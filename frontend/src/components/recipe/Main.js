@@ -68,7 +68,7 @@ const Main = () => {
                   {/* dot을 없애야 slider 안에서 food 변수를 사용 가능 */}
                   {/* <div className="d-grid col-8 col-md-6 mx-auto"> */}
                     <Link to={`/recipe/${food.id}/step`}>
-                      <i class="fas fa-utensils" style={{ fontSize:'2rem', color:'#ff4a6b' }}></i>
+                      <i className="fas fa-utensils" style={{ fontSize:'2rem', color:'#ff4a6b' }}></i>
                     </Link>
                   {/* </div> */}
                 </div>
