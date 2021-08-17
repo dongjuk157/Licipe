@@ -154,7 +154,6 @@ const getMoreFoodList = () => {
 											</Link>
 											{/* className="fas fa-bookmark" */}
 										</Row>
-
 										<Row className="d-flex">
 											<Col className="align-self-center">
 											</Col>
