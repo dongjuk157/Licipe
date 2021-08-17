@@ -19,4 +19,7 @@ public class FoodMemberService {
     public List<Food_Member> findClips(String snsId) {
         return foodMemberRepository.findClippedFoods(snsId);
     }
+    public List<Food_Member> findRecentClippedFoods(String snsId) {
+        return foodMemberRepository.findRecentClips(snsId);
+    }
 }
