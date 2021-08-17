@@ -45,11 +45,11 @@ const SpeechToText = (props) => {
       callback: () => dispatch(sttActions.changeInput({name:'command', value:'end'}))
     },
     {
-      command: ['이전(.)', ' 이전 단계(.)'],
+      command: ['이전(.)', ' 이전 단계(.)', '뒤로(.)'],
       callback: () => dispatch(sttActions.changeInput({name:'command', value:'previous'})),
     },
     {
-      command: ['다음(.)', '다음 단계(.)'],
+      command: ['다음(.)', '다음 단계(.)', '앞으로(.)'],
       callback: () => dispatch(sttActions.changeInput({name:'command', value:'next'})),
     },
     {
@@ -111,8 +111,8 @@ const SpeechToText = (props) => {
 
   const modalBodyContent = `
   1. 레시피
-  이전 페이지: "이전", "이전 단계"
-  다음 페이지: "다음", "다음 단계"
+  이전 페이지: "이전", "이전 단계", "뒤로"
+  다음 페이지: "다음", "다음 단계", "앞으로"
 
   2. 비디오
   재생: "다시", "시작", "재생"
