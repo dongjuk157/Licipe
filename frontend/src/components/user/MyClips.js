@@ -25,8 +25,8 @@ const MyClips = () => {
             clipedList.map((item, index) => {
               // console.log(element)
               return (
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-                <Card2 item={item} key={index}></Card2>
+              <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <Card2 item={item}></Card2>
               </div>
               )
             })
