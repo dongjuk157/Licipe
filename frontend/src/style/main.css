@@ -5,6 +5,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'twayfly';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayfly.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.twayfly {
+  font-family: 'twayfly';
+  font-size: 1.2rem;
+  padding-bottom: 4px;
+  position: relative;
+  text-decoration: none;
+  width: 100%;
+}
 .btn-style {
   color: white;
   border: 0;
@@ -39,6 +54,7 @@
 
   /* background: linear-gradient(to right,  #ff4a6b 30%,#fffdc7 100%); */
 .gradient-underline {
+    font-family: 'twayfly';
     font-size: 1.2rem;
     padding-bottom: 4px;
     position: relative;
@@ -57,8 +73,8 @@
 }
 
 .gradient-underline-title {
-  font-family: 'SF_HambakSnow';
-  font-size: 1.5rem;
+  font-family: 'twayfly';
+  font-size: 1.8rem;
   padding-bottom: 4px;
   position: relative;
   text-decoration: none;
@@ -69,7 +85,8 @@
     font-family: 'SF_HambakSnow';
     background: linear-gradient(to right, #ff4a6b 30%, #fffdc7 100%);  
     content: "";
-
+    position: absolute;
+    bottom: -4px;
     left: 0;
     height: 2px;
     width: 103%;
