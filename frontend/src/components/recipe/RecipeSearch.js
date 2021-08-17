@@ -85,11 +85,10 @@ const RecipeSearch = () => {
       <SearchAppBar></SearchAppBar>
       <div className="" style={{height:'95vh'}}>
         <Tabs
-          variant="pills"
           fill
           activeKey={key}
           onSelect={(k) => setKey(k)}
-          className="mx-3 px-2 pt-2 fs-5 rounded myClass"
+          className="mx-3 px-2 pt-2 fs-5 rounded-top myClass"
       >
         <Tab.Item eventKey="home" title="분류 선택">
           <Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -108,7 +107,7 @@ const RecipeSearch = () => {
                   > 
                     <Nav variant="pills" className="m-2 fs-5">
                     <Nav.Item className="w-100">
-                      <Nav.Link className="btn my-2 rounded-3 shadow-sm bg-danger text-dark"
+                      <Nav.Link className="btn my-2 rounded-3 shadow-sm"
                       // style={ {color: '#ffffff'}:hover { color: 'red' }, background: '#ff4a6b',}} 
                       eventKey={element.id} onClick={() => 
                         getFoodList('countries', element.id)}>{element.name}</Nav.Link>
