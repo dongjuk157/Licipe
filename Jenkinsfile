@@ -11,7 +11,6 @@ pipeline {
 			steps {
 				dir ('frontend') {
 					sh 'rm -f package-lock.json'
-					sh 'npx browserslist@latest --update-db'
 					sh 'yarn install'
 					sh 'yarn build'
 				}
