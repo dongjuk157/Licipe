@@ -31,3 +31,17 @@
 a > i {
   color: #ff4a6b !important;
 }
+
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #ff4a6b !important;
+  border-color: #ff4a6b !important;
+} 
+
+.MuiImageListItemBar-root > div {
+  background-color: transparent !important;
+}
+
+.MuiImageListItemBar-title {
+  background-color: transparent !important;
+}

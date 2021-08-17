@@ -99,6 +99,7 @@ const getMoreFoodList = () => {
 	const [ detailTarget, setDetailTarget ] = useState([]);
 	const [ingredients, setIngredients] = useState([]);
 	const [rating, setRating] = useState();
+	const [articles, setArticles] = useState([]);
 	const getDetailTarget = ((food) => {
 		console.log('food', food);
 		setDetailTarget(food);
@@ -120,7 +121,18 @@ const getMoreFoodList = () => {
     })
     .catch((err) => {
       console.log(err)
-    })
+		})
+		
+		axios.get(`/foods/${food.id}/articles`)
+		.then((res) => {
+			console.log(res.data)
+			setArticles(res.data)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+
+
 	});
 
 	return (
@@ -138,7 +150,7 @@ const getMoreFoodList = () => {
 								className={"row boder-0 "
 								+ (detailTarget.length !== 0? "col-12 col-lg-6 ms-auto px-2":"col-6 col-lg-4 mx-auto px-1")}
 								key={index}>
-								<Card style={{ width: '18rem' }} className="my-2 mx-0 me-3 ms-auto pt-3 shadow boder-0">
+								<Card style={{ width: '18rem' }} className="my-2 mx-0 me-3 ms-auto pt-3 shadow border-0">
 								<Card.Img variant="top" src={food.imgURL} className="img-fluid" />
 									<Card.Body className="">
 										<Row>
@@ -147,7 +159,6 @@ const getMoreFoodList = () => {
 											style={{ height: '4rem'}}>
 											{food.name}
 										</Card.Text>
-										{/* 수정중 */}
 											<Link 
 												className="col-1 far fa-heart text-start my-1 text-decoration-none" 
 												style={{ fontSize: '1rem', color: '#ff4a6b' }}>
@@ -188,7 +199,12 @@ const getMoreFoodList = () => {
 			{
 				detailTarget && detailTarget.length !== 0 ?
 				(<Col xs={6} lg="5" className="bg-white shadow h-100 mt-2 rounded">
-					<RecipeInfoComponent food={detailTarget} ingredientsList={ingredients} rating={rating}>
+					<RecipeInfoComponent 
+					food={detailTarget} 
+					ingredientsList={ingredients} 
+					rating={rating}
+					articleList={articles}
+					>
 					</RecipeInfoComponent>
 				</Col>)
 			: <></>
