@@ -99,6 +99,7 @@ const getMoreFoodList = () => {
 	const [ detailTarget, setDetailTarget ] = useState([]);
 	const [ingredients, setIngredients] = useState([]);
 	const [rating, setRating] = useState();
+	const [articles, setArticles] = useState([]);
 	const getDetailTarget = ((food) => {
 		console.log('food', food);
 		setDetailTarget(food);
@@ -120,7 +121,18 @@ const getMoreFoodList = () => {
     })
     .catch((err) => {
       console.log(err)
-    })
+		})
+		
+		axios.get(`/foods/${food.id}/articles`)
+		.then((res) => {
+			console.log(res.data)
+			setArticles(res.data)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+
+
 	});
 
 	return (
@@ -188,7 +200,12 @@ const getMoreFoodList = () => {
 			{
 				detailTarget && detailTarget.length !== 0 ?
 				(<Col xs={6} lg="5" className="bg-white shadow h-100 mt-2 rounded">
-					<RecipeInfoComponent food={detailTarget} ingredientsList={ingredients} rating={rating}>
+					<RecipeInfoComponent 
+					food={detailTarget} 
+					ingredientsList={ingredients} 
+					rating={rating}
+					articleList={articles}
+					>
 					</RecipeInfoComponent>
 				</Col>)
 			: <></>
