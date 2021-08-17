@@ -5,7 +5,7 @@ import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2';
 
 
-const MyClips = () => {
+const MyClips = ({match}) => {
   const dispatch = useDispatch()
   const result = useSelector((state) => state.user.get('result')).toJS()
   useEffect(()=>{
@@ -13,7 +13,8 @@ const MyClips = () => {
       await dispatch(userActions.getUserClips())
     }
     getClips()
-  }, [])
+    return dispatch(userActions.initializeForm('result'))
+  }, [match.params.url])
   const clipedList = Object.assign(result)
   return (
     <>
