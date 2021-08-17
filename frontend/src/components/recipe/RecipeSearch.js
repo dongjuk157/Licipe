@@ -4,9 +4,10 @@ import RecipeSubCategory from './RecipeSubCategory';
 import axios from 'axios';
 import SearchAppBar from '../common/SearchAppBar'
 import { Tabs, Tab, Col, Row, Nav } from 'react-bootstrap';
-import '../../style/recipe_search.css';
 import { makeStyles } from '@material-ui/core/styles';
 import 'bootstrap';
+import '../../style/recipe_search.css';
+import { dark } from '@material-ui/core/styles/createPalette';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const RecipeSearch = () => {
@@ -77,48 +78,24 @@ const RecipeSearch = () => {
     GetSituations();
   }, []);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      background: '#ffffff'
-    },
-    tabs: {
-      background: '#ffffff',
-      // color:  '#ff4a6b',
-      margin: '1rem',
-    },
-    // tab: {
-    //   background: '#fffdc7',
-    //   '&:active': {
-    //     background: '#ff4a6b',
-    //     color: '#fafaf1',
-    //   },
-    }
-  // }
-  ));
-  const classes = useStyles();
-
   const [key, setKey] = useState('home');
 
   return (
-    <div className={classes.root}>
+    <div style={{background: '#ffffff'}}>
       <SearchAppBar></SearchAppBar>
-      <div className="">
+      <div className="" style={{height:'95vh'}}>
         <Tabs
-        fill
-        variant="pills"
-        as="button"
-        id="controlled-tab"
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-        className={classes.tabs}
-        className="btn mx-3 fs-5"
-        
+          variant="pills"
+          fill
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+          className="mx-3 px-2 pt-2 fs-5 rounded myClass"
       >
-        <Tab eventKey="home" title="분류 선택">
-          <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
+        <Tab.Item eventKey="home" title="분류 선택">
+          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <div className="m-5 text-center fs-4 h-100 p-5">분류를 선택해서 레시피를 더 쉽게 찾아보세요 :)</div>
           </Tab.Container>
-        </Tab>
+        </Tab.Item>
           
         <Tab eventKey="country" title="나라" variant="" id="">
         <Tab.Container>
@@ -130,8 +107,12 @@ const RecipeSearch = () => {
                     key={element.name+'nav'+index}
                   > 
                     <Nav variant="pills" className="m-2 fs-5">
-                      <Nav.Link className="btn my-2 rounded-3 shadow-sm w-100"  eventKey={element.id} onClick={() => 
+                    <Nav.Item className="w-100">
+                      <Nav.Link className="btn my-2 rounded-3 shadow-sm bg-danger text-dark"
+                      // style={ {color: '#ffffff'}:hover { color: 'red' }, background: '#ff4a6b',}} 
+                      eventKey={element.id} onClick={() => 
                         getFoodList('countries', element.id)}>{element.name}</Nav.Link>
+                    </Nav.Item>
                     </Nav>
                   </Col>
               )
@@ -145,10 +126,10 @@ const RecipeSearch = () => {
                     key={element.name+'tab'+index}
                   >
                     <Tab.Content>
-                      
                       <Tab.Pane eventKey={element.id}>
                         {/* 요리 리스트 */}
-                        <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
+                        <RecipeSubCategory categoryFoodList={foodList}>
+                        </RecipeSubCategory>
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>
@@ -169,8 +150,10 @@ const RecipeSearch = () => {
                     key={element.maxTime+'nav'+index}
                   > 
                     <Nav variant="pills" cclassName="m-2 fs-5">
-                      <Nav.Link className="btn my-2 rounded-3 shadow-sm w-100"  eventKey={element.id} onClick={() => 
-                        getFoodList('times', element.id)}>{element.maxTime} 분 </Nav.Link>
+                      <Nav.Link className="btn my-2 rounded-3 shadow-sm w-100"  
+                      eventKey={element.id} onClick={() => 
+                        getFoodList('times', element.id)}>{element.maxTime} 분 
+                      </Nav.Link>
                     </Nav>
                   </Col>
               )
@@ -184,10 +167,10 @@ const RecipeSearch = () => {
                     key={element.maxTime+'tab'+index}
                   >
                     <Tab.Content>
-                      
                       <Tab.Pane eventKey={element.id}>
                         {/* 요리 리스트 */}
-                        <RecipeSubCategory categoryFoodList={foodList}></RecipeSubCategory>
+                        <RecipeSubCategory categoryFoodList={foodList}>
+                        </RecipeSubCategory>
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>
@@ -198,7 +181,9 @@ const RecipeSearch = () => {
         </Tab.Container>
         </Tab>
 
-        <Tab eventKey="situations" title="상황" onClick={() => GetSituations()}>
+        <Tab eventKey="situations" title="상황" 
+          onClick={() => GetSituations()} disabled
+          style={{}}>
         <Tab.Container>
           <Row>
           <Col sm={3} className="m-3">
