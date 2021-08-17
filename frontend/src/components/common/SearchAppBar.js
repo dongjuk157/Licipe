@@ -23,7 +23,7 @@ import {
 } from '@material-ui/core';
 
 // jj
-import main from '../../style/main.css';
+import '../../style/main.css';
 
 const drawerWidth = 240;
 
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     // width: drawerWidth,
     width: 0,
     flexShrink: 0,
-  },
+    },
   drawerPaper: {
     width: drawerWidth,
   },
@@ -207,6 +207,7 @@ export default function PersistentDrawerLeft() {
         </Toolbar>
       </AppBar>
       <Drawer
+        // center
         className={classes.drawer}
         variant="persistent"
         anchor="left"
@@ -222,53 +223,33 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
 
-        <Link to='/'>
-        <button className="btn px-3 py-2 unique-transparent-btn">
-          <span className="" >Home</span>
-            {/* <ListItemText className={classes.listtext} primary='홈'/> */}
-          </button>
+        <Link to='/' className="btn px-3 py-2">
+          <span className="twayfly">Home</span>
         </Link>        
-        <Link to='/reciperecommend'>
-        <button className="btn px-3 py-2 unique-transparent-btn">
-              <span 
-                className="gradient-underline"
-              >둘러보기</span>
-            </button>
+        <Link to='/reciperecommend' className="btn px-3 py-2">
+          <span className="gradient-underline">둘러보기</span>
         </Link>
-        <Link to='/reciperecommend' className="btn px-3 py-2 unique-transparent-btn">
-          <span className="gradient-underline">둘러보기2</span>
-        </Link>
-        <Link to='/recipe/category'>
-          <button className="btn px-3 py-2 unique-transparent-btn">
+        <Link to='/recipe/category' className="btn px-3 py-2">
             <span className="gradient-underline">레시피 고르기</span>
-          </button>
         </Link>
         
-        <Link to='/community'>
-          <button className="btn px-3 py-2 unique-transparent-btn">
+        <Link to='/community' className="btn px-3 py-2">
             <span className="gradient-underline">요리 자랑</span>
-          </button>
         </Link>
         
         { loggedInfo ? (
-          <>
-            <Link to='/MyPage'>
-              <button className="btn px-3 py-2 unique-transparent-btn">
-                <span className="" >마이페이지</span>
-              </button>
+          <div className="row">
+            <Link to='/MyPage' className="btn px-3 py-2">
+                <span className="twayfly" >마이페이지</span>
             </Link>
 
-            <Link to='/logout'>
-              <button className="btn px-3 py-2 unique-transparent-btn">
-                <span className="" >로그아웃</span>
-              </button>
+            <Link to='/logout' className="btn px-3 py-2">
+                <span className="twayfly">로그아웃</span>
             </Link>
-          </>
+          </div>
           ) : (
-          <Link to='/login'>
-            <button className="btn px-3 py-2 unique-transparent-btn">
+          <Link to='/login' className="btn px-3 py-2">
               <span className="gradient-underline">로그인</span>
-            </button>
           </Link>
          )}
 

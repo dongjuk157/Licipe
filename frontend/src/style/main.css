@@ -1,4 +1,25 @@
+@font-face {
+  font-family: 'SF_HambakSnow';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'twayfly';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayfly.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.twayfly {
+  font-family: 'twayfly';
+  font-size: 1.2rem;
+  padding-bottom: 4px;
+  position: relative;
+  text-decoration: none;
+  width: 100%;
+}
 .btn-style {
   color: white;
   border: 0;
@@ -32,35 +53,50 @@
 }
 
   /* background: linear-gradient(to right,  #ff4a6b 30%,#fffdc7 100%); */
-  .gradient-underline {
+.gradient-underline {
+    font-family: 'twayfly';
+    font-size: 1.2rem;
     padding-bottom: 4px;
     position: relative;
     text-decoration: none;
+    width: 100%;
+}
+.gradient-underline::after {
+  /* background: #ff4a6b; */
+  background: linear-gradient(to right, #ff4a6b 30%, #fffdc7 100%);  
+  content: "";
+  position: absolute;
+  bottom: -0.4rem;
+  left: 0;
+  height: 2px;
+  width: 103%;
 }
 
-.gradient-underline::after {
+.gradient-underline-title {
+  font-family: 'twayfly';
+  font-size: 1.8rem;
+  padding-bottom: 4px;
+  position: relative;
+  text-decoration: none;
+  width: 100%;
+}
+.gradient-underline-title::after {
     /* background: #ff4a6b; */
+    font-family: 'SF_HambakSnow';
     background: linear-gradient(to right, #ff4a6b 30%, #fffdc7 100%);  
     content: "";
-    /* position: absolute; */
-    /* bottom: -0.4rem; */
+    position: absolute;
+    bottom: -4px;
     left: 0;
     height: 2px;
     width: 103%;
  }
 
-.unique-transparent-btn a {
-  /* margin: 10px;
-  padding: 20px; */
+.unique-transparent-btn {
   color: #595858;
-  background-image: transparent;
   text-align: center;
-  text-transform: uppercase;
   text-decoration: none;
-  position: relative;
-  /* overflow:hidden; */
-  /* transition: .3s; */
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   @media screen and (min-width:768px) and (orientation: landscape) {
       font-size: 1.8rem;
   }
