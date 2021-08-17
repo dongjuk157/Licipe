@@ -5,7 +5,7 @@ import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2';
 
 
-const MyRatings = () => {
+const MyRatings = ({match}) => {
   const dispatch = useDispatch()
   const result = useSelector((state) => state.user.get('result')).toJS()
   useEffect(()=>{
@@ -13,9 +13,10 @@ const MyRatings = () => {
       await dispatch(userActions.getUserRatings())
     }
     getRatings()
-  }, [])
+    return dispatch(userActions.initializeForm('result'))
+  }, [match.params.url])
   const ratingList = Object.assign(result)
-  console.log(ratingList)
+  // console.log(ratingList)
   
   return (
     <>

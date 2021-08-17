@@ -4,17 +4,27 @@ import SearchAppBar from '../common/SearchAppBar'
 import { useDispatch, useSelector } from 'react-redux'
 import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2';
+import { useLocation } from 'react-router';
 
 
-const MyArticles = () => {
+const MyArticles = ({match}) => {
+  const location = useLocation()
   const dispatch = useDispatch()
   const result = useSelector((state) => state.user.get('result')).toJS()
   useEffect(()=>{
+    dispatch(userActions.initializeForm('result'))
     async function getArticles () {
       await dispatch(userActions.getUserArticles())
     }
     getArticles()
-  }, [])
+    return dispatch(userActions.initializeForm('result'))
+  }, [match.params.url])
+  let ratingButton = false
+  try {
+    ratingButton = location.state.ratingButton
+  } catch (e) {}
+  // console.log(ratingButton, location.state)
+
   const articleList = Object.assign(result)
   return (
     <>
@@ -24,10 +34,9 @@ const MyArticles = () => {
         <div className="row">
         { articleList.length !== 0 ? (
             articleList.map((item, index) => {
-              // console.log(element)
               return (
               <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                <Card2 item={item}></Card2>
+                <Card2 item={item} ratingButton={ratingButton}></Card2>
               </div>
               )
             })
