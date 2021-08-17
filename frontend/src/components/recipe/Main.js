@@ -51,12 +51,12 @@ const Main = () => {
   };
 
   return (
-    <div class="mx-auto w-100 bg-white h-100">
+    <div className="mx-auto w-100 bg-white h-100">
       <SearchAppBar></SearchAppBar>
-      <div class="col-12 col-lg-8 mx-auto bg-white align-items-center">
+      <div className="col-12 col-lg-8 mx-auto bg-white align-items-center">
           <Slider {...settings}>
             {foodList.map((food, index) => {
-              console.log(food.id)
+              // console.log(food.id)
               return (
                 <div key={index} className="d-flex flex-column align-items-center">
                   <img src={`${food.imgURL}`} className="w-100 mb-3">
