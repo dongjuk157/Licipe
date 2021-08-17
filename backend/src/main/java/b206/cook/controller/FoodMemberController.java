@@ -27,4 +27,8 @@ public class FoodMemberController {
         return new ResponseEntity<>(foodMemberService.findClips(snsId), HttpStatus.OK);
     }
 
+    @GetMapping("/member/myclips/recent")
+    public ResponseEntity<List<Food_Member>> recentClips(@RequestHeader String snsId) {
+        return new ResponseEntity<>(foodMemberService.findRecentClippedFoods(snsId), HttpStatus.OK);
+    }
 }
