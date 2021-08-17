@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import SearchAppBar from '../common/SearchAppBar'
 import { makeStyles } from '@material-ui/core/styles';
-import { ImageListItemBar, IconButton, Hidden } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import RecipeInfoComponent from './RecipeInfoComponent';
@@ -96,37 +95,40 @@ const getMoreFoodList = () => {
 		return () => observer && observer.disconnect();
 	}, [target, viewport]);
 
-	const [ detailTarget, setDetailTarget ] = useState({});;
+	const [ detailTarget, setDetailTarget ] = useState([]);;
 	const getDetailTarget = ((food) => {
 		console.log('food', food);
 		setDetailTarget(food);
 		
 	});
 
-	const breakP = (()=> {
-		if ( detailTarget && detailTarget.length ) {
-			return { 
-				column: 9 
-			}
-		}
-		else {
-			return { 
-				column: 6,
-			}
-		}
-	});
+	// const breakP = (()=> {
+	// 	if ( detailTarget && detailTarget.length ) {
+	// 		return { 
+	// 			column: 9 
+	// 		}
+	// 	}
+	// 	else {
+	// 		return { 
+	// 			column: 6,
+	// 		}
+	// 	}
+	// });
 
 	return (
-		<div className="col-11 mx-auto">
+		<div className="col-11 mx-auto justify-content-center">
 			<SearchAppBar></SearchAppBar>
 			<Row>
-			<Col style={breakP()} className="mx-auto d-flex flex-wrap justify-content-center">
+				<Col className={"d-flex flex-wrap mx-auto "+ (detailTarget.length !== 0? "col-7":"col-9")}>
 						{foodList.map((food, index) => {
 							// const lastEl = index === foodList.length - 1;
 							const foodObject = {'id': food.id, 'name': food.name, 'imgURL': food.imgURL}
 							return (
-								<Container className="row col-12 col-lg-6 center" key={index}>
-								<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3">
+								<Container 
+								className={"row "
+								+ (detailTarget.length !== 0? "col-12 col-lg-6 ms-auto px-2":"col-6 col-lg-4 mx-auto px-1")}
+								 key={index}>
+								<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3 shadow">
 								<Card.Img variant="top" src={food.imgURL} className="img-fluid" />
 									<Card.Body className="">
 										<Row>
@@ -145,26 +147,25 @@ const getMoreFoodList = () => {
 
 										<Row className="d-flex">
 											<Col className="align-self-center">
-	
 											</Col>
 											<Col>
-										<ButtonGroup className="d-flex col-9 ms-auto">											
-											<Col className="">
-												<Button variant="outline-primary" className="">
-													<Link className="text-decoration-none" 
-														to={`/recipe/${food.id}/step`}>
-														<i className="fas fa-utensils"></i>
-													</Link>
-												</Button>
-											</Col>
-											<Col>
-												<Button onClick=
-													{() => getDetailTarget(foodObject)} 
-													className="mx-2">
-													<i className="fas fa-search"></i>
-												</Button>
-											</Col>
-										</ButtonGroup>
+												<ButtonGroup className="d-flex col-9 ms-auto">											
+													<Col className="">
+														<Button variant="outline-primary" className="">
+															<Link className="text-decoration-none" 
+																to={`/recipe/${food.id}/step`}>
+																<i className="fas fa-utensils"></i>
+															</Link>
+														</Button>
+													</Col>
+													<Col>
+														<Button onClick=
+															{() => getDetailTarget(foodObject)} 
+															className="mx-2">
+															<i className="fas fa-search"></i>
+														</Button>
+													</Col>
+												</ButtonGroup>
 											</Col>
 										</Row>
 									</Card.Body>
@@ -172,15 +173,15 @@ const getMoreFoodList = () => {
 							</Container>
 							)
 						})}
-					</Col>
-					{
-						detailTarget && detailTarget.length !== 0 ?
-						(<Col xs={6} className="bg-dark">
-							<RecipeInfoComponent food={detailTarget}>
-							</RecipeInfoComponent>
-						</Col>)
-				: <></>
-					}
+				</Col>
+			{
+				detailTarget && detailTarget.length !== 0 ?
+				(<Col xs={5} className="shadow h-100 mt-2 rounded">
+					<RecipeInfoComponent food={detailTarget}>
+					</RecipeInfoComponent>
+				</Col>)
+			: <></>
+			}
 			</Row>
 		</div>
 	);
