@@ -13,6 +13,8 @@ const GET_USER_RATINGS = 'user/GET_USER_RATINGS'
 const GET_USER_ARTICLES = 'user/GET_USER_ARTICLES'
 const GET_USER_CLIPS = 'user/GET_USER_CLIPS'
 
+const GET_USER_RATINGS_RECENT = 'user/GET_USER_RATINGS_RECENT'
+
 export const setLoggedInfo = createAction(SET_LOGGED_INFO); // loggedInfo
 export const setValidated = createAction(SET_VALIDATED); // validated
 export const logout = createAction(LOGOUT, AuthAPI.logout);
@@ -21,6 +23,7 @@ export const getUserInfo = createAction(GET_USER_INFO, UserAPI.getUserInfo);
 export const getUserRatings = createAction(GET_USER_RATINGS, UserAPI.getUserRatings)
 export const getUserArticles = createAction(GET_USER_ARTICLES, UserAPI.getUserArticles)
 export const getUserClips = createAction(GET_USER_CLIPS, UserAPI.getUserClips)
+export const getUserRatingsRecent = createAction(GET_USER_RATINGS_RECENT, UserAPI.getUserRatingsRecent)
 
 const initialState = Map({
     loggedInfo: Map({ // 현재 로그인중인 유저의 정보
@@ -52,14 +55,22 @@ export default handleActions({
             // console.log(typeof(action.payload.data), action.payload.data)
             // const newData = Object.assign({}, action.payload.data)
             return state.set('result', List(action.payload.data))
-        }
+        },
+        onFailure: (state, action) => state.set('result', initialState),
     }),
     ...pender({
         type: GET_USER_ARTICLES,
-        onSuccess: (state, action) => state.set('result', List(action.payload.data))
+        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
+        onFailure: (state, action) => state.set('result', initialState),
     }),
     ...pender({
         type: GET_USER_CLIPS,
-        onSuccess: (state, action) => state.set('result', List(action.payload.data))
+        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
+        onFailure: (state, action) => state.set('result', initialState),
+    }),
+    ...pender({
+        type: GET_USER_RATINGS_RECENT,
+        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
+        onFailure: (state, action) => state.set('result', initialState),
     }),
 }, initialState);
