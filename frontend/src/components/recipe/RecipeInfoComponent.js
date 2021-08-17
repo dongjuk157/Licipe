@@ -21,7 +21,6 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import IconButton from '@material-ui/core/IconButton';
 
 import '../../style/recipe_search.css'
-import '../../style/scrollbar.css'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 
@@ -69,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
+    margin: '1rem',
     backgroundColor: theme.palette.background.paper,
   },
   imageList: {
@@ -85,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   }
 }));
-const scrollContainerStyle = { width: "100%" };
 
 const RecipeInfoComponent = (props) => {
   const classes = useStyles();
@@ -155,7 +154,7 @@ const RecipeInfoComponent = (props) => {
           요리 후기
         </Typography>
 
-    <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={scrollContainerStyle}>
+    <div className={classes.root}>
       <ImageList className={classes.imageList} cols={2.5}>
         {props.articleList.map((item, index) => (
           <ImageListItem key={item.imgURL}>
@@ -175,9 +174,7 @@ const RecipeInfoComponent = (props) => {
         ))}
       </ImageList>
     </div>
-
-      <Divider/>
-      </Container>
+    </Container>
     </div>
   );
 };
