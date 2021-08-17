@@ -15,7 +15,12 @@ import axios from 'axios';
 
 // jj
 import { Button, Container, Row, Col } from 'react-bootstrap';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import IconButton from '@material-ui/core/IconButton';
 
+import '../../style/recipe_search.css'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 
@@ -57,6 +62,27 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
 
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    margin: '1rem',
+    backgroundColor: theme.palette.background.paper,
+  },
+  imageList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+  title: {
+    color: '#fff',
+    backgroundColor: 'transparent'
+  },
+  titleBar: {
+    background:
+      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   }
 }));
 
@@ -109,7 +135,7 @@ const RecipeInfoComponent = (props) => {
           { props.ingredientsList.map((ingredient, index) => {
             return (
               ingredient.main?
-                (<div claaName="col-5" style={{ fontFamily: 'Noto Sans CJK KR' }}>
+                (<div key={index} claaName="col-5" style={{ fontFamily: 'Noto Sans CJK KR' }}>
                   {ingredient.ingredient.name} 
                   <span style={{ marginInline: "3px"}}>{ingredient.ingredient.weight}{ingredient.ingredient.unit}</span>
                   <span style={{ marginInlineEnd: "3px", color: "#ff4a6b"}}>| </span>
@@ -119,33 +145,36 @@ const RecipeInfoComponent = (props) => {
           })
           }
         </div>
-        <Divider />
+        <Divider className="mb-3"/>
         <Typography 
         color="textSecondary"
         variant="caption"
         className="m-3"
         >
-          조리 후기
+          요리 후기
         </Typography>
-        <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="맛있어요"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                className={classes.inline}
-              >
-              </Typography>
-              {" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
 
-
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider/>
-      </Container>
+    <div className={classes.root}>
+      <ImageList className={classes.imageList} cols={2.5}>
+        {props.articleList.map((item, index) => (
+          <ImageListItem key={item.imgURL}>
+            <img src={item.imgURL} alt={item.content} />
+            <ImageListItemBar
+              title={item.content}
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              } + 'transbg'}
+              actionIcon={
+                <IconButton aria-label={`star ${item.content}`}>
+                </IconButton>
+              }
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </div>
+    </Container>
     </div>
   );
 };
