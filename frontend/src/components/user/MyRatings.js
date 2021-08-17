@@ -15,7 +15,7 @@ const MyRatings = () => {
     getRatings()
   }, [])
   const ratingList = Object.assign(result)
-  
+  console.log(ratingList)
   
   return (
     <>
@@ -26,8 +26,8 @@ const MyRatings = () => {
         { ratingList.length !== 0 ? (
             ratingList.map((item, index) => {
               return (
-                <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-                  <Card2 item={item} key={index}></Card2>
+                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                  <Card2 item={item}></Card2>
                 </div>
               )
             })
