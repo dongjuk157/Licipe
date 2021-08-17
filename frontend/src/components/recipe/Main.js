@@ -58,12 +58,12 @@ const Main = () => {
             {foodList.map((food, index) => {
               // console.log(food.id)
               return (
-                <div key={index} className="d-flex flex-column align-items-center">
+                <div key={index} className="d-flex flex-column align-items-center vertical">
                   <img src={`${food.imgURL}`} className="w-100 mb-3">
                   </img>
                     <Link to={`/recipe/${food.id}`} className="mt-3 btn btn-lg p-3">
                       {/* 각각의 요리 레시피로 이동하는거 해주세요! */}
-                        <span className="gradient-underline-title" >{food.name}</span>
+                        <span className="gradient-underline-title fs-3" >{food.name}</span>
                     </Link>
                   {/* dot을 없애야 slider 안에서 food 변수를 사용 가능 */}
                   {/* <div className="d-grid col-8 col-md-6 mx-auto"> */}
