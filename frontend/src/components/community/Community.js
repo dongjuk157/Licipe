@@ -13,7 +13,7 @@ const breakpointColumnsObject = {
 
 }
 
-const Community = () => {
+const Community = ({match}) => {
   const dispatch = useDispatch()
   const articles = useSelector((state)=> state.article.get('articles'))
   // console.log(articles, typeof(articles))
@@ -26,7 +26,7 @@ const Community = () => {
       setCount(count + 1) // infinity scroll
     }
     updateFeed()
-  }, [])
+  }, [match.params.url])
 
   return (
     <>
