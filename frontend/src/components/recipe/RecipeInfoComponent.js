@@ -64,18 +64,16 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeInfoComponent = (props) => {
   const classes = useStyles();
-  const [rating, setRating] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [ingredients, setIngredients] = useState([]);
   const [state, setState] = useState({
     right: false,
   });
 
-  const toggleDrawer = (open) => (event) => {
-    setState({ ...state, right: open });
-  };
-
   const getFoodRating = () => {
     axios.get(`/foods/${props.food.id}/recipe/rating/average`)
     .then((res) => {
+      console.log(res.data)
       setRating(res.data)
     })
     .catch((err) => {
@@ -83,23 +81,30 @@ const RecipeInfoComponent = (props) => {
     })
   }
 
+  const getIngredients = () => {
+    axios.get(`/foods/${props.food.id}/ingredients`)
+    .then((res) => {
+      console.log(res.data)
+      setIngredients(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+
   useEffect(() => {
     getFoodRating();
-  }, [rating])
+  },)
+
+  useEffect(() =>{
+    getIngredients();
+  }, [ingredients])
 
   return (
     <div>
-        {/* <Button onClick={toggleDrawer(true)} className="mx-2"><i className="fas fa-search"></i></Button>
-        <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}
-        className={classes.drawer}
-        >
-        <div
-      className={classes.recipeDetail}
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    > */}
       <Container className={
-        classes.detail, 'bg-light'} 
+        classes.detail, 'bg-white'} 
         style={{    
           position: 'relative',
           boxSizing: 'border-box',
@@ -118,7 +123,10 @@ const RecipeInfoComponent = (props) => {
         <ListItem>
           <div>
           <Typography className="fs-4 ms-2 mb-1">{props.food.name}</Typography>
-          <Rating name="read-only" value={rating} size="large"readOnly />
+          <div className="align-items-end">
+            <span className="fs-4 ms-2 mb-1">🌟 {rating}</span>
+            <span>/5</span>
+          </div>
           </div>
           <Button variant="outline-primary" className="ms-auto me-1" size="lg">
             <Link className="text-decoration-none" to={`/recipe/${props.food.id}/step`}>

@@ -9,6 +9,7 @@ import styled from 'styled-components'
 
 import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import '../../style/recipe_recommend.css';
 import 'bootstrap';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
@@ -116,8 +117,10 @@ const getMoreFoodList = () => {
 	// });
 
 	return (
-		<div className="col-11 mx-auto justify-content-center">
+		<div className="col-12 justify-content-center">
 			<SearchAppBar></SearchAppBar>
+			<div className="col-11 mx-auto bg-white">
+
 			<Row>
 				<Col className={"d-flex flex-wrap mx-auto "+ (detailTarget.length !== 0? "col-7":"col-9")}>
 						{foodList.map((food, index) => {
@@ -125,10 +128,10 @@ const getMoreFoodList = () => {
 							const foodObject = {'id': food.id, 'name': food.name, 'imgURL': food.imgURL}
 							return (
 								<Container 
-								className={"row "
+								className={"row boder-0 "
 								+ (detailTarget.length !== 0? "col-12 col-lg-6 ms-auto px-2":"col-6 col-lg-4 mx-auto px-1")}
-								 key={index}>
-								<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3 shadow">
+								key={index}>
+								<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3 shadow boder-0">
 								<Card.Img variant="top" src={food.imgURL} className="img-fluid" />
 									<Card.Body className="">
 										<Row>
@@ -176,13 +179,14 @@ const getMoreFoodList = () => {
 				</Col>
 			{
 				detailTarget && detailTarget.length !== 0 ?
-				(<Col xs={5} className="shadow h-100 mt-2 rounded">
+				(<Col xs={5} className="bg-white shadow h-100 mt-2 rounded">
 					<RecipeInfoComponent food={detailTarget}>
 					</RecipeInfoComponent>
 				</Col>)
 			: <></>
-			}
+		}
 			</Row>
+		</div>
 		</div>
 	);
 }
