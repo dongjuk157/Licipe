@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Button, Grid } from '@material-ui/core'
-import styled from 'styled-components'
+import { Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
