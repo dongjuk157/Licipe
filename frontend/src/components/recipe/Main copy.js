@@ -9,7 +9,7 @@ import axios from 'axios';
 import '../../style/main.css';
 import { Link } from 'react-router-dom';
 
-import { Button, Carousel, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
+import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
 
 const Main = () => {
   const [foodList, setFoodList] = useState([]);
@@ -51,12 +51,12 @@ const Main = () => {
   };
 
   return (
-    <div className="mx-auto w-100 bg-white h-100">
+    
+    <div class="mx-auto w-100 bg-white h-100">
       <SearchAppBar></SearchAppBar>
-      <div className="col-12 col-lg-8 mx-auto bg-white align-items-center">
+      <Row class="col-12 col-lg-8 mx-auto bg-white align-items-center">
           <Slider {...settings}>
             {foodList.map((food, index) => {
-              // console.log(food.id)
               return (
                 <div key={index} className="d-flex flex-column align-items-center">
                   <img src={`${food.imgURL}`} className="w-100 mb-3">
@@ -66,16 +66,16 @@ const Main = () => {
                         <span className="gradient-underline-title" >{food.name}</span>
                     </Link>
                   {/* dot을 없애야 slider 안에서 food 변수를 사용 가능 */}
-                  {/* <div className="d-grid col-8 col-md-6 mx-auto"> */}
+                  {/* <div class="d-grid col-8 col-md-6 mx-auto"> */}
                     <Link to={`/recipe/${food.id}/step`}>
-                      <i class="fas fa-utensils" style={{ fontSize:'2rem', color:'#ff4a6b' }}></i>
+                      <i class="fas fa-utensils" style={{ fontSize:'2rem' }}></i>
                     </Link>
                   {/* </div> */}
                 </div>
               )
             })}      
           </Slider>
-      </div>
+      </Row>
     </div>
   )
 }

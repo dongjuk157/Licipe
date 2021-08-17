@@ -5,6 +5,8 @@ import storage from './lib/storage';
 import * as userActions from './redux/modules/user';
 import { useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 
 const App = () => {
   const dispatch = useDispatch()
@@ -30,7 +32,7 @@ const App = () => {
   
 
   return (
-    <Routes/>
+    <Routes />
   );
 }
 
