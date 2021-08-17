@@ -133,11 +133,11 @@ const SpeechToText = (props) => {
   명령어 끄기: "들어가", "명령어 들어가"
   마이크 끄기: "끝", "마이크 끝"
   마이크 켜기: 마이크를 끄고 음성 인식이 가능할거라 생각하십니까?
-  `.split('\n').map((sentence)=>(<p>{sentence}</p>))
+  `.split('\n').map((sentence, index)=>(<p key={index}>{sentence}</p>))
   
   
   return (
-    <div style={{position:'absolute', right:'2%', top:'12%' }}>
+    <div style={{position:'absolute', right:'2%', bottom:'2%' }}>
       <div style={{fontSize:'1rem'}}>
         {listening ? (
           <i className="fas fa-microphone fa-lg" style={{color:'red'}} onClick={onSttStop}></i> 
