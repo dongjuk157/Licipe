@@ -35,6 +35,16 @@
   url("style/fonts/NotoSansKR-Bold.otf") format('truetype')
 }
 
+@font-face {
+  font-family: 'twayfly';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayfly.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+div {
+  font-family: 'twayfly';
+}
 body {
   /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace; */
