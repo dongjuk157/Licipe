@@ -108,8 +108,7 @@ const RecipeSearch = () => {
                     <Nav variant="pills" className="m-2 fs-5">
                     <Nav.Item className="w-100">
                       <Nav.Link className="btn my-2 rounded-3 shadow-sm"
-                      // style={ {color: '#ffffff'}:hover { color: 'red' }, background: '#ff4a6b',}} 
-                      eventKey={element.id} onClick={() => 
+                        eventKey={element.id} onClick={() => 
                         getFoodList('countries', element.id)}>{element.name}</Nav.Link>
                     </Nav.Item>
                     </Nav>
