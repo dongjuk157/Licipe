@@ -3,7 +3,6 @@ import SearchAppBar from '../common/SearchAppBar'
 import FeedCard from '../common/FeedCard'
 import { useDispatch, useSelector } from 'react-redux'
 import * as articleAction from '../../redux/modules/article'
-import { Col } from 'react-bootstrap'
 import Masonry from 'react-masonry-css'
 
 const breakpointColumnsObject = {
