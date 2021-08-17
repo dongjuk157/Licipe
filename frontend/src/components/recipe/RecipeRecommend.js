@@ -96,25 +96,32 @@ const getMoreFoodList = () => {
 		return () => observer && observer.disconnect();
 	}, [target, viewport]);
 
-	const [ detailTarget, setDetailTarget ] = useState([]);;
+	const [ detailTarget, setDetailTarget ] = useState([]);
+	const [ingredients, setIngredients] = useState([]);
+	const [rating, setRating] = useState();
 	const getDetailTarget = ((food) => {
 		console.log('food', food);
 		setDetailTarget(food);
-		
-	});
 
-	// const breakP = (()=> {
-	// 	if ( detailTarget && detailTarget.length ) {
-	// 		return { 
-	// 			column: 9 
-	// 		}
-	// 	}
-	// 	else {
-	// 		return { 
-	// 			column: 6,
-	// 		}
-	// 	}
-	// });
+		console.log(food.id)
+    axios.get(`/foods/${food.id}/ingredients`)
+    .then((res) => {
+      console.log('재료', res.data)
+      setIngredients(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+		})
+		
+		axios.get(`/foods/${food.id}/recipe/rating/average`)
+    .then((res) => {
+      console.log(res.data)
+      setRating(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+	});
 
 	return (
 		<div className="col-12 justify-content-center">
@@ -122,7 +129,7 @@ const getMoreFoodList = () => {
 			<div className="col-11 mx-auto bg-white">
 
 			<Row>
-				<Col className={"d-flex flex-wrap mx-auto "+ (detailTarget.length !== 0? "col-7":"col-9")}>
+				<Col className={"d-flex flex-wrap mx-auto "+ (detailTarget.length !== 0? "col-6":"col-9")}>
 						{foodList.map((food, index) => {
 							// const lastEl = index === foodList.length - 1;
 							const foodObject = {'id': food.id, 'name': food.name, 'imgURL': food.imgURL}
@@ -131,7 +138,7 @@ const getMoreFoodList = () => {
 								className={"row boder-0 "
 								+ (detailTarget.length !== 0? "col-12 col-lg-6 ms-auto px-2":"col-6 col-lg-4 mx-auto px-1")}
 								key={index}>
-								<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3 shadow boder-0">
+								<Card style={{ width: '18rem' }} className="my-2 mx-0 me-3 ms-auto pt-3 shadow boder-0">
 								<Card.Img variant="top" src={food.imgURL} className="img-fluid" />
 									<Card.Body className="">
 										<Row>
@@ -162,8 +169,10 @@ const getMoreFoodList = () => {
 														</Button>
 													</Col>
 													<Col>
-														<Button onClick=
-															{() => getDetailTarget(foodObject)} 
+														<Button 
+															onClick={() => {
+																getDetailTarget(foodObject)}
+															}
 															className="mx-2">
 															<i className="fas fa-search"></i>
 														</Button>
@@ -179,8 +188,8 @@ const getMoreFoodList = () => {
 				</Col>
 			{
 				detailTarget && detailTarget.length !== 0 ?
-				(<Col xs={5} className="bg-white shadow h-100 mt-2 rounded">
-					<RecipeInfoComponent food={detailTarget}>
+				(<Col xs={6} lg="5" className="bg-white shadow h-100 mt-2 rounded">
+					<RecipeInfoComponent food={detailTarget} ingredientsList={ingredients} rating={rating}>
 					</RecipeInfoComponent>
 				</Col>)
 			: <></>
