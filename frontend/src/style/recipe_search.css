@@ -37,3 +37,28 @@
   height: 2px;
   width: 103%;
 }
+
+
+/* Inactive tab */
+.myClass ul > li > button {
+  background-color: white;
+  color: rgb(38, 38, 38);
+}
+.myClass ul > li > button:hover {
+  background-color: #fffdc7;
+}
+
+/* Active tab */
+.myClass ul > li.active > button,
+.myClass ul > li.active > button:hover,
+.myClass ul > li.active > button:focus {
+  background-color: white;
+  color: #ff4a6b;
+}
+
+/* Disabled tab */
+.myClass ul > li.disabled > a {
+  background-color: transparent;
+  color: white;
+}
+
