@@ -13,7 +13,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_
 
 
 const Carousel = styled.div`
-	margin: 100px 0 0 0;
+	margin: 5% 0 0 0;
 	align-items: center;
 `
 
@@ -48,8 +48,8 @@ const RecipeStep = (props) => {
 		GetRecipeSteps();
 	}, [])
 	
-	const [isMuted, setIsMuted] = useState(true)
-	const handleMuted = (state) => setIsMuted(state)
+	// const [isMuted, setIsMuted] = useState(true)
+	// const handleMuted = (state) => setIsMuted(state)
 	const playbackRate = useSelector((state)=> state.stt.get('playbackRate'))
   const playbackRateIndex = useSelector((state)=> state.stt.get('playbackRateIndex'))
 	const handlePlay = () => {
@@ -73,13 +73,17 @@ const RecipeStep = (props) => {
 	const command = useSelector((state) => state.stt.get('command'))
 	const slider = useRef()
 	const timer = document.querySelector(`#timer${stepIndex}`) 
-	const currentTimer = useRef
+	// const currentTimer = useRef
 	switch (command){
 		case 'next': 
 			if (stepIndex < steps.length){
 				handlePause()
 				setStepIndex(stepIndex + 1)
 				slider.current.slickNext()
+				if (timer){
+					const buttonReset = timer.querySelector( '.handleReset')
+					buttonReset.click()
+				}
 			}
 			break
 		case 'previous':
@@ -87,6 +91,10 @@ const RecipeStep = (props) => {
 				handlePause()
 				setStepIndex(stepIndex - 1)
 				slider.current.slickPrev()
+				if (timer){
+					const buttonReset = timer.querySelector( '.handleReset')
+					buttonReset.click()
+				}
 			}
 			break
 		case 'start':
@@ -138,40 +146,47 @@ const RecipeStep = (props) => {
 				micState={micState}
 			/>
 			<Carousel>
-				<h1>요리 단계</h1>
 				<Slider {...settings}
 					ref={slider}
 				>
 					{steps.map((step, index) => {
 						return (
 						<div key={index}>
-							<video 
-								id={'video'+index}
-								controls crossOrigin="anonymous"
-								// muted={isMuted}
-								// autoPlay={true}
-								// onEnded={()=>	dispatch(sttActions.changeInput({name:'command', value:'next'}))}
-							>
-								<source src={`${step.videoUrl}`}></source>
-							</video>
-							<p>{step.description}</p>
-							{
-								step.timer > 0 && 
-								<Timer 
-									timer={step.timer} index={index}
-								/>
-							}
+							<div style={{display:'flex', padding:'1rem', justifyContent:'center', flexDirection:'column'}}>
+								<div style={{display:'flex', padding:'1rem', justifyContent:'center',}}>
+									<video 
+										id={'video'+index}
+										controls crossOrigin="anonymous"
+										// muted={isMuted}
+										// autoPlay={true}
+										// onEnded={()=>	dispatch(sttActions.changeInput({name:'command', value:'next'}))}
+									>
+										<source src={`${step.videoUrl}`}></source>
+									</video>
+								</div>
+								<div style={{display:'flex', padding:'1rem', justifyContent:'center',}}>
+									<p>{step.description}</p>
+									{
+										step.timer > 0 && 
+										<Timer 
+										timer={step.timer} index={index}
+										/>
+									}
+								</div>
+							</div>
 						</div>
 						)
 					})}
-					<Link to={{
-						pathname: `/article`,
-						state: { foodid },
-						}}>
-						<div>
-							사진찍고 요리 인증하기
-						</div>
-					</Link>
+					<div>
+						<Link to={{
+							pathname: `/article`,
+							state: { foodid },
+							}}>
+							<div>
+								사진찍고 요리 인증하기
+							</div>
+						</Link>
+					</div>
 				</Slider>
 			</Carousel>
 		</div>

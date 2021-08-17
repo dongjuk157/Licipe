@@ -30,13 +30,19 @@ const ArticleDetail = () => {
   const dispatch = useDispatch()
   const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
-  
+
+
   const article = location.state.article
   useEffect(()=>{
     dispatch(articleActions.getArticle(article.id))
     return dispatch(articleActions.initializeForm('article'))
   }, [])
 
+  if (!currentUserInfo) {
+    alert('로그인정보가 만료되었습니다.')
+    history.push('/login')
+    return <></> 
+  }
   
   const handleThumbup = () => {
     // 좋아요 안만들겠지?
