@@ -196,7 +196,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
           <Typography noWrap className={classes.title} className="position-absolute start-50 translate-middle-x">
           <Button href="/">
-            <img src="logo-sm.png" alt="logo" style={{height:'6rem'}}/>
+            <img src="/logo-sm.png" alt="logo" style={{height:'6rem'}}/>
           </Button>
           </Typography>
         </Toolbar>
