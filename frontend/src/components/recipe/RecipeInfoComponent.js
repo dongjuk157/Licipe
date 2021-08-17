@@ -15,8 +15,6 @@ import axios from 'axios';
 
 // jj
 import { Button, Container, Row, Col } from 'react-bootstrap';
-// import 'bootstrap';
-import Rating from '@material-ui/lab/Rating';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
@@ -64,42 +62,6 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeInfoComponent = (props) => {
   const classes = useStyles();
-  const [rating, setRating] = useState(0);
-  const [ingredients, setIngredients] = useState([]);
-  const [state, setState] = useState({
-    right: false,
-  });
-
-  const getFoodRating = () => {
-    axios.get(`/foods/${props.food.id}/recipe/rating/average`)
-    .then((res) => {
-      console.log(res.data)
-      setRating(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-  const getIngredients = () => {
-    axios.get(`/foods/${props.food.id}/ingredients`)
-    .then((res) => {
-      console.log(res.data)
-      setIngredients(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-
-  useEffect(() => {
-    getFoodRating();
-  },)
-
-  useEffect(() =>{
-    getIngredients();
-  }, [ingredients])
 
   return (
     <div>
@@ -122,13 +84,15 @@ const RecipeInfoComponent = (props) => {
         </ListItem>
         <ListItem>
           <div>
-          <Typography className="fs-4 ms-2 mb-1">{props.food.name}</Typography>
+          <Typography className="fs-4 ms-2 mb-1" style={{ fontFamily: 'twayfly' }}>{props.food.name}</Typography>
           <div className="align-items-end">
-            <span className="fs-4 ms-2 mb-1">🌟 {rating}</span>
+            <span className="fs-4 ms-2 mb-1">🌟 {props.rating}</span>
             <span>/5</span>
           </div>
           </div>
-          <Button variant="outline-primary" className="ms-auto me-1" size="lg">
+          <Button variant="outline-primary" 
+            className="ms-auto me-1 bg-white" 
+            size="lg">
             <Link className="text-decoration-none" to={`/recipe/${props.food.id}/step`}>
             <i className="fas fa-utensils"></i>
             </Link>
@@ -139,18 +103,29 @@ const RecipeInfoComponent = (props) => {
         variant="caption"
         className="m-3"
         >
-          재료
+          메인 재료
         </Typography>
-        <ListItem className="">
-          재료1 - 300g | 재료2 - 3스푼, 
-        </ListItem>
+        <div className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>
+          { props.ingredientsList.map((ingredient, index) => {
+            return (
+              ingredient.main?
+                (<div claaName="col-5" style={{ fontFamily: 'Noto Sans CJK KR' }}>
+                  {ingredient.ingredient.name} 
+                  <span style={{ marginInline: "3px"}}>{ingredient.ingredient.weight}{ingredient.ingredient.unit}</span>
+                  <span style={{ marginInlineEnd: "3px", color: "#ff4a6b"}}>| </span>
+                </div>)
+                : <></>
+            )
+          })
+          }
+        </div>
         <Divider />
         <Typography 
         color="textSecondary"
         variant="caption"
         className="m-3"
         >
-          레시피 후기
+          조리 후기
         </Typography>
         <ListItem alignItems="flex-start">
         <ListItemText
@@ -160,7 +135,6 @@ const RecipeInfoComponent = (props) => {
               <Typography
                 component="span"
                 className={classes.inline}
-                color="textPrimary"
               >
               </Typography>
               {" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
@@ -172,8 +146,6 @@ const RecipeInfoComponent = (props) => {
       </ListItem>
       <Divider/>
       </Container>
-    {/* </div>
-        </Drawer> */}
     </div>
   );
 };
