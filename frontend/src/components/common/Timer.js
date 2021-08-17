@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import {useDispatch, useSelector } from 'react-redux';
 import * as sttActions from '../../redux/modules/stt';
+import { Button } from 'react-bootstrap'
 
 const Timer = ({timer, index, ref}) => {
   const dispatch = useDispatch()
@@ -59,13 +60,29 @@ const Timer = ({timer, index, ref}) => {
 
   
   return (
-    <div id={'timer'+index} ref={ref}>
-      <h3>
+    <div id={'timer'+index} ref={ref} className="col-2 d-flex flex-column">
+      <h3 className="text-center p-1">
         {Math.floor(seconds/60)}:{seconds%60}
       </h3>
-      <div>
-        <button onClick={handleClick} className="handleStartStop">{pause?"start":"pause"}</button>
-        <button onClick={handleReset} className="handleReset">reset</button>
+      <div className="d-flex justify-content-center p-1">
+        <Button 
+          variant="light"
+          onClick={handleClick} 
+          className="handleStartStop"
+        >
+          { pause ? (
+            <i className="fas fa-play"></i>
+          ) : (
+            <i className="fas fa-pause"></i>
+          )}
+        </Button>
+        <Button
+          variant="light"
+          onClick={handleReset} 
+          className="handleReset"
+        >
+          <i className="fas fa-undo"></i>
+        </Button>
       </div>
     </div>
   )
