@@ -19,7 +19,7 @@ const RecipeSubCategory = (props) => {
 		setFoodList(props.categoryFoodList[0]);
 	})
     return (
-			<div className="d-flex flex-wrap mb-3">
+			<div className="d-flex flex-wrap mb-3 justify-content-start">
 				{foodList && foodList.map((food, index) => {
 					return (
 						<Container key={food.name + index} className="row col-6 col-lg-4">
