@@ -17,10 +17,10 @@ const MyPage = () => {
     if(!loggedInfo) {
       return
     } 
-    async function getRatings () {
-      await dispatch(userActions.getUserRatingsRecent())
+    async function getClips () {
+      await dispatch(userActions.getUserClipsRecent())
     }
-    getRatings()
+    getClips()
   }, [])
 
   if(!loggedInfo) { // 로그인 정보가 없으면 로그인페이지 전환
@@ -28,10 +28,8 @@ const MyPage = () => {
     history.push('/login')
     return
   } 
+  const clipedList = Object.assign(result)
 
-  const ratingList = Object.assign(result)
-  
-  // /member/ratings/recent
 
   const editUserProfile = () => {
     history.push({
@@ -76,12 +74,12 @@ const MyPage = () => {
             <span onClick={scrapedRecipe} style={{cursor:"pointer"}} className="mb-0">전체보기</span>
           </div>
           <div className="row">
-            {  ratingList.length !== 0 ? (
-              ratingList.map((item, index)=>{
+            {  clipedList.length !== 0 ? (
+              clipedList.map((item, index)=>{
                 return (
                   // 슬라이더 있으면 좋을듯
-                  <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <Card2 item={item} key={index}></Card2>
+                  <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3" >
+                    <Card2 item={item}></Card2>
                   </div>
                 )
               })

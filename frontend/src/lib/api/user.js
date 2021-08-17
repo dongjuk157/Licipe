@@ -62,7 +62,17 @@ export const getUserClips = () => {
 export const getUserRatingsRecent = () => {
   const config = {
     method: 'get',
-    url: `${BASE_URL}:${PORT}/member/ratings`,
+    url: `${BASE_URL}:${PORT}/member/ratings/recent`,
+    headers: {
+      snsId: loggedInfo.snsId,
+    }
+  }
+  return axios(config)
+}
+export const getUserClipsRecent = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/member/myclips/recent`, 
     headers: {
       snsId: loggedInfo.snsId,
     }
