@@ -12,6 +12,7 @@ import {
   Drawer,
   CssBaseline,
   AppBar,
+  Button,
   Toolbar,
   List,
   Typography,
@@ -54,15 +55,22 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    color: '#ff4a6b',
     marginRight: theme.spacing(2),
+    color: '#ff4a6b',
+    margin: '1.5rem',
+    width: '1.5rem',
   },
   title: {
     flexGrow: 1,
     display: 'none',
-    textAlign: 'center',
+    width: '100%',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+      textAlign: 'center',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+      textAlign: 'end',
     },
   },
   hide: {
@@ -177,7 +185,7 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar className="position-relative">
           <IconButton
             color="inherit"
             onClick={handleDrawerOpen}
@@ -186,24 +194,11 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            <Link to='/' style={{textDecoration:'none', color:'white'}}>
-              로고 (리시피))
-            </Link>
+          <Typography noWrap className={classes.title} className="position-absolute start-50 translate-middle-x">
+          <Button href="/">
+            <img src="logo-sm.png" alt="logo" style={{height:'6rem'}}/>
+          </Button>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
         </Toolbar>
       </AppBar>
       <Drawer
