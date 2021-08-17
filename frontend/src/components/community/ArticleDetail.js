@@ -1,28 +1,10 @@
-import { Button, Grid } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
-
-const ArticleContainer = styled.div`
-  padding: 1em;
-  column-count: 2;
-  column-gap: 1em;
-  
-  @media all and (max-width: 767px) {
-    column-count: 1;
-    column-gap: 0.2em;
-  }
-`
-const ImageContainer = styled.div`
-  width: 50 vw;
-  @media all and (max-width: 767px) {
-    width: 100 vw;
-    
-  }
-`
+import SearchAppBar from '../common/SearchAppBar'
 
 const ArticleDetail = () => {
   const location = useLocation()
@@ -30,13 +12,19 @@ const ArticleDetail = () => {
   const dispatch = useDispatch()
   const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
-  
+
+
   const article = location.state.article
   useEffect(()=>{
     dispatch(articleActions.getArticle(article.id))
     return dispatch(articleActions.initializeForm('article'))
   }, [])
 
+  if (!currentUserInfo) {
+    alert('로그인정보가 만료되었습니다.')
+    history.push('/login')
+    return <></> 
+  }
   
   const handleThumbup = () => {
     // 좋아요 안만들겠지?
@@ -65,45 +53,46 @@ const ArticleDetail = () => {
   }
 
   return (
-    <ArticleContainer>
-      <ImageContainer>
+    <>
+    <SearchAppBar></SearchAppBar>
+    <div className="container d-flex flex-wrap">
+      <div className="col-12 col-lg-6 p-3">
         { imgURL ? 
         (<img 
             src={imgURL}
             alt="articleImage"
-            style={{
-              width:"100%",
-            }}
+            className="w-100"
           />)
-        : (<div style={{height:300, width:300}}> </div>)
+        : (<div style={{height:300, width:300, backgroundColor:'gray'}}> </div>)
         }
-      </ImageContainer>
-      <div>
-        <p style={{display:'flex', justifyContent:'space-around'}}>
+      </div>
+      <div className="col-12 col-lg-6 p-3">
+        <div className="d-flex justify-content-between p-3 ">
           <span>
             작성자: {userid.nickname}
           </span>
           <span>
             음식: {food.name}
           </span>
-        </p>
-        { content
-        ? <p>{content}</p>
-        : <>정말 맛있어요</>
-        }
-        {/* <Button onClick={handleThumbup}>❤</Button> */}
-      
-      { Number(currentUserInfo.userid) === userid.id 
-        ? (<span>
+        </div>
+        <div className="p-3">
+          { content && (<p className="w-100">{content}</p>)
+          }
+        </div>
+        {/* <div><Button onClick={handleThumbup}>❤</Button></div> */}
+    
+        { Number(currentUserInfo.userid) === userid.id 
+          && (
+          <div className="d-flex justify-content-end">
             <Button onClick={handleEdit}>수정</Button>
             <Button onClick={handleDelete}>삭제</Button>
-          </span>)
-        : <></>
-      }
+          </div>
+        )}
       
 
       </div>
-    </ArticleContainer>
+    </div>
+    </>
   )
 }
 
