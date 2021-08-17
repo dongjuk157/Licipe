@@ -113,3 +113,13 @@
       font-size: 1rem;
   } */
 }
+
+
+.MuiSvgIcon-root {
+  /* width: 5em !important;   */
+  height: 2em !important;
+}
+
+.vertical {
+  margin-top:10%;
+}

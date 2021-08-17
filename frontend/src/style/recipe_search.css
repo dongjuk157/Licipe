@@ -1,64 +1,33 @@
-.middle-text-style {
-  /* display: block; */
-  color: #595858;
-  text-align: center;
-  background:#fffdc7;
-  font-size: 1rem;
-  @media screen and (min-width:768px) {
-      font-size: 1rem;
-  }
-  background:#ff4a6b;
-}
-  /* #ff4a6b  #fffdc7 */
-.middle-text-style ::selection {
-  display: block;
-  color: #595858;
-  background-color:#ff4a6b;
-  text-align: center;
-  font-size: 1.5rem;
-  @media screen and (min-width:768px) {
-      font-size: 1.5rem;
-  }
+.nav-link {
+  color: #495057 !important;
 }
 
-.gradient-underline {
-  padding-bottom: 4px;
-  /* position: relative; */
-  text-decoration: none;
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #ff4a6b !important;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
 }
 
-.gradient-underline:active {
-  /* background: #ff4a6b; */
-  background: linear-gradient(to right, #ff4a6b 30%, #fffdc7 100%);  
-  content: "";
-  position: absolute;
-  bottom: -0.4rem;
-  left: 0;
-  height: 2px;
-  width: 103%;
+.myClass {
+  border-color: #ff4a6b !important;
 }
 
-
-/* Inactive tab */
-.myClass ul > li > button {
-  background-color: white;
-  color: rgb(38, 38, 38);
-}
-.myClass ul > li > button:hover {
-  background-color: #fffdc7;
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff !important;
+  background-color: #ff4a6b !important;
 }
 
-/* Active tab */
-.myClass ul > li.active > button,
-.myClass ul > li.active > button:hover,
-.myClass ul > li.active > button:focus {
-  background-color: white;
-  color: #ff4a6b;
+.btn-outline-primary {
+  color: #ff4a6b !important;
+  border-color: #ff4a6b !important;
 }
 
-/* Disabled tab */
-.myClass ul > li.disabled > a {
-  background-color: transparent;
-  color: white;
+.btn-primary {
+  color: #fff !important;
+  background-color: #ff4a6b !important;
+  border-color: #ff4a6b !important;
 }
 
+a > i {
+  color: #ff4a6b !important;
+}
