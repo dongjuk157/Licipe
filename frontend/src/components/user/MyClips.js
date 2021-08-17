@@ -1,12 +1,9 @@
 import React, { useEffect }  from 'react'
 import SearchAppBar from '../common/SearchAppBar'
-import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import * as userActions from "../../redux/modules/user";
+import Card2 from '../common/Card2';
 
-const MyPageContainer = styled.div`
-  padding: 1rem;
-`
 
 const MyClips = () => {
   const dispatch = useDispatch()
@@ -21,21 +18,23 @@ const MyClips = () => {
   return (
     <>
       <SearchAppBar />
-      <MyPageContainer>
-        <h1>MyClips</h1>
-        <ul>
+      <div className="p-3">
+        <h1>내 마음에 저장</h1>
+        <div className="row">
         { clipedList.length !== 0 ? (
-            clipedList.map((element) => {
+            clipedList.map((item, index) => {
               // console.log(element)
-              return (<li key={element.id}>
-                음식: {element.food.name}
-              </li>)
+              return (
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <Card2 item={item} key={index}></Card2>
+              </div>
+              )
             })
         ) : (
-          <li>스크랩한 레시피가 없어요...</li>)
+          <p>좋아하는 레시피가 없어요...</p>)
         }
-        </ul>
-      </MyPageContainer>
+        </div>
+      </div>
     </>
   )
 }
