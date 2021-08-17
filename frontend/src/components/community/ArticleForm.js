@@ -5,13 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
-
-const ImgContainer = styled.div`
-  width: 300px;
-`
-const InputContent = styled.input`
-  width: 300px;
-`
+import SearchAppBar from '../common/SearchAppBar'
 
 
 const Article = () => {
@@ -132,70 +126,60 @@ const Article = () => {
   }
   
   return (
-    <Grid
-      container
-      spacing={10}
-      // direction="column"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Grid 
-        item
-      > 
-        <ImgContainer>
+    <>
+      <SearchAppBar></SearchAppBar>
+      <div className="container d-flex flex-wrap">
+        <div className="d-flex flex-column justify-content-center align-items-center col-12 col-lg-6 p-3"> 
+          <Button onClick= {handleImageButtonClick}>사진 촬영/선택</Button>
           { selectedFile || imgURL ? (
             <img 
               src={selectedFile || imgURL}
               alt="selectedFileImage"
-              style={{
-                'objectFit': 'contain',
-                width: '100%',
-              }}
+              className="w-100 "
             />
             ) : (<></>)
           }
-        </ImgContainer>
-        <form 
-          id="imgForm"
-          encType="multipart/form-data"
-        >
-          <input 
-            type='file' 
-            accept='image/*'
-            capture='camera' 
-            name='img' 
-            onChange={handleSelect}
-            id="fileInput"
-            hidden
-            ref = {fileRef}
+          <form 
+            id="imgForm"
+            encType="multipart/form-data"
           >
-          </input>
-          <Button
-            onClick= {handleImageButtonClick}
-          >사진 선택</Button>
-        </form>
-      </Grid>
-      <Grid
-        item
-      >
-        <form>
-          <InputContent
-            value={content}
-            placeholder="음식에 대해 간략하게 평가해주세요"
-            name="content"
-            onChange={handleChange}
-          >
-          </InputContent>
-          <br/>
-          <Button
-            onClick={onPost}
-          >{article ? "수정" :"인증하기"}</Button>
-          <Button
-            onClick={onSkip}
-          >{article ? "취소" : "인증 안 할래요"}</Button>
-        </form>
-      </Grid>
-    </Grid>
+            <input 
+              hidden
+              type='file' 
+              accept='image/*'
+              capture='camera' 
+              name='img' 
+              onChange={handleSelect}
+              id="fileInput"
+              ref = {fileRef}
+            >
+            </input>
+          </form>
+        </div>
+        <div className="col-12 col-lg-6 p-3" >
+          <form className=" d-flex flex-column justify-content-center align-items-center ">
+            <input
+              value={content}
+              placeholder="음식에 대해 간략하게 평가해주세요"
+              name="content"
+              onChange={handleChange}
+              className="w-100 m-2"
+            
+            >
+            </input>
+            <br/>
+            <div>
+              <Button
+                onClick={onPost}
+              >{article ? "수정" :"인증하기"}</Button>
+              <Button
+                onClick={onSkip}
+              >{article ? "취소" : "인증 안 할래요"}</Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
   )
 }
 
