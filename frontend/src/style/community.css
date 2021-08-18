@@ -1,0 +1,15 @@
+.my-masonry-grid_column > .card {
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  -webkit-transition:.3s;
+  -moz-transition:.3s;
+  -ms-transition:.3s;
+  -o-transition:.3s;
+  transition:.3s;
+}
+
+/* https://getcssscan.com/css-box-shadow-examples */
+.my-masonry-grid_column > .card:hover {
+  opacity: 0.35;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
