@@ -33,7 +33,7 @@ public class KakaoUserInfo {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=0d4240c77e9221fb9d99142127676902");  // REST API키
-            sb.append("&redirect_uri=https://i5b206.p.ssafy.io:8000/oauth/callback/kakao");  // 설정한 redirect_uri
+            sb.append("&redirect_uri=https://i5b206.p.ssafy.io/oauth/callback/kakao");  // 설정한 redirect_uri
             sb.append("&code=").append(code);
             bw.write(sb.toString());
             bw.flush();
