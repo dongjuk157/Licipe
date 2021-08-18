@@ -63,6 +63,10 @@ public class ArticleService {
         return articleRepository.findByMember(snsId);
     }
 
+    public List<Article> findRecentArticles(String snsId) {
+        return articleRepository.findRecent(snsId);
+    }
+
     // 해당 음식에 대한 게시글 조회
     public List<Article>findArticlesByFood(Long foodId) {
         return articleRepository.findByFood(foodId);
