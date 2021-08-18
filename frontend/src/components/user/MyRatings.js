@@ -7,15 +7,16 @@ import Card2 from '../common/Card2';
 
 const MyRatings = ({match}) => {
   const dispatch = useDispatch()
-  const result = useSelector((state) => state.user.get('result')).toJS()
+  // const result = useSelector((state) => state.user.get('result')).toJS()
+  const myRatings = useSelector((state) => state.user.getIn(['articles', 'ratings'])).toJS()
   useEffect(()=>{
     async function getRatings () {
       await dispatch(userActions.getUserRatings())
     }
     getRatings()
-    return dispatch(userActions.initializeForm('result'))
+    return dispatch(userActions.initializeForm('articles'))
   }, [match.params.url])
-  const ratingList = Object.assign(result)
+  const ratingList = Object.assign(myRatings)
   // console.log(ratingList)
   
   return (
@@ -33,7 +34,7 @@ const MyRatings = ({match}) => {
               )
             })
         ) : (
-          <li>평가한 레시피가 없어요...</li>)
+          <p>평가한 레시피가 없어요...</p>)
         }
         </div>
       </div>
