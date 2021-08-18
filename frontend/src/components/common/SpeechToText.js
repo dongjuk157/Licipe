@@ -87,6 +87,7 @@ const SpeechToText = (props) => {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition({commands});
 
+  console.log(finalTranscript)
   const onSttStart = useCallback(() => {
     return SpeechRecognition.startListening({continuous: true, language:'ko-kr'})
   }, [])
