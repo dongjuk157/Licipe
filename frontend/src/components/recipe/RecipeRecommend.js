@@ -11,6 +11,7 @@ import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import '../../style/recipe_recommend.css';
 import 'bootstrap';
+import '../../style/scrollbar.css';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const FoodImg = styled.img`
@@ -125,7 +126,7 @@ const getMoreFoodList = () => {
 		
 		axios.get(`/foods/${food.id}/articles`)
 		.then((res) => {
-			console.log(res.data)
+			console.log('article',res.data)
 			setArticles(res.data)
 		})
 		.catch((err) => {
@@ -136,22 +137,47 @@ const getMoreFoodList = () => {
 	});
 
 	return (
-		<div className="col-12 justify-content-center">
+		<div className="col-12 justify-content-center" style={{ height: '100vh%'}}>
 			<SearchAppBar></SearchAppBar>
 			<div className="col-11 mx-auto bg-white">
-
-			<Row>
-				<Col className={"d-flex flex-wrap mx-auto "+ (detailTarget.length !== 0? "col-6":"col-9")}>
+			<a
+			href="#scrollspyHeading1" 
+			style={{ position: 'fixed', bottom:15, left:15,behavior: 'smooth' }}
+			>
+				<i className="fas fa-arrow-up" style={{fontSize:'2rem'}} />
+			</a>
+			<Row className="overflow-hidden">
+				<Col         
+				style={{    
+					position: 'relative',
+          boxSizing: 'border-box',
+          maxHeight: '90vh',
+          // overflowX: 'hidden',
+          overflowY: 'scroll',
+          alignItems: 'center',
+          justifyContent: 'center', 
+          marginTop:'20px'
+				}} 
+				
+				className={"scrollbar-primary d-flex flex-wrap mx-auto "
+				+ (detailTarget.length !== 0? "col-6":"col-9")}
+				>
+				<p id="scrollspyHeading1" style={{ display:'hidden'}}></p>
 						{foodList.map((food, index) => {
 							// const lastEl = index === foodList.length - 1;
 							const foodObject = {'id': food.id, 'name': food.name, 'imgURL': food.imgURL}
 							return (
 								<Container 
-								className={"row boder-0 "
-								+ (detailTarget.length !== 0? "col-12 col-lg-6 ms-auto px-2":"col-6 col-lg-4 mx-auto px-1")}
-								key={index}>
-								<Card style={{ width: '18rem' }} className="my-2 mx-0 me-3 ms-auto pt-3 shadow border-0">
-								<Card.Img variant="top" src={food.imgURL} className="img-fluid" />
+								className={"row boder-0 g-2 "
+								+ (detailTarget.length !== 0? 
+									"col-12 col-lg-6 ms-auto px-2":"col-6 col-lg-4 mx-auto px-1"
+									)}
+									key={index}>
+								<Card style={{ width: '18rem' }} 
+									className="my-2 mx-0 me-3 ms-auto pt-3 shadow-sm border-0">
+								<Card.Img variant="top" 
+									src={food.imgURL} 
+									className="img-fluid" />
 									<Card.Body className="">
 										<Row>
 										<Card.Text 
@@ -161,7 +187,8 @@ const getMoreFoodList = () => {
 										</Card.Text>
 											<Link 
 												className="col-1 far fa-heart text-start my-1 text-decoration-none" 
-												style={{ fontSize: '1rem', color: '#ff4a6b' }}>
+												style={{ fontSize: '1rem', color: '#ff4a6b' 
+												}}>
 											</Link>
 											{/* className="fas fa-bookmark" */}
 										</Row>
@@ -198,7 +225,18 @@ const getMoreFoodList = () => {
 				</Col>
 			{
 				detailTarget && detailTarget.length !== 0 ?
-				(<Col xs={6} lg="5" className="bg-white shadow h-100 mt-2 rounded">
+				(<Col 
+					style={{    
+						position: 'relative',
+						boxSizing: 'border-box',
+						height: '85vh',
+						// overflowX: 'hidden',
+						overflowY: 'scroll',
+						alignItems: 'center',
+						justifyContent: 'center', 
+						marginTop:'20px'
+					}} 
+					xs={6} lg="5" className="bg-white shadow mt-2 rounded">
 					<RecipeInfoComponent 
 					food={detailTarget} 
 					ingredientsList={ingredients} 
