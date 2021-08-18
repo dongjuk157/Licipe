@@ -15,6 +15,7 @@ const GET_USER_ARTICLES = 'user/GET_USER_ARTICLES'
 const GET_USER_CLIPS = 'user/GET_USER_CLIPS'
 const GET_USER_RATINGS_RECENT = 'user/GET_USER_RATINGS_RECENT'
 const GET_USER_CLIPS_RECENT = 'user/GET_USER_CLIPS_RECENT'
+const GET_USER_ARTICLES_RECENT = 'user/GET_USER_ARTICLES_RECENT'
 
 export const setLoggedInfo = createAction(SET_LOGGED_INFO); // loggedInfo
 export const initializeForm = createAction(INITIALIZE_FORM)
@@ -27,6 +28,7 @@ export const getUserArticles = createAction(GET_USER_ARTICLES, UserAPI.getUserAr
 export const getUserClips = createAction(GET_USER_CLIPS, UserAPI.getUserClips)
 export const getUserRatingsRecent = createAction(GET_USER_RATINGS_RECENT, UserAPI.getUserRatingsRecent)
 export const getUserClipsRecent = createAction(GET_USER_CLIPS_RECENT, UserAPI.getUserClipsRecent)
+export const getUserArticlesRecent = createAction(GET_USER_ARTICLES_RECENT, UserAPI.getUserArticlesRecent)
 
 const initialState = Map({
     loggedInfo: Map({ // 현재 로그인중인 유저의 정보
@@ -36,7 +38,12 @@ const initialState = Map({
     }),
     logged: false, // 현재 로그인중인지 알려준다
     validated: false, // 이 값은 현재 로그인중인지 아닌지 한번 서버측에 검증했음을 의미
-    result: List([])
+    result: List([]),
+    articles: Map({
+        clips: List([]),
+        articles: List([]),
+        ratings: List([])
+    }),
 });
 
 export default handleActions({
@@ -57,32 +64,32 @@ export default handleActions({
     }),
     ...pender({
         type: GET_USER_RATINGS,
-        onSuccess: (state, action) =>{
-            // console.log(action.payload.data) => Array
-            // console.log(typeof(action.payload.data), action.payload.data)
-            // const newData = Object.assign({}, action.payload.data)
-            return state.set('result', List(action.payload.data))
-        },
-        onFailure: (state, action) => state.set('result', []),
+        onSuccess: (state, action) => state.setIn(['articles', 'ratings'], List(action.payload.data)),
+        onFailure: (state, action) => state.setIn(['articles', 'ratings'], List([])),
     }),
     ...pender({
         type: GET_USER_ARTICLES,
-        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
-        onFailure: (state, action) => state.set('result', []),
+        onSuccess: (state, action) => state.setIn(['articles', 'articles'], List(action.payload.data)),
+        onFailure: (state, action) => state.setIn(['articles', 'articles'], List([])),
     }),
     ...pender({
         type: GET_USER_CLIPS,
-        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
-        onFailure: (state, action) => state.set('result', []),
+        onSuccess: (state, action) => state.setIn(['articles', 'clips'], List(action.payload.data)),
+        onFailure: (state, action) => state.setIn(['articles', 'clips'], List([])),
     }),
     ...pender({
         type: GET_USER_RATINGS_RECENT,
-        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
-        onFailure: (state, action) => state.set('result', []),
+        onSuccess: (state, action) => state.setIn(['articles', 'ratings'], List(action.payload.data)),
+        onFailure: (state, action) => state.setIn(['articles', 'ratings'], List([])),
     }),
     ...pender({
         type: GET_USER_CLIPS_RECENT,
-        onSuccess: (state, action) => state.set('result', List(action.payload.data)),
-        onFailure: (state, action) => state.set('result', []),
+        onSuccess: (state, action) => state.setIn(['articles', 'clips'], List(action.payload.data)),
+        onFailure: (state, action) => state.setIn(['articles', 'clips'], List([])),
+    }),
+    ...pender({
+        type: GET_USER_ARTICLES_RECENT,
+        onSuccess: (state, action) => state.setIn(['articles', 'articles'], List(action.payload.data)),
+        onFailure: (state, action) => state.setIn(['articles', 'articles'], List([])),
     }),
 }, initialState);

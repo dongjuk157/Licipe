@@ -10,14 +10,15 @@ import { useLocation } from 'react-router';
 const MyArticles = ({match}) => {
   const location = useLocation()
   const dispatch = useDispatch()
-  const result = useSelector((state) => state.user.get('result')).toJS()
+  // const result = useSelector((state) => state.user.get('result')).toJS()
+  const myArticles = useSelector((state) => state.user.getIn(['articles', 'articles'])).toJS()
   useEffect(()=>{
     dispatch(userActions.initializeForm('result'))
     async function getArticles () {
       await dispatch(userActions.getUserArticles())
     }
     getArticles()
-    return dispatch(userActions.initializeForm('result'))
+    return dispatch(userActions.initializeForm('articles'))
   }, [match.params.url])
   let ratingButton = false
   try {
@@ -25,7 +26,7 @@ const MyArticles = ({match}) => {
   } catch (e) {}
   // console.log(ratingButton, location.state)
 
-  const articleList = Object.assign(result)
+  const articleList = Object.assign(myArticles)
   return (
     <>
       <SearchAppBar />
