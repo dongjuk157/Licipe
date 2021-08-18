@@ -4,6 +4,7 @@ import FeedCard from '../common/FeedCard'
 import { useDispatch, useSelector } from 'react-redux'
 import * as articleAction from '../../redux/modules/article'
 import Masonry from 'react-masonry-css'
+import '../../style/community.css';
 
 const breakpointColumnsObject = {
   default: 4,
@@ -38,6 +39,7 @@ const Community = ({match}) => {
       >
         {articles.map((article) => (
           <FeedCard 
+            className="feedcard"
             key={article.id}
             article={article}
           />
