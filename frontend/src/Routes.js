@@ -23,7 +23,7 @@ import RecipeDetail from './components/recipe/RecipeDetail';
 
 const Routes = () => {
   return (
-      <Router basename='/index.html'>
+      <Router>
         <Switch>
             <Route exact path="/" component={Main}/>
             <Route path="/reciperecommend" component={RecipeRecommend}/>
