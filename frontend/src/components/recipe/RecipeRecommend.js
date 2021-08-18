@@ -140,11 +140,16 @@ const getMoreFoodList = () => {
 		<div className="col-12 justify-content-center" style={{ height: '100vh%'}}>
 			<SearchAppBar></SearchAppBar>
 			<div className="col-11 mx-auto bg-white">
-
+			<a
+			href="#scrollspyHeading1" 
+			style={{ position: 'fixed', bottom:15, left:15,behavior: 'smooth' }}
+			>
+				<i className="fas fa-arrow-up" style={{fontSize:'2rem'}} />
+			</a>
 			<Row className="overflow-hidden">
 				<Col         
 				style={{    
-          position: 'relative',
+					position: 'relative',
           boxSizing: 'border-box',
           maxHeight: '90vh',
           // overflowX: 'hidden',
@@ -153,9 +158,11 @@ const getMoreFoodList = () => {
           justifyContent: 'center', 
           marginTop:'20px'
 				}} 
+				
 				className={"scrollbar-primary d-flex flex-wrap mx-auto "
 				+ (detailTarget.length !== 0? "col-6":"col-9")}
 				>
+				<p id="scrollspyHeading1" style={{ display:'hidden'}}></p>
 						{foodList.map((food, index) => {
 							// const lastEl = index === foodList.length - 1;
 							const foodObject = {'id': food.id, 'name': food.name, 'imgURL': food.imgURL}
