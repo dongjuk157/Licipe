@@ -32,7 +32,7 @@ const Routes = () => {
             <Route path="/login/email" component={EmailLogin}/>
             <Route path="/recipe/category" component={RecipeSearch}/>
             <Route path="/recipe/:id/step" component={RecipeStep}/>
-            <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
+            <Route path="/api/oauth/callback/kakao" component={KakaoOAuthHandler}/>
             <Route path="/join" component={Join}/>
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
