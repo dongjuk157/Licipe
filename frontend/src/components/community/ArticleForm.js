@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
 import SearchAppBar from '../common/SearchAppBar'
+import '../../style/articleform.css';
 
 
 const Article = () => {
@@ -130,9 +131,16 @@ const Article = () => {
   return (
     <>
       <SearchAppBar></SearchAppBar>
-      <div className="container d-flex flex-wrap">
-        <div className="d-flex flex-column justify-content-center align-items-center col-12 col-lg-6 p-3"> 
-          <Button onClick= {handleImageButtonClick}>사진 촬영/선택</Button>
+      <div className="container d-flex flex-wrap justify-content-center">
+        <div className="d-flex flex-column justify-content-center align-items-center col-12 col-lg-6 p-3 mx-auto"> 
+          <Button 
+            className="p-3" 
+            variant="outline-primary" 
+            size="lg" 
+            onClick= {handleImageButtonClick}
+            >
+              사진 촬영/선택
+          </Button>
           { selectedFile || imgURL ? (
             <img 
               src={selectedFile || imgURL}
@@ -158,25 +166,31 @@ const Article = () => {
             </input>
           </form>
         </div>
-        <div className="col-12 col-lg-6 p-3" >
-          <form className=" d-flex flex-column justify-content-center align-items-center ">
+        <div className="col-12 col-lg-8 p-3">
+          <form className="d-flex flex-column justify-content-center align-items-center">
             <input
               value={content}
-              placeholder="음식에 대해 간략하게 평가해주세요"
+              placeholder="이번 요리 경험은 어떠셨나요? :)"
               name="content"
               onChange={handleChange}
-              className="w-100 m-2"
-            
+              className="form-control w-100 m-2"
             >
             </input>
             <br/>
-            <div>
-              <Button
-                onClick={onPost}
-              >{article ? "수정" :"인증하기"}</Button>
-              <Button
-                onClick={onSkip}
-              >{article ? "취소" : "인증 안 할래요"}</Button>
+            <div className="p-3">
+              <ButtonGroup>
+                <Button
+                  className="col-6"
+                  size="lg"
+                  onClick={onPost}
+                  >{article ? "수정" :"업로드 하기"}</Button>
+                <Button 
+                  className="col-6"
+                  variant="outline-primary"
+                  size="lg"
+                  onClick={onSkip}
+                  >{article ? "취소" : "다음에 하기"}</Button>
+              </ButtonGroup>
             </div>
           </form>
         </div>
