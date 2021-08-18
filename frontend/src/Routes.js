@@ -32,7 +32,7 @@ const Routes = () => {
             <Route path="/login/email" component={EmailLogin}/>
             <Route path="/recipe/category" component={RecipeSearch}/>
             <Route path="/recipe/:id/step" component={RecipeStep}/>
-            <Route path="/api/oauth/callback/kakao" component={KakaoOAuthHandler}/>
+            <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
             <Route path="/join" component={Join}/>
             <Route exact path="/article" component={ArticleForm}/>
             <Route path ="/article/:articleid" component={ArticleDetail}/>
@@ -42,7 +42,7 @@ const Routes = () => {
             <Route exact path="/mypage" component={MyPage}/>
             <Route exact path="/editprofile" component={EditProfile}/>
             <Route exact path="/myarticles" component={MyArticles}/>
-            <Route exact path="/myclips" component={MyClips}/>
+            <Route exact path="/myclips" component={MyClips}/>  
             <Route exact path="/myratings" component={MyRatings}/>
             <Route path="/404NotFound" component={Error404}/>
             <Route path="*">
