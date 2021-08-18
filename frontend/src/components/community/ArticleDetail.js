@@ -55,7 +55,7 @@ const ArticleDetail = () => {
   return (
     <>
     <SearchAppBar></SearchAppBar>
-    <div className="container d-flex flex-wrap">
+    <div className="container col-10 mt-lg-5 d-flex flex-wrap position-relative">
       <div className="col-12 col-lg-6 p-3">
         { imgURL ? 
         (<img 
@@ -67,12 +67,12 @@ const ArticleDetail = () => {
         }
       </div>
       <div className="col-12 col-lg-6 p-3">
-        <div className="d-flex justify-content-between p-3 ">
-          <span>
-            작성자: {userid.nickname}
+        <div className="d-flex justify-content-start align-items-center fs-5 p-3">
+          <span className="me-2">
+            {userid.nickname}님의
           </span>
-          <span>
-            음식: {food.name}
+          <span style={{ color: '#ff4a6b'}}>
+            {food.name}
           </span>
         </div>
         <div className="p-3">
@@ -83,7 +83,7 @@ const ArticleDetail = () => {
     
         { Number(currentUserInfo.userid) === userid.id 
           && (
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-end position-absolute bottom-0 end-0 p-3">
             <Button onClick={handleEdit}>수정</Button>
             <Button onClick={handleDelete}>삭제</Button>
           </div>
