@@ -12,4 +12,5 @@ public interface ArticleRepository {
     void remove(Long id);
     List<Article> findByMember(String snsId);
     List<Article> findByFood(Long foodId);
+    List<Article> findRecent(String snsId);
 }
