@@ -40,6 +40,9 @@ const Article = () => {
   }
 
   useEffect(()=>{
+    if (!currentUserInfo) {
+      return
+    }
     dispatch(articleActions.initializeForm('article'))
     if (article){ // edit으로 넘어온 경우
       dispatch(articleActions.getArticle(article.id))
