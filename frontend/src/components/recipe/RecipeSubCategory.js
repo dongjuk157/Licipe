@@ -11,7 +11,7 @@ import {
 
 import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import '../../style/scrollbar.css';
 
 const RecipeSubCategory = (props) => {
 	const [foodList, setFoodList] = useState([]);
@@ -19,7 +19,15 @@ const RecipeSubCategory = (props) => {
 		setFoodList(props.categoryFoodList[0]);
 	})
     return (
-			<div className="d-flex flex-wrap mb-3 justify-content-start">
+			<div style={{    
+				position: 'relative',
+				boxSizing: 'border-box',
+				maxHeight: '90vh',
+				// overflowX: 'hidden',
+				overflowY: 'scroll',
+				justifyContent: 'center', 
+				marginTop:'20px'
+			}} className="scrollbar-primary d-flex flex-wrap mb-3 justify-content-start">
 				{foodList && foodList.map((food, index) => {
 					return (
 						<Container key={food.name + index} className="row col-6 col-lg-4 g-2">
