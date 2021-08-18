@@ -135,7 +135,7 @@ const SpeechToText = (props) => {
   마이크 켜기: 마이크를 끄고 음성 인식이 가능할거라 생각하십니까?
   `.split('\n').map((sentence, index)=>(<p key={index}>{sentence}</p>))
   
-  
+
   return (
     <div style={{position:'absolute', right:'2%', bottom:'2%' }}>
       <div style={{fontSize:'1rem'}}>
