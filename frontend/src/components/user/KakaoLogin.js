@@ -10,7 +10,7 @@ const KakaoLogin = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY
   const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI
   const URL = `https://${HOST}/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-  // console.log(URL)
+  console.log(URL)
   return (
     <a href={URL} style={{textDecoration: 'none'}}>
       <Button>
