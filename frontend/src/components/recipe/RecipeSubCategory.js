@@ -22,8 +22,8 @@ const RecipeSubCategory = (props) => {
 			<div className="d-flex flex-wrap mb-3 justify-content-start">
 				{foodList && foodList.map((food, index) => {
 					return (
-						<Container key={food.name + index} className="row col-6 col-lg-4">
-							<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3">
+						<Container key={food.name + index} className="row col-6 col-lg-4 g-2">
+							<Card style={{ width: '18rem' }} className="my-2 mx-0 pt-3 border-0 shadow-sm">
 								<Card.Img variant="top" src={food.imgURL} className="img-fluid"/>
 								<Card.Body className="px-1">
 									<Card.Text 
