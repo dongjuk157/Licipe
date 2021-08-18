@@ -79,3 +79,13 @@ export const getUserClipsRecent = () => {
   }
   return axios(config)
 }
+export const getUserArticlesRecent = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/member/articles/recent`, 
+    headers: {
+      snsId: loggedInfo.snsId,
+    }
+  }
+  return axios(config)
+}
