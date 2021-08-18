@@ -7,15 +7,16 @@ import Card2 from '../common/Card2';
 
 const MyClips = ({match}) => {
   const dispatch = useDispatch()
-  const result = useSelector((state) => state.user.get('result')).toJS()
+  // const result = useSelector((state) => state.user.get('result')).toJS()
+  const myClips = useSelector((state) => state.user.getIn(['articles', 'clips'])).toJS()
   useEffect(()=>{
     async function getClips () {
       await dispatch(userActions.getUserClips())
     }
     getClips()
-    return dispatch(userActions.initializeForm('result'))
+    return dispatch(userActions.initializeForm('articles'))
   }, [match.params.url])
-  const clipedList = Object.assign(result)
+  const clipedList = Object.assign(myClips)
   return (
     <>
       <SearchAppBar />
