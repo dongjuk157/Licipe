@@ -233,20 +233,26 @@ export default function PersistentDrawerLeft() {
         </Link>
         
         { loggedInfo ? (
-          <div className="row">
-            <Link to='/MyPage' className="btn px-3 py-2">
-                <span className="twayfly" >마이페이지</span>
-            </Link>
+          // <div className="row">
+          //   <Link to='/MyPage' className="btn px-3 py-2">
+          //       <span className="gradient-underline" >마이페이지</span>
+          //   </Link>
 
-            <Link to='/logout' className="btn px-3 py-2">
-                <span className="twayfly">로그아웃</span>
-            </Link>
-          </div>
+          <Link to='/logout' className="btn px-3 py-2">
+              <span className="gradient-underline">로그아웃</span>
+          </Link>
+          // </div>
           ) : (
           <Link to='/login' className="btn px-3 py-2">
               <span className="gradient-underline">로그인</span>
           </Link>
          )}
+
+         { loggedInfo ? (
+          <Link to='/MyPage' className="btn px-3 py-2">
+            <span className="gradient-underline" >마이페이지</span>
+          </Link>
+         ) : (<p></p>)}
 
         <div className="m-2 position-absolute bottom-0 text-secondary row">
           <div>
