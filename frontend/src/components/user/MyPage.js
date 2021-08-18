@@ -73,7 +73,7 @@ const MyPage = ({match}) => {
       <SearchAppBar />
       <div className="p-3">
         <div className="d-flex flex-column p-2">
-          <Button variant="dark" 
+          <Button variant="outline-secondary" 
             onClick={editUserProfile} disabled
             className="m-1"
           >유저 정보 관리</Button>
@@ -87,17 +87,22 @@ const MyPage = ({match}) => {
           >평가한 요리</Button> */}
         
         </div>
-        <div className="d-flex flex-column p-2">
+        <div className="d-flex flex-column">
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="d-inline"> 스크랩한 레시피</h3>
+            <h3 className="d-inline mb-0 mt-3"> 스크랩한 레시피</h3>
             <span onClick={scrapedRecipe} style={{cursor:"pointer"}} className="mb-0">전체보기</span>
           </div>
-          <div className="row">
+          <div 
+            className="row"
+            style={{
+              flexWrap: 'nowrap',
+              overflowX: 'scroll'
+            }}>
             {  clipedList.length !== 0 ? (
               clipedList.map((item, index)=>{
                 return (
                   // 슬라이더 있으면 좋을듯
-                  <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3" >
+                  <div key={index} className="px-0 col-12 col-sm-6 col-md-4 col-lg-3" >
                     <Card2 item={item}></Card2>
                   </div>
                 )
@@ -109,15 +114,20 @@ const MyPage = ({match}) => {
         </div> 
         <div className="d-flex flex-column p-2">
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="d-inline"> 인증한 글</h3>
+            <h3 className="d-inline mb-0 mt-3"> 인증한 글</h3>
             <span onClick={postedArticle} style={{cursor:"pointer"}} className="mb-0">전체보기</span>
           </div>
-          <div className="row">
+          <div 
+            className="row"
+            style={{
+              flexWrap: 'nowrap',
+              overflowX: 'scroll'
+            }}>
             {  articleList.length !== 0 ? (
               articleList.map((item, index)=>{
                 return (
                   // 슬라이더 있으면 좋을듯
-                  <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3" >
+                  <div key={index} className="px-0 col-12 col-sm-6 col-md-4 col-lg-3" >
                     <Card2 item={item}></Card2>
                   </div>
                 )
@@ -129,15 +139,20 @@ const MyPage = ({match}) => {
         </div> 
         <div className="d-flex flex-column p-2">
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="d-inline">평가한 레시피</h3>
+            <h3 className="d-inline mb-0 mt-3">평가한 레시피</h3>
             <span onClick={evaluatedRecipe} style={{cursor:"pointer"}} className="mb-0">전체보기</span>
           </div>
-          <div className="row">
+          <div 
+            className="row"
+            style={{
+              flexWrap: 'nowrap',
+              overflowX: 'scroll'
+          }}>
             {  ratingList.length !== 0 ? (
               ratingList.map((item, index)=>{
                 return (
                   // 슬라이더 있으면 좋을듯
-                  <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3" >
+                  <div key={index} className="px-0 col-12 col-sm-6 col-md-4 col-lg-3">
                     <Card2 item={item}></Card2>
                   </div>
                 )
