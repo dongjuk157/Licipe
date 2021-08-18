@@ -12,6 +12,10 @@
   font-style: normal;
 }
 
+.slick-active {
+  z-index: 8;
+}
+
 .twayfly {
   font-family: 'twayfly';
   font-size: 1.2rem;
