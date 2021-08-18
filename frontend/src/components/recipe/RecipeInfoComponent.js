@@ -96,9 +96,9 @@ const RecipeInfoComponent = (props) => {
         style={{    
           position: 'relative',
           boxSizing: 'border-box',
-          height: '90vh',
+          maxHeight: '90vh',
           // overflowX: 'hidden',
-          overflowY: 'scroll',
+          overflowY: 'hidden',
           alignItems: 'center',
           justifyContent: 'center', 
           marginTop:'20px'
@@ -156,7 +156,7 @@ const RecipeInfoComponent = (props) => {
 
     <div className={classes.root}>
       <ImageList className={classes.imageList} cols={2.5}>
-        {props.articleList.map((item, index) => (
+        { props.articleList && props.articleList.map((item, index) => (
           <ImageListItem key={item.imgURL}>
             <img src={item.imgURL} alt={item.content} />
             <ImageListItemBar
@@ -165,10 +165,6 @@ const RecipeInfoComponent = (props) => {
                 root: classes.titleBar,
                 title: classes.title,
               } + 'transbg'}
-              actionIcon={
-                <IconButton aria-label={`star ${item.content}`}>
-                </IconButton>
-              }
             />
           </ImageListItem>
         ))}
