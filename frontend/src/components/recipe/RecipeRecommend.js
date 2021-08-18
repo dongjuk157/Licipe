@@ -11,6 +11,7 @@ import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import '../../style/recipe_recommend.css';
 import 'bootstrap';
+import '../../style/scrollbar.css';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const FoodImg = styled.img`
@@ -145,14 +146,14 @@ const getMoreFoodList = () => {
 				style={{    
           position: 'relative',
           boxSizing: 'border-box',
-          height: '90vh',
+          maxHeight: '90vh',
           // overflowX: 'hidden',
           overflowY: 'scroll',
           alignItems: 'center',
           justifyContent: 'center', 
           marginTop:'20px'
 				}} 
-				className={"d-flex flex-wrap mx-auto "
+				className={"scrollbar-primary d-flex flex-wrap mx-auto "
 				+ (detailTarget.length !== 0? "col-6":"col-9")}
 				>
 						{foodList.map((food, index) => {
