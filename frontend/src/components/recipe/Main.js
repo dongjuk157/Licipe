@@ -21,6 +21,19 @@ const Main = () => {
       console.log(err)
     });
   };
+  // window.addEventListener('DOMContentLoaded', () => {
+  //   let active = document.querySelector('.slick-active')
+  //   let observer = new window.MutationObserver((mutations) => {
+  //     mutations.forEach((mutation) => {
+  //       mutation.addedNodes.forEach((node) => {
+  //         console.log(node)
+  //       })
+  //     })
+  //   })
+  //   let active = document.getElementsByClassName('slick-active')
+  //   observer.observe(active, {attributes: true, attributeFilter: ['style']})
+  // })
+
 
   useEffect(() => {
     getFoodList();
