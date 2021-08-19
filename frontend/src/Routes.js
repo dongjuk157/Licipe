@@ -20,36 +20,37 @@ import MyArticles from './components/user/MyArticles';
 import MyClips from './components/user/MyClips';
 import MyRatings from './components/user/MyRatings';
 import RecipeDetail from './components/recipe/RecipeDetail';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const Routes = () => {
   return (
-      <Router>
-        <Switch>
-            <Route exact path="/" component={Main}/>
-            <Route path="/reciperecommend" component={RecipeRecommend}/>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/logout" component={Logout}/>
-            <Route path="/login/email" component={EmailLogin}/>
-            <Route path="/recipe/category" component={RecipeSearch}/>
-            <Route path="/recipe/:id/step" component={RecipeStep}/>
-            <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
-            <Route path="/join" component={Join}/>
-            <Route exact path="/article" component={ArticleForm}/>
-            <Route path ="/article/:articleid" component={ArticleDetail}/>
-            <Route exact path="/community" component={Community}/>
-            <Route path="/recipe/:id/evaluation" component={RecipeEvaluation}/>
-            <Route path="/recipe/:id" component={RecipeDetail}/>
-            <Route exact path="/mypage" component={MyPage}/>
-            <Route exact path="/editprofile" component={EditProfile}/>
-            <Route exact path="/myarticles" component={MyArticles}/>
-            <Route exact path="/myclips" component={MyClips}/>  
-            <Route exact path="/myratings" component={MyRatings}/>
-            <Route path="/404NotFound" component={Error404}/>
-            <Route path="*">
-              <Redirect to="/404NotFound" />
-            </Route>
-        </Switch>
-      </Router>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Main}/>
+        <Route path="/reciperecommend" component={RecipeRecommend}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/logout" component={Logout}/>
+        <Route path="/login/email" component={EmailLogin}/>
+        <Route path="/recipe/category" component={RecipeSearch}/>
+        <Route path="/recipe/:id/step" component={RecipeStep}/>
+        <Route path="/oauth/callback/kakao" component={KakaoOAuthHandler}/>
+        <Route path="/join" component={Join}/>
+        <Route exact path="/article" component={ArticleForm}/>
+        <Route path ="/article/:articleid" component={ArticleDetail}/>
+        <Route exact path="/community" component={Community}/>
+        <Route path="/recipe/:id/evaluation" component={RecipeEvaluation}/>
+        <Route path="/recipe/:id" component={RecipeDetail}/>
+        <Route exact path="/mypage" component={MyPage}/>
+        <Route exact path="/editprofile" component={EditProfile}/>
+        <Route exact path="/myarticles" component={MyArticles}/>
+        <Route exact path="/myclips" component={MyClips}/>  
+        <Route exact path="/myratings" component={MyRatings}/>
+        <Route path="/404NotFound" component={Error404}/>
+        <Route path="*">
+          <Redirect to="/404NotFound" />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
