@@ -135,7 +135,7 @@ const RecipeInfoComponent = (props) => {
           { props.ingredientsList.map((ingredient, index) => {
             return (
               ingredient.main?
-                (<div key={index} claaName="col-5" style={{ fontFamily: 'Noto Sans CJK KR' }}>
+                (<div key={index} style={{ fontFamily: 'Noto Sans CJK KR' }}>
                   {ingredient.ingredient.name} 
                   <span style={{ marginInline: "3px"}}>{ingredient.ingredient.weight}{ingredient.ingredient.unit}</span>
                   <span style={{ marginInlineEnd: "3px", color: "#ff4a6b"}}>| </span>
