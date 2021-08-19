@@ -244,7 +244,7 @@ export default function PersistentDrawerLeft() {
           // </div>
           ) : (
           <Link to='/login' className="btn px-3 py-2">
-              <span className="gradient-underline">로그인</span>
+              <span className="twayfly">로그인</span>
           </Link>
          )}
 

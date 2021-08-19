@@ -50,3 +50,8 @@ div {
 body {
   font-family: 'Noto Sans CJK KR', sans-serif;
 }
+
+.app {
+  animation: fadein 1500ms ease-out;
+  -webkit-animation: fadein 1500ms ease-out; 
+}
