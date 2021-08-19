@@ -102,13 +102,11 @@ const getMoreFoodList = () => {
 	const [rating, setRating] = useState();
 	const [articles, setArticles] = useState([]);
 	const getDetailTarget = ((food) => {
-		console.log('food', food);
 		setDetailTarget(food);
 
 		console.log(food.id)
     axios.get(`/foods/${food.id}/ingredients`)
     .then((res) => {
-      console.log('재료', res.data)
       setIngredients(res.data)
     })
     .catch((err) => {
@@ -117,7 +115,6 @@ const getMoreFoodList = () => {
 		
 		axios.get(`/foods/${food.id}/recipe/rating/average`)
     .then((res) => {
-      console.log(res.data)
       setRating(res.data)
     })
     .catch((err) => {
@@ -126,7 +123,6 @@ const getMoreFoodList = () => {
 		
 		axios.get(`/foods/${food.id}/articles`)
 		.then((res) => {
-			console.log('article',res.data)
 			setArticles(res.data)
 		})
 		.catch((err) => {
