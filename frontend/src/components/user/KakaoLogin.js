@@ -4,7 +4,6 @@ import { Button } from '@material-ui/core'
 // import { Box } from '@material-ui/core'
 // import axios from 'axios'
 import '../../style/social_login.css';
-import kakao_button from '../../style/icon/kakao_login_large_wide.png';
 
 const KakaoLogin = () => {
   const HOST = 'kauth.kakao.com'
@@ -15,7 +14,7 @@ const KakaoLogin = () => {
   return (
     <a className='kakao' href={URL} style={{textDecoration: 'none'}}>
       <Button className='social'>
-        <img src={kakao_button} className='social'></img>
+        <img src="/images/kakao_login_large_wide.png" className='social'></img>
       </Button>
     </a>
   )
