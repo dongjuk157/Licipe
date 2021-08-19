@@ -2,15 +2,15 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as sttActions from '../../redux/modules/stt';
-import { Modal, Button, ModalBody } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 
 
 // props.putValue: 상위 컴포넌트에서 내리는 값
 // props.getValue: 상위 올리는 값
 const SpeechToText = (props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const command = useSelector((state) => state.stt.get('command'))
-  const status = useSelector((state) => state.stt.get('status'))
+  const status = useSelector((state) => state.stt.get('status'));
   const commands = [
     {
       command: ['다시(.)', '시작(.)', '재생(.)'],
@@ -75,9 +75,9 @@ const SpeechToText = (props) => {
     
   ]
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const {
     finalTranscript,
@@ -87,24 +87,24 @@ const SpeechToText = (props) => {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition({commands});
 
-  console.log(finalTranscript)
+  console.log(finalTranscript);
   const onSttStart = useCallback(() => {
-    return SpeechRecognition.startListening({continuous: true, language:'ko-kr'})
-  }, [])
+    return SpeechRecognition.startListening({continuous: true, language:'ko-kr'});
+  }, []);
   const onSttStop = useCallback((status) => { 
     if (status)
-      return SpeechRecognition.stopListening()
-  }, [])
+      return SpeechRecognition.stopListening();
+  }, []);
 
   useEffect(()=>{
-    onSttStart()
-    onSttStop(status)
-  },[onSttStart, onSttStop, status])
+    onSttStart();
+    onSttStop(status);
+  },[onSttStart, onSttStop, status]);
 
   useEffect(()=>{
     if (!props.micState)
-      dispatch(sttActions.changeInput({name:'command', value:'end'}))
-  },[props.micState, dispatch])
+      dispatch(sttActions.changeInput({name:'command', value:'end'}));
+  },[props.micState, dispatch]);
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -134,7 +134,7 @@ const SpeechToText = (props) => {
   명령어 끄기: "들어가", "명령어 들어가"
   마이크 끄기: "끝", "마이크 끝"
   마이크 켜기: 마이크를 끄고 음성 인식이 가능할거라 생각하십니까?
-  `.split('\n').map((sentence, index)=>(<p key={index}>{sentence}</p>))
+  `.split('\n').map((sentence, index)=>(<p key={index}>{sentence}</p>));
   
 
   return (

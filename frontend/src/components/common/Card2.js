@@ -1,17 +1,17 @@
-import React from 'react'
-import { Card, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
+import React from 'react';
+import { Card, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import * as userActions from "../../redux/modules/user";
 
 const Card2 = ({item, ratingButton}) => {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const {food, score, imgURL} = item
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const {food, score, imgURL} = item;
   // console.log(item)
   
   const goEvaluationPage = async () => {
-    await dispatch(userActions.initializeForm('result'))
+    await dispatch(userActions.initializeForm('result'));
     //REDUX에서 가지고 있는 값때문에 페이지 전환되자마자 에러남
     return history.push({
       pathname:`/recipe/${food.id}/evaluation`,

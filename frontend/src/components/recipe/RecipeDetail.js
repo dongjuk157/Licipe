@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import SearchAppBar from '../common/SearchAppBar'
+import SearchAppBar from '../common/SearchAppBar';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const useStyles = makeStyles((theme) => ({
@@ -41,14 +40,14 @@ const RecipeDetail = (props) => {
     name: '불러오는 중',
     id: '0',
   });
-  const foodid = props.match.params.id
+  const foodid = props.match.params.id;
   const getFoodInfo = async () => {
     await axios.get(`/foods/${foodid}`)
     .then((res) => {
       setFood(res.data);
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
     })
   } 
 
