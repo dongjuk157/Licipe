@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-import FeedCard from '../common/FeedCard'
-import { useDispatch, useSelector } from 'react-redux'
-import * as articleAction from '../../redux/modules/article'
-import Masonry from 'react-masonry-css'
+import React, { useEffect, useState } from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import FeedCard from '../common/FeedCard';
+import { useDispatch, useSelector } from 'react-redux';
+import * as articleAction from '../../redux/modules/article';
+import Masonry from 'react-masonry-css';
 import '../../style/community.css';
-import { CSSTransition } from 'react-transition-group';
 
 const breakpointColumnsObject = {
   default: 4,
@@ -18,7 +17,6 @@ const breakpointColumnsObject = {
 const Community = ({match}) => {
   const dispatch = useDispatch()
   const articles = useSelector((state)=> state.article.get('articles'))
-  // console.log(articles, typeof(articles))
   const [count, setCount] = useState(1)
   
   useEffect(()=>{

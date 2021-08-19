@@ -1,49 +1,48 @@
-import { Button } from 'react-bootstrap'
-import React, { useEffect } from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-import { useHistory } from 'react-router'
+import { Button } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import { useHistory } from 'react-router';
 import storage from '../..//lib/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from "../../redux/modules/user";
-import Card2 from '../common/Card2'
+import Card2 from '../common/Card2';
 
 const MyPage = ({match}) => {
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const dispatch = useDispatch();
   const loggedInfo = storage.get('loggedInfo'); // 로그인 정보
   // const result = useSelector((state) => state.user.get('result')).toJS()
-  const myClips = useSelector((state) => state.user.getIn(['articles', 'clips'])).toJS()
-  const myArticles = useSelector((state) => state.user.getIn(['articles', 'articles'])).toJS()
-  const myRatings = useSelector((state) => state.user.getIn(['articles', 'ratings'])).toJS()
-  
+  const myClips = useSelector((state) => state.user.getIn(['articles', 'clips'])).toJS();
+  const myArticles = useSelector((state) => state.user.getIn(['articles', 'articles'])).toJS();
+  const myRatings = useSelector((state) => state.user.getIn(['articles', 'ratings'])).toJS();
   
   useEffect(()=>{
     if(!loggedInfo) {
-      return
+      return;
     } 
     async function getClips () {
-      await dispatch(userActions.getUserClipsRecent())
+      await dispatch(userActions.getUserClipsRecent());
     }
     async function getRatings () {
-      await dispatch(userActions.getUserRatingsRecent())
+      await dispatch(userActions.getUserRatingsRecent());
     }
     async function getArticles () {
-      await dispatch(userActions.getUserArticlesRecent())
+      await dispatch(userActions.getUserArticlesRecent());
     }
-    getClips()
-    getRatings()
-    getArticles()
-    return dispatch(userActions.initializeForm('articles'))
-  }, [match.params.url])
+    getClips();
+    getRatings();
+    getArticles();
+    return dispatch(userActions.initializeForm('articles'));
+  }, [match.params.url]);
 
   if(!loggedInfo) { // 로그인 정보가 없으면 로그인페이지 전환
-    alert('로그인 정보가 만료되었습니다.')
-    history.push('/login')
-    return
+    alert('로그인 정보가 만료되었습니다.');
+    history.push('/login');
+    return;
   } 
-  const clipedList = Object.assign(myClips)
-  const articleList = Object.assign(myArticles)
-  const ratingList = Object.assign(myRatings)
+  const clipedList = Object.assign(myClips);
+  const articleList = Object.assign(myArticles);
+  const ratingList = Object.assign(myRatings);
 
 
   const editUserProfile = () => {
@@ -53,20 +52,19 @@ const MyPage = ({match}) => {
         userid: loggedInfo.userid,
       }
     })
-  }
+  };
   const postedArticle = () => {
     history.push({
       pathname: '/myarticles',
       state: { ratingButton: true },
-    })
-  }
+    });
+  };
   const evaluatedRecipe = () => {
-    history.push('/myratings')
-  }
+    history.push('/myratings');
+  };
   const scrapedRecipe = () => {
-    history.push('/myclips')
-  }
-
+    history.push('/myclips');
+  };
 
   return (
     <>

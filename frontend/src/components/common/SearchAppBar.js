@@ -4,7 +4,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import { alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import storage from '../../lib/storage';
@@ -14,13 +13,9 @@ import {
   AppBar,
   Button,
   Toolbar,
-  List,
   Typography,
   Divider,
   IconButton,
-  ListItem,
-  ListItemText,
-  InputBase,
 } from '@material-ui/core';
 
 // jj
