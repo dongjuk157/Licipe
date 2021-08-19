@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import styled from 'styled-components'
-import { Button, Grid, Box } from '@material-ui/core'
-import * as authActions from '../../redux/modules/auth'
-import * as userActions from '../../redux/modules/user'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { Button, Grid, Box } from '@material-ui/core';
+import * as authActions from '../../redux/modules/auth';
+import * as userActions from '../../redux/modules/user';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import {isEmail, isLength, isAlphanumeric, isStrongPassword } from 'validator';
-import debounce from 'loadsh/debounce'
-import storage from '../../lib/storage'
+import debounce from 'loadsh/debounce';
+import storage from '../../lib/storage';
 
 
 const JoinForm = styled.form`
@@ -23,13 +23,13 @@ const ErrorContainer = styled.div`
 `
 
 const Join = () => {
-  const { form, exists, error } = useSelector((state) => state.auth.getIn(['join'])).toJS()
-  const { result } = useSelector((state) => state.auth.get('result')).toJS()
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const values = Object.assign(form)
+  const { form, exists, error } = useSelector((state) => state.auth.getIn(['join'])).toJS();
+  const { result } = useSelector((state) => state.auth.get('result')).toJS();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const values = Object.assign(form);
   useEffect(() => {
-    dispatch(authActions.initializeForm('join'))
+    dispatch(authActions.initializeForm('join'));
   },[]);
 
   const setError = (name, message) => {   
@@ -41,11 +41,11 @@ const Join = () => {
   }
   const checkEmailExists = debounce(async (email) => {
     try {
-      await dispatch(authActions.checkEmailExists(email))
+      await dispatch(authActions.checkEmailExists(email));
       if(exists['email']) {
-        setError('email','이미 존재하는 이메일입니다.')
+        setError('email','이미 존재하는 이메일입니다.');
       } else {
-        setError(null)
+        setError(null);
       }
     } catch (e) {
       console.log(e);
@@ -54,11 +54,11 @@ const Join = () => {
 
   const checkUseridExists = debounce(async (username) => {
       try {
-          await dispatch(authActions.checkUseridExists(username))
+          await dispatch(authActions.checkUseridExists(username));
           if(exists['userid']) {
             setError('userid','이미 존재하는 아이디입니다.');
           } else {
-            setError(null)
+            setError(null);
           }
       } catch (e) {
           console.log(e);
@@ -108,48 +108,46 @@ const Join = () => {
   }
 
   const handleChange = (event) => {
-    const {name, value} = event.target
+    const {name, value} = event.target;
     dispatch(authActions.changeInput({
       name,
       value,
       form: 'join'
-    }))
+    }));
 
     // 검증작업
-    const validation = validate[name](value)
+    const validation = validate[name](value);
     if (name.indexOf('password')>-1 || !validation)
-      return
+      return;
 
     // 이메일, userid 확인
     // 중복확인 버튼으로 만들어도 될듯
-    const check = (name === 'email') ? checkEmailExists : checkUseridExists
-    check(value)
-
-    
+    const check = (name === 'email') ? checkEmailExists : checkUseridExists;
+    check(value);
   }
 
   const onSubmit = async (event) => {
-    event.preventDefault()
-    const {userid, nickname, email, password, passwordConfirm} = form
+    event.preventDefault();
+    const {userid, nickname, email, password, passwordConfirm} = form;
     // 에러, 유효성 검사 확인
     if (error.userid || error.nickname || error.email || error.password || error.passwordConfirm) 
-      return
+      return;
     if(!validate['userid'](userid) || !validate['nickname'](nickname) || !validate['email'](email) || 
     !validate['password'](password) || !validate['passwordConfirm'](passwordConfirm))
-      return
+      return;
     
     
     try {
       // 회원가입
       await dispatch(authActions.emailJoin({
         email, userid, password
-      }))
-      const loggedInfo = Object.assign(result)
+      }));
+      const loggedInfo = Object.assign(result);
       
       // 로그인 정보 저장 (로컬스토리지/스토어)
-      storage.set('loggedInfo', loggedInfo)
-      dispatch(userActions.setLoggedInfo(loggedInfo))
-      dispatch(userActions.setValidated(true))
+      storage.set('loggedInfo', loggedInfo);
+      dispatch(userActions.setLoggedInfo(loggedInfo));
+      dispatch(userActions.setValidated(true));
 
       history.push('/'); // 회원가입 성공시 홈페이지로 이동
     } catch(e) {

@@ -1,32 +1,29 @@
-import React, { useEffect }  from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect }  from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2';
 import { useLocation } from 'react-router';
 
 
 const MyArticles = ({match}) => {
-  const location = useLocation()
-  const dispatch = useDispatch()
+  const location = useLocation();
+  const dispatch = useDispatch();
   // const result = useSelector((state) => state.user.get('result')).toJS()
-  const myArticles = useSelector((state) => state.user.getIn(['articles', 'articles'])).toJS()
+  const myArticles = useSelector((state) => state.user.getIn(['articles', 'articles'])).toJS();
   useEffect(()=>{
-    dispatch(userActions.initializeForm('result'))
+    dispatch(userActions.initializeForm('result'));
     async function getArticles () {
-      await dispatch(userActions.getUserArticles())
+      await dispatch(userActions.getUserArticles());
     }
-    getArticles()
-    return dispatch(userActions.initializeForm('articles'))
-  }, [match.params.url])
-  let ratingButton = false
+    getArticles();
+    return dispatch(userActions.initializeForm('articles'));
+  }, [match.params.url]);
+  let ratingButton = false;
   try {
-    ratingButton = location.state.ratingButton
+    ratingButton = location.state.ratingButton;
   } catch (e) {}
-  // console.log(ratingButton, location.state)
-
-  const articleList = Object.assign(myArticles)
+  const articleList = Object.assign(myArticles);
   return (
     <>
       <SearchAppBar />

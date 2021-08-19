@@ -1,8 +1,7 @@
 import React from 'react'
-import { Button } from '@material-ui/core'
-import * as userActions from '../../redux/modules/user'
 import storage from '../../lib/storage'
 import { useDispatch, useSelector } from 'react-redux'
+import * as userActions from '../../redux/modules/user'
 
 const Logout = () => {
   const dispatch = useDispatch()
