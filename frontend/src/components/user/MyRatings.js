@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect } from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2';
 
 
 const MyRatings = ({match}) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const result = useSelector((state) => state.user.get('result')).toJS()
-  const myRatings = useSelector((state) => state.user.getIn(['articles', 'ratings'])).toJS()
+  const myRatings = useSelector((state) => state.user.getIn(['articles', 'ratings'])).toJS();
   useEffect(()=>{
     async function getRatings () {
-      await dispatch(userActions.getUserRatings())
-    }
-    getRatings()
-    return dispatch(userActions.initializeForm('articles'))
-  }, [match.params.url])
-  const ratingList = Object.assign(myRatings)
-  // console.log(ratingList)
+      await dispatch(userActions.getUserRatings());
+    };
+    getRatings();
+    return dispatch(userActions.initializeForm('articles'));
+  }, [match.params.url]);
+  const ratingList = Object.assign(myRatings);
   
   return (
     <>
