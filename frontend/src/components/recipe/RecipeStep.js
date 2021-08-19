@@ -16,7 +16,16 @@ const RecipeStep = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
 	const [steps, setSteps] = useState([]);
+	const [thumbnail, setThumbnail] = useState('');
+	const [ingredients, setIngredients] = useState([]);
 	const [stepIndex, setStepIndex] = useState(0)
+	const [foodInfo, setFoodInfo] = useState({
+		imgURL: '',
+		name: '',
+		time: {
+			maxTime: 0,
+		},
+	});
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -39,7 +48,19 @@ const RecipeStep = (props) => {
 		.catch((err) => {
 			console.log(err)
 		})
+		axios.get(`/foods/${foodid}/ingredients`)
+		.then((res) => {
+			setIngredients(res.data)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+		axios.get(`/foods/${foodid}`)
+		.then((res) => {
+			setFoodInfo(res.data)
+		})
 	}
+
 	useEffect(() => {
 		GetRecipeSteps();
 	}, [])
@@ -145,6 +166,31 @@ const RecipeStep = (props) => {
 				<Slider {...settings}
 					ref={slider}
 				>
+				<div>
+					<h2 style={{ fontFamily: 'Noto Sans CJK KR', alignContent: 'center' }}>{foodInfo.name}</h2>
+					<img src={foodInfo.imgURL} className="col-12 col-md-10 col-lg-8"></img>
+					<p style={{ marginTop: "10px" }}>필요한 재료</p>
+					<div className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>
+						{ ingredients.map((ingredient, index) => {
+							console.log(ingredients, ingredient)
+							return (
+								ingredient.main ?
+									(<div key={index} style={{ fontFamily: 'Noto Sans CJK KR' }}>
+										{ingredient.ingredient.name} 
+										<span style={{ marginInline: "3px"}}>{ingredient.ingredient.weight}{ingredient.ingredient.unit}</span>
+										{ ingredients.length > index && ingredients[index + 1].main ?
+										<span style={{ marginInlineEnd: "3px", color: "#ff4a6b"}}>| </span>
+										: <span></span> 
+										}
+									</div>)
+									: <></>
+							)
+						})
+						}
+					</div>
+					<p>소요 시간</p>
+					<span className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>{foodInfo.time.maxTime}분</span>
+				</div>
 					{steps.map((step, index) => {
 						return (
 						<div key={index} className="d-flex flex-column align-items-center col-12">
