@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import SearchAppBar from '../common/SearchAppBar'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import RecipeInfoComponent from './RecipeInfoComponent';
-import styled from 'styled-components'
-
-
+import styled from 'styled-components';
+import storage from '../../lib/storage';
 import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../../style/recipe_recommend.css';
 import 'bootstrap';
 import '../../style/scrollbar.css';
+import { useDispatch } from 'react-redux';
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
+const currentUserInfo = storage.get('loggedInfo')
 
 const FoodImg = styled.img`
 	width: 100%;
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const RecipeRecommend = () => {
+	const dispatch = useDispatch;
 	const classes = useStyles();
 	const [images, setImages] = useState([]);
 	const [foodList, setFoodList] = useState([]);
@@ -128,10 +130,20 @@ const getMoreFoodList = () => {
 		.catch((err) => {
 			console.log(err)
 		})
-
-
 	});
-
+	const onScrap = async (foodId) => {
+		// const data = {
+		// 	member: { id: currentUserInfo.userid },
+		// 	recipeId: 0
+		// }
+		axios.get(`/foods/${foodId}/recipe/clip`)
+		.then((res) => {
+			console.log(res)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+	}
 	return (
 		<div className="col-12 justify-content-center" style={{ height: '100vh%'}}>
 			<SearchAppBar></SearchAppBar>
@@ -181,11 +193,12 @@ const getMoreFoodList = () => {
 											style={{ height: '4rem'}}>
 											{food.name}
 										</Card.Text>
-											<Link 
+											<i 
 												className="col-1 far fa-heart text-start my-1 text-decoration-none" 
-												style={{ fontSize: '1rem', color: '#ff4a6b' 
-												}}>
-											</Link>
+												style={{ fontSize: '1rem', color: '#ff4a6b' }}
+												onClick={onScrap(food.id)}
+												>
+											</i>
 											{/* className="fas fa-bookmark" */}
 										</Row>
 										<Row className="d-flex">
