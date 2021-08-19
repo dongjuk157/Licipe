@@ -127,3 +127,12 @@
 .vertical {
   margin-top:10%;
 }
+
+.fbtn {
+  transition-duration: 2s
+}
+
+.fbtn:hover {
+  border-radius: 50%;
+  background: blue;
+}
