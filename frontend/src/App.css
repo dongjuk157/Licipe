@@ -103,9 +103,9 @@
   /* padding: 1rem; */
 }
 
-div {
+/* div {
   align-items: center;
-}
+} */
 
 .MuiDrawer-paperAnchorLeft > a:hover, a:focus {
   background-color: rgba(204, 28, 28, 0.1);
