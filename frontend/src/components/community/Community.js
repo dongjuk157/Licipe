@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as articleAction from '../../redux/modules/article'
 import Masonry from 'react-masonry-css'
 import '../../style/community.css';
+import { CSSTransition } from 'react-transition-group';
 
 const breakpointColumnsObject = {
   default: 4,
