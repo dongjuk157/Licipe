@@ -3,7 +3,8 @@
 }
 
 .social {
-  height: 40px;
+  height: 60px;
   width: 400px;
   border-radius: .25rem;
+  padding: unset;
 }

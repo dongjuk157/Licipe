@@ -138,18 +138,18 @@ const SpeechToText = (props) => {
   
 
   return (
-    <div style={{position:'absolute', right:'2%', bottom:'2%' }}>
+    <div style={{position:'absolute', right:'5%', bottom:'5%' }}>
       <div style={{fontSize:'1rem'}}>
         {listening ? (
-          <i className="fas fa-microphone fa-lg" style={{color:'red'}} onClick={onSttStop}></i> 
+          <i className="fas fa-microphone fa-lg" style={{color:'red', marginRight: 10}} onClick={onSttStop}></i> 
         ) : (
-          <i className="fas fa-microphone-slash fa-lg" onClick={onSttStart}></i>
+          <i className="fas fa-microphone-slash fa-lg" style={{ marginRight: 5 }} onClick={onSttStart}></i>
         )}
         <Button variant="light" onClick={handleShow}>
           ?
         </Button>
       </div>
-      <Modal show={show} onHide={handleClose} style={{zIndex:'2000'}}>
+      <Modal show={show} onHide={handleClose} style={{ zIndex:'2000'}}>
         <Modal.Header closeButton >
           <Modal.Title>명령어 모음</Modal.Title>
         </Modal.Header>
@@ -162,8 +162,6 @@ const SpeechToText = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
     </div>
   )
 }
