@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router'
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
 import SearchAppBar from '../common/SearchAppBar'
@@ -10,11 +10,11 @@ import '../../style/articleform.css';
 
 const Article = () => {
   // useEffect(,[])
-  const location = useLocation()
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const location = useLocation();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const getFoodId = {}
+  const getFoodId = {};
   try{
     getFoodId['foodid'] = location.state.foodid
   }  catch {
@@ -23,30 +23,30 @@ const Article = () => {
   }
   const {foodid} = getFoodId
 
-  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
-  const postSuccess = useSelector((state) => state.article.get('postSuccess')) // 이거 왜 안되냐...
+  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS();
+  const postSuccess = useSelector((state) => state.article.get('postSuccess'));
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
   
   if (!currentUserInfo) {
-    alert('로그인정보가 만료되었습니다.')
-    history.push('/login')
+    alert('로그인정보가 만료되었습니다.');
+    history.push('/login');
   }
 
   let article = null
   try {
-    article = location.state.article
+    article = location.state.article;
 
   } catch (e) {
-    article = null
+    article = null;
   }
 
   useEffect(()=>{
     if (!currentUserInfo) {
-      return
+      return;
     }
-    dispatch(articleActions.initializeForm('article'))
+    dispatch(articleActions.initializeForm('article'));
     if (article){ // edit으로 넘어온 경우
-      dispatch(articleActions.getArticle(article.id))
+      dispatch(articleActions.getArticle(article.id));
     }
     else {
       dispatch(articleActions.changeInput({
@@ -61,34 +61,34 @@ const Article = () => {
     }
   },[])
 
-  const [selectedFile, setSelectedFile] = useState(null)
-  const fileRef = useRef()
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileRef = useRef();
 
   const handleChange = (event) =>{
-    const { name, value } = event.target
-    dispatch(articleActions.changeInput({name, value}))
+    const { name, value } = event.target;
+    dispatch(articleActions.changeInput({name, value}));
   }
 
   const handleImageButtonClick = (event) => {
-    event.preventDefault()
-    fileRef.current.click()
+    event.preventDefault();
+    fileRef.current.click();
   }
 
   const handleSelect = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     // 사진 미리보기
-    const file = event.target.files[0]
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
     reader.onloadend = (event) => {
-      setSelectedFile(event.currentTarget.result)
+      setSelectedFile(event.currentTarget.result);
     }
     
     // 사진 업로드
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('userid', userid) //필요한가?
-    await dispatch(articleActions.uploadS3(formData))
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('userid', userid);
+    await dispatch(articleActions.uploadS3(formData));
 
   }
 
@@ -105,7 +105,7 @@ const Article = () => {
       if (Object.hasOwnProperty.call(data, key)) {
         const element = data[key];
         if (element === null || element === ''){
-          alert('모든 내용을 채워주세요')
+          alert('모든 내용을 채워주세요');
           return
         }
 
@@ -113,19 +113,19 @@ const Article = () => {
     }
 
     if (article) {
-      await dispatch(articleActions.editArticle(data, articleid))
+      await dispatch(articleActions.editArticle(data, articleid));
     }
     else {
-      await dispatch(articleActions.uploadArticle(data))
+      await dispatch(articleActions.uploadArticle(data));
     }
     if (article){
-      history.push(`/article/${article.id}`)
+      history.push(`/article/${article.id}`);
     } else {
-      history.push('/community')
+      history.push('/community');
     }
   }
   const onSkip = () => {
-    history.push('/')
+    history.push('/');
   }
   
   return (
