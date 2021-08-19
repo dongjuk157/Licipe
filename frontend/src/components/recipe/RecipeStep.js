@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Slider from "react-slick";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import SearchAppBar from '../common/SearchAppBar'
-import styled from 'styled-components';
 import SpeechToText from '../common/SpeechToText'
 import { useDispatch, useSelector } from 'react-redux';
 import * as sttActions from '../../redux/modules/stt';
@@ -16,7 +15,6 @@ const RecipeStep = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
 	const [steps, setSteps] = useState([]);
-	const [thumbnail, setThumbnail] = useState('');
 	const [ingredients, setIngredients] = useState([]);
 	const [stepIndex, setStepIndex] = useState(0)
 	const [foodInfo, setFoodInfo] = useState({
@@ -79,10 +77,8 @@ const RecipeStep = (props) => {
 	}
 	const handleSpeed = useCallback( (speed) => {
 		const video = document.querySelector(`#video${stepIndex}`) 
-		// console.log(video)
 		if (video){
 			video.playbackRate = speed
-			// console.log(video, speed, video.playbackRate)
 		}
 	}, [stepIndex])
 
@@ -172,7 +168,6 @@ const RecipeStep = (props) => {
 					<p style={{ marginTop: "10px" }}>필요한 재료</p>
 					<div className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>
 						{ ingredients.map((ingredient, index) => {
-							console.log(ingredients, ingredient)
 							return (
 								ingredient.main ?
 									(<div key={index} style={{ fontFamily: 'Noto Sans CJK KR' }}>
