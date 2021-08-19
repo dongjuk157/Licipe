@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import RecipeSubCategory from './RecipeSubCategory';
 import axios from 'axios';
 import SearchAppBar from '../common/SearchAppBar'
 import { Tabs, Tab, Col, Row, Nav } from 'react-bootstrap';
-import { makeStyles } from '@material-ui/core/styles';
 import 'bootstrap';
 import '../../style/recipe_search.css';
-import { dark } from '@material-ui/core/styles/createPalette';
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const RecipeSearch = () => {

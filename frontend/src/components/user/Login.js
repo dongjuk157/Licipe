@@ -24,10 +24,10 @@ const Login = ({history}) => {
           <KakaoLogin />
           
           <Button  disabled>
-            <img src="/images/btnW_완성형.png" className='social'></img>
+            <img src="/images/btnW_완성형.png" className='social' alt="네이버 로그인 버튼"></img>
           </Button>
           <Button disabled>
-            <img src="/images/btn_google_signin_light_normal_web@2x.png" className='social'></img>
+            <img src="/images/btn_google_signin_light_normal_web@2x.png" className='social' alt="구글 로그인 버튼"></img>
           </Button>
           <Button disabled onClick={()=>{history.push('/login/email')}}>
             Email로 로그인

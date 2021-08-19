@@ -1,22 +1,22 @@
-import React, { useEffect }  from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect }  from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from "../../redux/modules/user";
 import Card2 from '../common/Card2';
 
 
 const MyClips = ({match}) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const result = useSelector((state) => state.user.get('result')).toJS()
-  const myClips = useSelector((state) => state.user.getIn(['articles', 'clips'])).toJS()
+  const myClips = useSelector((state) => state.user.getIn(['articles', 'clips'])).toJS();
   useEffect(()=>{
     async function getClips () {
-      await dispatch(userActions.getUserClips())
+      await dispatch(userActions.getUserClips());
     }
-    getClips()
-    return dispatch(userActions.initializeForm('articles'))
-  }, [match.params.url])
-  const clipedList = Object.assign(myClips)
+    getClips();
+    return dispatch(userActions.initializeForm('articles'));
+  }, [match.params.url]);
+  const clipedList = Object.assign(myClips);
   return (
     <>
       <SearchAppBar />

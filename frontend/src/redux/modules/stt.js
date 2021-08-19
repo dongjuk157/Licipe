@@ -1,6 +1,5 @@
 import {createAction, handleActions} from 'redux-actions'
 import {Map} from 'immutable'
-import { pender } from 'redux-pender'
 
 // action types
 const CHANGE_INPUT = 'stt/CHANGE_INPUT'

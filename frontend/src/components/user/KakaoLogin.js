@@ -14,7 +14,7 @@ const KakaoLogin = () => {
   return (
     <a className='kakao' href={URL} style={{textDecoration: 'none'}}>
       <Button className='social'>
-        <img src="/images/kakao_login_large_wide.png" className='social'></img>
+        <img src="/images/kakao_login_large_wide.png" className='social' alt="카카오 로그인  버튼"></img>
       </Button>
     </a>
   )
