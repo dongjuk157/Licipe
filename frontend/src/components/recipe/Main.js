@@ -5,14 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import { CSSTransition } from 'react-transition-group';
-
-// jj
 import '../../style/main.css';
 import { Link } from 'react-router-dom';
 
 const Main = () => {
   const [foodList, setFoodList] = useState([]);
-  const [nowFood, setNowFood] = useState(0);
   const getFoodList = () => {
     axios.get('/main')
     .then((res) => {
@@ -28,7 +25,6 @@ const Main = () => {
   }, [])
 
   const settings = {
-    // dots true => false 이유는 76번 줄 주석
     dots: false,
     infinite: true,
     slidesToScroll: 1,
@@ -65,7 +61,9 @@ const Main = () => {
                   <div key={index} 
                     className="d-flex flex-column align-items-center vertical">
                     <img src={`${food.imgURL}`} 
-                      className="w-100 mb-3">
+                      className="w-100 mb-3"
+                      alt="음식 사진"
+                      >
                     </img>
                       <Link to={`/recipe/${food.id}/step`} 
                         className="mt-3 btn btn-lg p-3">
