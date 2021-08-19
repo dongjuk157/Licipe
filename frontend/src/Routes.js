@@ -20,7 +20,6 @@ import MyArticles from './components/user/MyArticles';
 import MyClips from './components/user/MyClips';
 import MyRatings from './components/user/MyRatings';
 import RecipeDetail from './components/recipe/RecipeDetail';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const Routes = () => {
   return (

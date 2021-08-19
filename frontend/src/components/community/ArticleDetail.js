@@ -1,38 +1,35 @@
-import { Button } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router'
+import { Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
-import SearchAppBar from '../common/SearchAppBar'
+import SearchAppBar from '../common/SearchAppBar';
 
 const ArticleDetail = () => {
-  const location = useLocation()
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const location = useLocation();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS();
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
 
 
   const article = location.state.article
   useEffect(()=>{
-    dispatch(articleActions.getArticle(article.id))
-    return dispatch(articleActions.initializeForm('article'))
+    dispatch(articleActions.getArticle(article.id));
+    return dispatch(articleActions.initializeForm('article'));
   }, [])
 
   if (!currentUserInfo) {
-    alert('로그인정보가 만료되었습니다.')
-    history.push('/login')
+    alert('로그인정보가 만료되었습니다.');
+    history.push('/login');
     return <></> 
   }
   
-  const handleThumbup = () => {
-    // 좋아요 안만들겠지?
-  }
   const handleEdit = () => {
     if (Number(currentUserInfo.userid) !== userid.id) {
-      alert('잘못된 접근입니다.')
-      return
+      alert('잘못된 접근입니다.');
+      return;
     }
     history.push({
       pathname:`/article/`, 
@@ -43,13 +40,13 @@ const ArticleDetail = () => {
   }
   const handleDelete = async () => {
     if (Number(currentUserInfo.userid) !== userid.id) {
-      alert('잘못된 접근입니다.')
-      return
+      alert('잘못된 접근입니다.');
+      return;
     }
-    dispatch(articleActions.deleteArticle(articleid))
+    dispatch(articleActions.deleteArticle(articleid));
     // window.location.href('/community')
     // 새로고침 안됨
-    history.push('/community')
+    history.push('/community');
   }
 
   return (
@@ -79,8 +76,6 @@ const ArticleDetail = () => {
           { content && (<p className="w-100">{content}</p>)
           }
         </div>
-        {/* <div><Button onClick={handleThumbup}>❤</Button></div> */}
-    
         { Number(currentUserInfo.userid) === userid.id 
           && (
           <div className="d-flex justify-content-end position-absolute bottom-0 end-0 p-3">

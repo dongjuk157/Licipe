@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import { 
-  Drawer,
-  List,
   Divider,
   ListItem,
-  ListItemText,
   Paper,
   Typography,
  } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-// jj
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-import IconButton from '@material-ui/core/IconButton';
+import '../../style/recipe_search.css';
 
-import '../../style/recipe_search.css'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 
