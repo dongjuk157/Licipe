@@ -26,8 +26,6 @@ const RecipeSearch = () => {
       .catch((err) => {
         console.log(err)
       })
-      console.log('countries')
-      console.log(countries);
     }
   
   const GetTimes = async () => {
@@ -39,8 +37,6 @@ const RecipeSearch = () => {
       .catch((err) => {
         console.log(err)
       })
-      console.log('times')
-      console.log(times);
     }
 
   const GetSituations = async () => {
@@ -52,8 +48,6 @@ const RecipeSearch = () => {
       .catch((err) => {
         console.log(err)
       })
-      console.log('situations')
-      console.log(situations);
     }
 
   const getFoodList = async (mainCategory, subCategoryId) => {
