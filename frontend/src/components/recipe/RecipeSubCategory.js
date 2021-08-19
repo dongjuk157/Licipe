@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-	 Typography,
-	//  CardMedia,
-	//  CardContent,
-	//  CardActions,
-	//  CardActionArea,
-	//  Card,
-	 } from '@material-ui/core';
-
-import { Button, ButtonGroup, Row, Col, Container, Card } from 'react-bootstrap';
+import { Button, Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../../style/scrollbar.css';
 

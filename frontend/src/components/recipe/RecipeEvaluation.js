@@ -1,62 +1,56 @@
 import React, { useEffect, useState } from "react";
-import SearchAppBar from './../common/SearchAppBar'
+import SearchAppBar from './../common/SearchAppBar';
 import { useHistory, useLocation } from 'react-router'
 import Rating from '@material-ui/lab/Rating';
 import { Button } from 'react-bootstrap';
 import storage from '../../lib/storage';
 import * as recipeActions from "../../redux/modules/recipe";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import * as userActions from "../../redux/modules/user";
-import * as _ from 'loadsh'
+import * as _ from 'loadsh';
 
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 const RecipeEvaluation = (props) => {
 	const [rating, setRating] = useState(3);
-	const [evalu, setEvalu] = useState('어떠셧나요')
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const postSuccess = useSelector((state) => state.recipe.get('postSuccess'))
+	const [evalu, setEvalu] = useState('어떠셧나요');
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const postSuccess = useSelector((state) => state.recipe.get('postSuccess'));
   const currentUserInfo = storage.get('loggedInfo');
 
-  const result = useSelector((state) => state.user.get('result')).toJS()
+  const result = useSelector((state) => state.user.get('result')).toJS();
   
-  let food = null
+  let food = null;
   try {
-    food = location.state.food
+    food = location.state.food;
   } catch (e) {}
   useEffect(()=>{
     if (!food) 
-      return 
+      return ;
     async function getRatings () {
-      await dispatch(userActions.getUserRatings())
+      await dispatch(userActions.getUserRatings());
     }
-    getRatings()
-    return dispatch(userActions.initializeForm('result'))
+    getRatings();
+    return dispatch(userActions.initializeForm('result'));
   }, [])
 
   if (!food) {
-    alert('잘못된 접근입니다.')
-    history.push('/')
+    alert('잘못된 접근입니다.');
+    history.push('/');
     return <></>
   }
-  const ratingList = Object.assign(result)
+  const ratingList = Object.assign(result);
   const alreadyEval = ratingList.filter((item)=>{
-    // console.log(item.food)
-    // console.log(_.isEqual(item.food, food))
-    return _.isEqual(item.food, food)
+    return _.isEqual(item.food, food);
   })
-  // console.log(alreadyEval)
-  // console.log(ratingList, food)
   if (alreadyEval.length > 0){
-    alert("이미 평가한 요리입니다.")
-    // console.log(history)
-    history.push('/MyPage')
-    // history.goBack() // 뒤로가기
-    console.log(alreadyEval)
+    alert("이미 평가한 요리입니다.");
+    history.push('/MyPage');
+    console.log(alreadyEval);
   }
 
 
@@ -64,7 +58,6 @@ const RecipeEvaluation = (props) => {
     console.log(rating, currentUserInfo)
     // score, food, member
     await dispatch(recipeActions.setRating({ score:rating, food, member:currentUserInfo }))
-    // if (postSuccess) 왜 안되냐
     history.push(`/`)
   }
   
