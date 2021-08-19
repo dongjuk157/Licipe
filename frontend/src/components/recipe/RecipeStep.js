@@ -173,7 +173,6 @@ const RecipeStep = (props) => {
 						)
 					})}
 					<div className="d-flex flex-column align-items-center col-12">
-						{/* <Link to={}> */}
 							<Button onClick={()=>{
 								history.push({
 									pathname: `/article`,
@@ -182,7 +181,6 @@ const RecipeStep = (props) => {
 							}}>
 								사진찍고 요리 인증하기
 							</Button>
-						{/* </Link> */}
 					</div>
 				</Slider>
 			</div>
