@@ -1,8 +1,5 @@
 import React from 'react'
-// import styled from 'styled-components'
 import { Button } from '@material-ui/core'
-// import { Box } from '@material-ui/core'
-// import axios from 'axios'
 import '../../style/social_login.css';
 
 const KakaoLogin = () => {
@@ -12,9 +9,9 @@ const KakaoLogin = () => {
   const URL = `https://${HOST}/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
   console.log(URL)
   return (
-    <a className='kakao' href={URL} style={{textDecoration: 'none'}}>
-      <Button className='social'>
-        <img src="/images/kakao_login_large_wide.png" className='social' alt="카카오 로그인  버튼"></img>
+    <a href={URL} style={{textDecoration: 'none'}}>
+      <Button>
+        카카오로 간편 로그인
       </Button>
     </a>
   )
