@@ -85,7 +85,7 @@ const RecipeStep = (props) => {
 
 	const command = useSelector((state) => state.stt.get('command'))
 	const slider = useRef()
-	const timer = document.querySelector(`#timer${stepIndex}`) 
+	const timer = document.querySelector(`#timer${stepIndex - 1}`) 
 	// const currentTimer = useRef
 	switch (command){
 		case 'next': 
