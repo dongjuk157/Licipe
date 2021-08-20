@@ -68,15 +68,15 @@ const RecipeStep = (props) => {
 	const playbackRate = useSelector((state)=> state.stt.get('playbackRate'))
   const playbackRateIndex = useSelector((state)=> state.stt.get('playbackRateIndex'))
 	const handlePlay = () => {
-		const video = document.querySelector(`#video${stepIndex}`)
+		const video = document.querySelector(`#video${stepIndex - 1}`)
 		video.play()
 	}
 	const handlePause = () => {
-		const video = document.querySelector(`#video${stepIndex}`)
+		const video = document.querySelector(`#video${stepIndex - 1}`)
 		video.pause()
 	}
 	const handleSpeed = useCallback( (speed) => {
-		const video = document.querySelector(`#video${stepIndex}`) 
+		const video = document.querySelector(`#video${stepIndex - 1}`) 
 		if (video){
 			video.playbackRate = speed
 		}
