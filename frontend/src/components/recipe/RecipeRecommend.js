@@ -131,19 +131,7 @@ const getMoreFoodList = () => {
 			console.log(err)
 		})
 	});
-	const onScrap = async (foodId) => {
-		// const data = {
-		// 	member: { id: currentUserInfo.userid },
-		// 	recipeId: 0
-		// }
-		axios.get(`/foods/${foodId}/recipe/clip`)
-		.then((res) => {
-			console.log(res)
-		})
-		.catch((err) => {
-			console.log(err)
-		})
-	}
+
 	return (
 		<div className="col-12 justify-content-center" style={{ height: '100vh%'}}>
 			<SearchAppBar></SearchAppBar>
@@ -193,13 +181,6 @@ const getMoreFoodList = () => {
 											style={{ height: '4rem'}}>
 											{food.name}
 										</Card.Text>
-											<i 
-												className="col-1 far fa-heart text-start my-1 text-decoration-none" 
-												style={{ fontSize: '1rem', color: '#ff4a6b' }}
-												onClick={onScrap(food.id)}
-												>
-											</i>
-											{/* className="fas fa-bookmark" */}
 										</Row>
 										<Row className="d-flex">
 											<Col className="align-self-center">
