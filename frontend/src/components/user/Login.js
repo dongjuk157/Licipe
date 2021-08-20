@@ -21,13 +21,12 @@ const Login = ({history}) => {
           alignItems="center"
           justifyContent="center"
         >
-          <KakaoLogin />
-          
-          <Button  disabled>
-            <img src="/images/btnW_완성형.png" className='social' alt="네이버 로그인 버튼"></img>
-          </Button>
+        <KakaoLogin />
           <Button disabled>
-            <img src="/images/btn_google_signin_light_normal_web@2x.png" className='social' alt="구글 로그인 버튼"></img>
+            Google
+          </Button>
+          <Button  disabled>
+            Naver
           </Button>
           <Button disabled onClick={()=>{history.push('/login/email')}}>
             Email로 로그인
