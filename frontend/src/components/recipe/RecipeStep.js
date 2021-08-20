@@ -68,15 +68,15 @@ const RecipeStep = (props) => {
 	const playbackRate = useSelector((state)=> state.stt.get('playbackRate'))
   const playbackRateIndex = useSelector((state)=> state.stt.get('playbackRateIndex'))
 	const handlePlay = () => {
-		const video = document.querySelector(`#video${stepIndex - 1}`)
+		const video = document.querySelector(`#video${stepIndex}`)
 		video.play()
 	}
 	const handlePause = () => {
-		const video = document.querySelector(`#video${stepIndex - 1}`)
+		const video = document.querySelector(`#video${stepIndex}`)
 		video.pause()
 	}
 	const handleSpeed = useCallback( (speed) => {
-		const video = document.querySelector(`#video${stepIndex - 1}`) 
+		const video = document.querySelector(`#video${stepIndex}`) 
 		if (video){
 			video.playbackRate = speed
 		}
@@ -85,7 +85,7 @@ const RecipeStep = (props) => {
 
 	const command = useSelector((state) => state.stt.get('command'))
 	const slider = useRef()
-	const timer = document.querySelector(`#timer${stepIndex - 1}`) 
+	const timer = document.querySelector(`#timer${stepIndex}`) 
 	// const currentTimer = useRef
 	switch (command){
 		case 'next': 
@@ -162,30 +162,6 @@ const RecipeStep = (props) => {
 				<Slider {...settings}
 					ref={slider}
 				>
-				<div>
-					<h2 style={{ fontFamily: 'Noto Sans CJK KR', alignContent: 'center' }}>{foodInfo.name}</h2>
-					<img src={foodInfo.imgURL} className="col-12 col-md-10 col-lg-8"></img>
-					<p style={{ marginTop: "10px" }}>필요한 재료</p>
-					<div className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>
-						{ ingredients.map((ingredient, index) => {
-							return (
-								ingredient.main ?
-									(<div key={index} style={{ fontFamily: 'Noto Sans CJK KR' }}>
-										{ingredient.ingredient.name} 
-										<span style={{ marginInline: "3px"}}>{ingredient.ingredient.weight}{ingredient.ingredient.unit}</span>
-										{ ingredients.length > index && ingredients[index + 1].main ?
-										<span style={{ marginInlineEnd: "3px", color: "#ff4a6b"}}>| </span>
-										: <span></span> 
-										}
-									</div>)
-									: <></>
-							)
-						})
-						}
-					</div>
-					<p>소요 시간</p>
-					<span className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>{foodInfo.time.maxTime}분</span>
-				</div>
 					{steps.map((step, index) => {
 						return (
 						<div key={index} className="d-flex flex-column align-items-center col-12">
