@@ -14,7 +14,7 @@
 
 발표 자료: https://sinawi.tistory.com/364
 
-프로젝트회고: https://sinawi.tistory.com/362 
+Donggun's 프로젝트회고: https://sinawi.tistory.com/362 
 
 
 
