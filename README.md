@@ -38,17 +38,17 @@
 
 - 둘러보기 탭
 
-![Untitled 1](README.assets/Untitled 1.png)
+![Untitled 1](README.assets/Untitled_1.png)
 
 - 메뉴 선택시 사이드 설명 생성
 
 
 
-![Untitled 2](README.assets/Untitled 2.png)
+![Untitled 2](README.assets/Untitled_2.png)
 
 - 레시피 고르기 탭
 
-![Untitled 3](README.assets/Untitled 3.png)
+![Untitled 3](README.assets/Untitled_3.png)
 
 - 요리 별 분류
 
@@ -62,13 +62,13 @@
 
 레시피 단계를 음성으로 조절
 
-![Untitled 4](README.assets/Untitled 4.png)
+![Untitled 4](README.assets/Untitled_4.png)
 
-![Untitled 5](README.assets/Untitled 5.png)
+![Untitled 5](README.assets/Untitled_5.png)
 
-![Untitled 6](README.assets/Untitled 6.png)
+![Untitled 6](README.assets/Untitled_6.png)
 
-![Untitled 7](README.assets/Untitled 7.png)
+![Untitled 7](README.assets/Untitled_7.png)
 
 ## 4. 커뮤니티
 
@@ -76,10 +76,10 @@
 
 ![licipe_community_6](README.assets/licipe_community_6.png)
 
-![Untitled 9](README.assets/Untitled 9.png)
+![Untitled 9](README.assets/Untitled_9.png)
 
 ## 5. 그 외
 
 카카오 로그인
 
-![Untitled 8](README.assets/Untitled 8.png)
+![Untitled 8](README.assets/Untitled_8.png)
