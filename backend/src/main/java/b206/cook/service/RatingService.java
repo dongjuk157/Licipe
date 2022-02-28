@@ -30,6 +30,11 @@ public class RatingService {
     public List<Rating> ratings(String snsId) {
         return ratingRepository.findByMember(snsId);
     }
+    // 최근 리스트 5개 조회
+    public List<Rating> recentRatings(String snsId) {
+        return ratingRepository.findRecent(snsId);
+        // 없으면 빈리스트 반환할 것임
+    }
 
     // 평가 수정
     public Long modify(RatingModifyRequestDto ratingModifyRequestDto, Long id) {

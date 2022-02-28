@@ -59,4 +59,9 @@ public class ArticleController {
     public ResponseEntity<List<Article>> foodArticles(@PathVariable Long foodId) {
         return new ResponseEntity<>(articleService.findArticlesByFood(foodId), HttpStatus.OK);
     }
+
+    @GetMapping("/member/articles/recent")
+    public ResponseEntity<List<Article>> recentArticles(@RequestHeader String snsId) {
+        return new ResponseEntity<>(articleService.findRecentArticles(snsId), HttpStatus.OK);
+    }
 }
