@@ -5,7 +5,7 @@ pipeline {
 		stage('Build') {
 			agent {
 				docker {
-					image 'node:12-alpine'
+					image 'node:16-alpine'
 				}
 			}
 			steps {
@@ -28,16 +28,16 @@ pipeline {
 			agent any
 			steps {
 				dir ('frontend') {
-				sh 'docker ps -f name=licipe -q | xargs --no-run-if-empty docker container stop'
-                sh 'docker container ls -a -fname=licipe -q | xargs -r docker container rm'
-                sh 'docker run -d --name licipe -p 80:80 licipe:front'
+					sh 'docker ps -f name=licipe -q | xargs --no-run-if-empty docker container stop'
+					sh 'docker container ls -a -fname=licipe -q | xargs -r docker container rm'
+					sh 'docker run -d --name licipe -p 8000:80 licipe:front'
 				}
 			}
 		}
 	}
 	post {
 		success {
-			echo 'i am her'
+			echo 'done'
 		}
 	}
 }

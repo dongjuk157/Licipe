@@ -1,41 +1,48 @@
-import React, { useEffect }  from 'react'
-import SearchAppBar from '../common/SearchAppBar'
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect }  from 'react';
+import SearchAppBar from '../common/SearchAppBar';
+import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from "../../redux/modules/user";
+import Card2 from '../common/Card2';
+import { useLocation } from 'react-router';
 
-const MyPageContainer = styled.div`
-  padding: 1rem;
-`
 
-const MyArticles = () => {
-  const dispatch = useDispatch()
-  const result = useSelector((state) => state.user.get('result')).toJS()
+const MyArticles = ({match}) => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  // const result = useSelector((state) => state.user.get('result')).toJS()
+  const myArticles = useSelector((state) => state.user.getIn(['articles', 'articles'])).toJS();
   useEffect(()=>{
+    dispatch(userActions.initializeForm('result'));
     async function getArticles () {
-      await dispatch(userActions.getUserArticles())
+      await dispatch(userActions.getUserArticles());
     }
-    getArticles()
-  }, [])
-  const articleList = Object.assign(result)
+    getArticles();
+    return dispatch(userActions.initializeForm('articles'));
+  }, [match.params.url]);
+  let ratingButton = false;
+  try {
+    ratingButton = location.state.ratingButton;
+  } catch (e) {}
+  const articleList = Object.assign(myArticles);
   return (
     <>
       <SearchAppBar />
-      <MyPageContainer>
-        <h1>MyArticles</h1>
-        <ul>
+      <div className="p-3">
+        <h1>전국 음식 자랑</h1>
+        <div className="row">
         { articleList.length !== 0 ? (
-            articleList.map((element) => {
-              // console.log(element)
-              return (<li key={element.id}>
-                음식: {element.food.name}
-              </li>)
+            articleList.map((item, index) => {
+              return (
+              <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <Card2 item={item} ratingButton={ratingButton}></Card2>
+              </div>
+              )
             })
         ) : (
-          <li>스크랩한 레시피가 없어요...</li>)
+          <p>자랑한 글이 없어요...</p>)
         }
-        </ul>
-      </MyPageContainer>
+        </div>
+      </div>
     </>
   )
 }

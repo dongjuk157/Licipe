@@ -1,50 +1,35 @@
-import { Button, Grid } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router'
+import { Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import * as articleActions from "../../redux/modules/article";
 import storage from '../../lib/storage';
-
-const ArticleContainer = styled.div`
-  padding: 1em;
-  column-count: 2;
-  column-gap: 1em;
-  
-  @media all and (max-width: 767px) {
-    column-count: 1;
-    column-gap: 0.2em;
-  }
-`
-const ImageContainer = styled.div`
-  width: 50 vw;
-  @media all and (max-width: 767px) {
-    width: 100 vw;
-    
-  }
-`
+import SearchAppBar from '../common/SearchAppBar';
 
 const ArticleDetail = () => {
-  const location = useLocation()
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS()
+  const location = useLocation();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { userid, food, content, imgURL, articleid } = useSelector((state) => state.article.getIn(['article', 'data'])).toJS();
   const currentUserInfo = storage.get('loggedInfo'); // 로그인 정보
-  
+
+
   const article = location.state.article
   useEffect(()=>{
-    dispatch(articleActions.getArticle(article.id))
-    return dispatch(articleActions.initializeForm('article'))
+    dispatch(articleActions.getArticle(article.id));
+    return dispatch(articleActions.initializeForm('article'));
   }, [])
 
-  
-  const handleThumbup = () => {
-    // 좋아요 안만들겠지?
+  if (!currentUserInfo) {
+    alert('로그인정보가 만료되었습니다.');
+    history.push('/login');
+    return <></> 
   }
+  
   const handleEdit = () => {
     if (Number(currentUserInfo.userid) !== userid.id) {
-      alert('잘못된 접근입니다.')
-      return
+      alert('잘못된 접근입니다.');
+      return;
     }
     history.push({
       pathname:`/article/`, 
@@ -55,53 +40,54 @@ const ArticleDetail = () => {
   }
   const handleDelete = async () => {
     if (Number(currentUserInfo.userid) !== userid.id) {
-      alert('잘못된 접근입니다.')
-      return
+      alert('잘못된 접근입니다.');
+      return;
     }
-    dispatch(articleActions.deleteArticle(articleid))
-    history.push('/community')
+    dispatch(articleActions.deleteArticle(articleid));
+    // window.location.href('/community')
+    // 새로고침 안됨
+    history.push('/community');
   }
 
   return (
-    <ArticleContainer>
-      <ImageContainer>
+    <>
+    <SearchAppBar></SearchAppBar>
+    <div className="container col-10 mt-lg-5 d-flex flex-wrap position-relative">
+      <div className="col-12 col-lg-6 p-3">
         { imgURL ? 
         (<img 
             src={imgURL}
             alt="articleImage"
-            style={{
-              width:"100%",
-            }}
+            className="w-100"
           />)
-        : (<div style={{height:300, width:300}}> </div>)
+        : (<div style={{height:300, width:300, backgroundColor:'gray'}}> </div>)
         }
-      </ImageContainer>
-      <div>
-        <p style={{display:'flex', justifyContent:'space-around'}}>
-          <span>
-            작성자: {userid.nickname}
+      </div>
+      <div className="col-12 col-lg-6 p-3">
+        <div className="d-flex justify-content-start align-items-center fs-5 p-3">
+          <span className="me-2">
+            {userid.nickname}님의
           </span>
-          <span>
-            음식: {food.name}
+          <span style={{ color: '#ff4a6b'}}>
+            {food.name}
           </span>
-        </p>
-        { content
-        ? <p>{content}</p>
-        : <>정말 맛있어요</>
-        }
-        <Button onClick={handleThumbup}>❤</Button>
-      
-      { Number(currentUserInfo.userid) === userid.id 
-        ? (<span>
+        </div>
+        <div className="p-3">
+          { content && (<p className="w-100">{content}</p>)
+          }
+        </div>
+        { Number(currentUserInfo.userid) === userid.id 
+          && (
+          <div className="d-flex justify-content-end position-absolute bottom-0 end-0 p-3">
             <Button onClick={handleEdit}>수정</Button>
             <Button onClick={handleDelete}>삭제</Button>
-          </span>)
-        : <></>
-      }
+          </div>
+        )}
       
 
       </div>
-    </ArticleContainer>
+    </div>
+    </>
   )
 }
 
