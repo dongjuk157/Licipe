@@ -1,38 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import { 
-  Drawer,
-  Button,
-  List,
   Divider,
   ListItem,
-  ListItemText,
   Paper,
   Typography,
  } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Container } from 'react-bootstrap';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import '../../style/recipe_search.css';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
 
 const FoodImg = styled.img`
 	width: 100%;
-  height: 90%;
+  height: 100%;
   align-items: center;
 `
 
 const useStyles = makeStyles((theme) => ({
+  drawer: {
+    height: '100%',
+  },
   detail: {
-    padding: theme.spacing(1),
+    position: 'relative',
+    boxSizing: 'border-box',
+    height: '100vh',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    padding: '30px',
   },
   recipeDetail: {
     width: '50vw',
   },
   recipeImage: {
+    marginTop: '10%',
     width: '100%',
-    height: '30vh',
+    height: '100%',
     padding: theme.spacing(1, 1, 1, 1),
   },
   recipe: {
@@ -40,88 +50,121 @@ const useStyles = makeStyles((theme) => ({
   },
   recipeInfo: {
 
+  },
+  inline: {
+    marginBottom: '3px'
+  },
+  container: {
+
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    margin: '1rem',
+    backgroundColor: theme.palette.background.paper,
+  },
+  imageList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+  title: {
+    color: '#fff',
+    backgroundColor: 'transparent'
+  },
+  titleBar: {
+    background:
+      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   }
 }));
 
 const RecipeInfoComponent = (props) => {
   const classes = useStyles();
-  const [rating, setRating] = useState([]);
-  const [state, setState] = useState({
-    right: false,
-  });
-
-
-  const toggleDrawer = (open) => (event) => {
-    setState({ ...state, right: open });
-  };
-
-  const getFoodRating = () => {
-    axios.get(`/foods/${props.food.id}/recipe/rating/average`)
-    .then((res) => {
-      setRating(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-  useEffect(() => {
-    getFoodRating();
-  }, [rating])
 
   return (
     <div>
-        <Button onClick={toggleDrawer(true)}>자세히 보기</Button>
-        <Drawer anchor='right' open={state.right} onClose={toggleDrawer(false)}>
-        <div
-      className={classes.recipeDetail}
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <List className={classes.detail}>
+      <Container className={
+        classes.detail, 'bg-white'} 
+        style={{    
+          position: 'relative',
+          boxSizing: 'border-box',
+          maxHeight: '90vh',
+          // overflowX: 'hidden',
+          overflowY: 'hidden',
+          alignItems: 'center',
+          justifyContent: 'center', 
+          marginTop:'20px'
+        }}>
         <ListItem className={classes.recipe}>
           <Paper className={classes.recipeImage}>
             <FoodImg src={`${props.food.imgURL}`}></FoodImg>
           </Paper>
         </ListItem>
         <ListItem>
-          <p>후기 {rating}</p>
-          <span>{props.food.name}</span>
-          <Link to={`/recipe/${props.food.id}/step`}>
-            <span>요리하기</span>
-          </Link>
+          <div>
+          <Typography className="fs-4 ms-2 mb-1" style={{ fontFamily: 'twayfly' }}>{props.food.name}</Typography>
+          <div className="align-items-end">
+            <span className="fs-4 ms-2 mb-1">🌟 {props.rating}</span>
+            <span>/5</span>
+          </div>
+          </div>
+          <Button variant="outline-primary" 
+            className="ms-auto me-1 bg-white" 
+            size="lg">
+            <Link className="text-decoration-none" to={`/recipe/${props.food.id}/step`}>
+            <i className="fas fa-utensils"></i>
+            </Link>
+          </Button>
         </ListItem>
-        <ListItem>
-          <p>주재료</p>
-        </ListItem>
-        <Divider />
         <Typography 
         color="textSecondary"
         variant="caption"
+        className="m-3"
         >
-          레시피 후기
+          메인 재료
         </Typography>
-        <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="맛있어요"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-              </Typography>
-              {" — 사실 맛 없어요"}
-            </React.Fragment>
+        <div className="m-3 mt-1 d-flex flex-wrap" style={{ fontFamily: 'Noto Sans CJK KR' }}>
+          { props.ingredientsList.map((ingredient, index) => {
+            return (
+              ingredient.main?
+                (<div key={index} style={{ fontFamily: 'Noto Sans CJK KR' }}>
+                  {ingredient.ingredient.name} 
+                  <span style={{ marginInline: "3px"}}>{ingredient.ingredient.weight}{ingredient.ingredient.unit}</span>
+                  <span style={{ marginInlineEnd: "3px", color: "#ff4a6b"}}>| </span>
+                </div>)
+                : <></>
+            )
+          })
           }
-        />
-      </ListItem>
-      <Divider component="li" />
-      </List>
+        </div>
+        <Divider className="mb-3"/>
+        <Typography 
+        color="textSecondary"
+        variant="caption"
+        className="m-3"
+        >
+          요리 후기
+        </Typography>
+
+    <div className={classes.root}>
+      <ImageList className={classes.imageList} cols={2.5}>
+        { props.articleList && props.articleList.map((item, index) => (
+          <ImageListItem key={item.imgURL}>
+            <img src={item.imgURL} alt={item.content} />
+            <ImageListItemBar
+              title={item.content}
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              } + 'transbg'}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
     </div>
-        </Drawer>
+    </Container>
     </div>
   );
 };

@@ -1,0 +1,10 @@
+.kakao {
+  background-color: #FEE500;
+}
+
+.social {
+  height: 60px;
+  width: 400px;
+  border-radius: .25rem;
+  padding: unset;
+}

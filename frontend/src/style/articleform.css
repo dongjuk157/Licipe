@@ -1,0 +1,20 @@
+.btn-outline-primary {
+  color: #ff4a6b !important;
+  border-color: #ff4a6b !important;
+}
+
+.btn-primary {
+  color: #fff !important;
+  background-color: #ff4a6b !important;
+  border-color: #ff4a6b !important;
+}
+
+a > i {
+  color: #ff4a6b !important;
+}
+
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #ff4a6b !important;
+  border-color: #ff4a6b !important;
+} 
