@@ -1,5 +1,44 @@
+@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 100;
+  src: url("style/fonts/NotoSansKR-Light.woff2") format('woff2'),
+  url("style/fonts/NotoSansKR-Light.woff") format('woff'),
+  url("style/fonts/NotoSansKR-Light.otf") format('truetype')
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: normal;
+  src: url("style/fonts/NotoSansKR-Regular.woff2") format('woff2'),
+  url("style/fonts/NotoSansKR-Regular.woff") format('woff'),
+  url("style/fonts/NotoSansKR-Regular.otf") format('truetype')
+}
+
+
+@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 500;
+  src: url("style/fonts/NotoSansKR-Medium.woff2") format('woff2'),
+  url("style/fonts/NotoSansKR-Medium.woff") format('woff'),
+  url("style/fonts/NotoSansKR-Medium.otf") format('truetype')
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: bold;
+  src: url("style/fonts/NotoSansKR-Bold.woff2") format('woff2'),
+  url("style/fonts/NotoSansKR-Bold.woff") format('woff'),
+  url("style/fonts/NotoSansKR-Bold.otf") format('truetype')
+}
+
 .App {
+  height: 100%;
   text-align: center;
+  font-family: 'Noto Sans CJK KR';
 }
 
 .App-logo {
@@ -36,4 +75,36 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* react-masonry-css */
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  /* gutter size offset */
+  /* margin-left: -30px;  */
+  width: auto;
+  padding: 1rem;
+}
+.my-masonry-grid_column {
+  /* gutter size */
+  /* padding-left: 30px;  */
+  background-clip: padding-box;
+  padding: 0.5rem;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: white;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  /* padding: 1rem; */
+}
+
+.MuiDrawer-paperAnchorLeft > a:hover, a:focus {
+
+  background-color: rgba(204, 28, 28, 0.1);
+  border-color: transparent;
 }

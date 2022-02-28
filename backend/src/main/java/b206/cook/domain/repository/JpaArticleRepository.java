@@ -28,7 +28,7 @@ public class JpaArticleRepository implements ArticleRepository{
 
     @Override
     public List<Article> findAll() {
-        return em.createQuery("select a from Article a", Article.class).getResultList();
+        return em.createQuery("select a from Article a order by a.id desc", Article.class).getResultList();
     }
 
     @Override
@@ -39,15 +39,23 @@ public class JpaArticleRepository implements ArticleRepository{
 
     @Override
     public List<Article> findByMember(String snsId) {
-        return em.createQuery("select a from Article a where a.member.snsId = :snsId", Article.class)
+        return em.createQuery("select a from Article a where a.member.snsId = :snsId order by  a.createdAt desc", Article.class)
                 .setParameter("snsId", snsId)
                 .getResultList();
     }
 
     @Override
     public List<Article> findByFood(Long foodId) {
-        return em.createQuery("select a from Article a where a.food.id = :foodId", Article.class)
+        return em.createQuery("select a from Article a where a.food.id = :foodId order by  a.createdAt desc", Article.class)
                 .setParameter("foodId", foodId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Article> findRecent(String snsId) {
+        return em.createQuery("select a from Article a where a.member.snsId = :snsId order by  a.createdAt desc", Article.class)
+                .setParameter("snsId", snsId)
+                .setMaxResults(5)
                 .getResultList();
     }
 }

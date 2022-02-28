@@ -1,26 +1,29 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Slider from "react-slick";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import SearchAppBar from '../common/SearchAppBar'
-import styled from 'styled-components';
 import SpeechToText from '../common/SpeechToText'
 import { useDispatch, useSelector } from 'react-redux';
 import * as sttActions from '../../redux/modules/stt';
 import Timer from '../common/Timer'
+import { Button } from 'react-bootstrap';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + ':'+ process.env.REACT_APP_API_PORT
 
-
-const Carousel = styled.div`
-	margin: 100px 0 0 0;
-	align-items: center;
-`
-
 const RecipeStep = (props) => {
 	const dispatch = useDispatch()
+	const history = useHistory()
 	const [steps, setSteps] = useState([]);
+	const [ingredients, setIngredients] = useState([]);
 	const [stepIndex, setStepIndex] = useState(0)
+	const [foodInfo, setFoodInfo] = useState({
+		imgURL: '',
+		name: '',
+		time: {
+			maxTime: 0,
+		},
+	});
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -43,13 +46,25 @@ const RecipeStep = (props) => {
 		.catch((err) => {
 			console.log(err)
 		})
+		axios.get(`/foods/${foodid}/ingredients`)
+		.then((res) => {
+			setIngredients(res.data)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+		axios.get(`/foods/${foodid}`)
+		.then((res) => {
+			setFoodInfo(res.data)
+		})
 	}
+
 	useEffect(() => {
 		GetRecipeSteps();
 	}, [])
 	
-	const [isMuted, setIsMuted] = useState(true)
-	const handleMuted = (state) => setIsMuted(state)
+	// const [isMuted, setIsMuted] = useState(true)
+	// const handleMuted = (state) => setIsMuted(state)
 	const playbackRate = useSelector((state)=> state.stt.get('playbackRate'))
   const playbackRateIndex = useSelector((state)=> state.stt.get('playbackRateIndex'))
 	const handlePlay = () => {
@@ -62,10 +77,8 @@ const RecipeStep = (props) => {
 	}
 	const handleSpeed = useCallback( (speed) => {
 		const video = document.querySelector(`#video${stepIndex}`) 
-		// console.log(video)
 		if (video){
 			video.playbackRate = speed
-			// console.log(video, speed, video.playbackRate)
 		}
 	}, [stepIndex])
 
@@ -73,18 +86,28 @@ const RecipeStep = (props) => {
 	const command = useSelector((state) => state.stt.get('command'))
 	const slider = useRef()
 	const timer = document.querySelector(`#timer${stepIndex}`) 
-	const currentTimer = useRef
+	// const currentTimer = useRef
 	switch (command){
 		case 'next': 
 			if (stepIndex < steps.length){
+				handlePause()
 				setStepIndex(stepIndex + 1)
 				slider.current.slickNext()
+				if (timer){
+					const buttonReset = timer.querySelector( '.handleReset')
+					buttonReset.click()
+				}
 			}
 			break
 		case 'previous':
 			if (stepIndex > 0){
+				handlePause()
 				setStepIndex(stepIndex - 1)
 				slider.current.slickPrev()
+				if (timer){
+					const buttonReset = timer.querySelector( '.handleReset')
+					buttonReset.click()
+				}
 			}
 			break
 		case 'start':
@@ -130,48 +153,54 @@ const RecipeStep = (props) => {
 	
 
 	return (
-		<div>
+		<div className="mx-auto w-100 bg-white h-100">
 			<SearchAppBar></SearchAppBar>
 			<SpeechToText
 				micState={micState}
 			/>
-			<Carousel>
-				<h1>요리 단계</h1>
+			<div className="col-12 col-lg-8 mx-auto p-1 bg-white align-items-center">
 				<Slider {...settings}
 					ref={slider}
 				>
 					{steps.map((step, index) => {
 						return (
-						<div key={index}>
+						<div key={index} className="d-flex flex-column align-items-center col-12">
 							<video 
+								width="100%"
 								id={'video'+index}
 								controls crossOrigin="anonymous"
-								muted={isMuted}
-								autoPlay={true}
+								// muted={isMuted}
+								// autoPlay={true}
 								// onEnded={()=>	dispatch(sttActions.changeInput({name:'command', value:'next'}))}
 							>
 								<source src={`${step.videoUrl}`}></source>
 							</video>
-							<p>{step.description}</p>
-							{
-								step.timer > 0 && 
-								<Timer 
-									timer={step.timer} index={index}
-								/>
-							}
+							<div className="mt-3 p-3 w-100 d-flex" >
+								<div className="col-10">
+									<p>{step.description}</p>
+								</div>
+								{
+									step.timer > 0 && 
+									<Timer 
+										timer={step.timer} index={index}
+									/>
+								}
+							</div>
 						</div>
 						)
 					})}
-					<Link to={{
-						pathname: `/article`,
-						state: { foodid },
-						}}>
-						<div>
-							사진찍고 요리 인증하기
-						</div>
-					</Link>
+					<div className="d-flex flex-column align-items-center col-12">
+							<Button onClick={()=>{
+								history.push({
+									pathname: `/article`,
+									state: { foodid },
+									})
+							}}>
+								사진찍고 요리 인증하기
+							</Button>
+					</div>
 				</Slider>
-			</Carousel>
+			</div>
 		</div>
 	)
 }
