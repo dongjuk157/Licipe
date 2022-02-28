@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import { Box, Button, Grid } from '@material-ui/core'
 import * as authActions from '../../redux/modules/auth'
 import * as userActions from '../../redux/modules/user'

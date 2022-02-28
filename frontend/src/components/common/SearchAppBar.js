@@ -4,7 +4,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import { alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import storage from '../../lib/storage';
@@ -12,18 +11,15 @@ import {
   Drawer,
   CssBaseline,
   AppBar,
+  Button,
   Toolbar,
-  List,
   Typography,
   Divider,
   IconButton,
-  ListItem,
-  ListItemText,
-  InputBase,
 } from '@material-ui/core';
 
 // jj
-import main from '../../style/main.css';
+import '../../style/main.css';
 
 const drawerWidth = 240;
 
@@ -54,15 +50,22 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    color: '#ff4a6b',
     marginRight: theme.spacing(2),
+    color: '#ff4a6b',
+    margin: '1.5rem',
+    width: '1.5rem',
   },
   title: {
     flexGrow: 1,
     display: 'none',
-    textAlign: 'center',
+    width: '100%',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+      textAlign: 'center',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+      textAlign: 'end',
     },
   },
   hide: {
@@ -72,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     // width: drawerWidth,
     width: 0,
     flexShrink: 0,
-  },
+    },
   drawerPaper: {
     width: drawerWidth,
   },
@@ -150,9 +153,21 @@ export default function PersistentDrawerLeft() {
     setOpen(true);
   };
 
+  const sidebar = document.querySelector('.MuiPaper-root')
+  window.addEventListener('click', (event) => {
+    if (open === false || sidebar === null) {
+      return
+    }
+    if (open === false || sidebar.contains(event.target)) {
+      return
+    }
+    setOpen(false);
+  })
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
   const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
 
   return (
@@ -165,37 +180,24 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar className="position-relative">
           <IconButton
             color="inherit"
-            aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            <Link to='/' style={{textDecoration:'none', color:'white'}}>
-              로고 (리시피))
-            </Link>
+          <Typography noWrap className={classes.title} className="position-absolute start-50 translate-middle-x">
+          <Button href="/">
+            <img src="/logo-sm.png" alt="logo" style={{height:'6rem'}}/>
+          </Button>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
         </Toolbar>
       </AppBar>
       <Drawer
+        // center
         className={classes.drawer}
         variant="persistent"
         anchor="left"
@@ -211,52 +213,41 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
 
-        <Link to='/'>
-        <button className="btn px-3 py-2" id="unique-transparent-btn">
-          <span className="" >Home</span>
-            {/* <ListItemText className={classes.listtext} primary='홈'/> */}
-          </button>
+        <Link to='/' className="btn px-3 py-2">
+          <span className="twayfly">Home</span>
         </Link>        
-
-        <Link to='/reciperecommend'>
-        <button className="btn px-3 py-2" id="unique-transparent-btn">
-              <span className="gradient-underline">둘러보기</span>
-            </button>
+        <Link to='/reciperecommend' className="btn px-3 py-2">
+          <span className="gradient-underline">둘러보기</span>
         </Link>
-
-        <Link to='/recipe/category'>
-          <button className="btn px-3 py-2" id="unique-transparent-btn">
+        <Link to='/recipe/category' className="btn px-3 py-2">
             <span className="gradient-underline">레시피 고르기</span>
-          </button>
         </Link>
         
-        <Link to='/community'>
-          <button className="btn px-3 py-2" id="unique-transparent-btn">
+        <Link to='/community' className="btn px-3 py-2">
             <span className="gradient-underline">요리 자랑</span>
-          </button>
         </Link>
         
         { loggedInfo ? (
-          <>
-            <Link to='/MyPage'>
-              <button className="btn px-3 py-2" id="unique-transparent-btn">
-                <span className="" >마이페이지</span>
-              </button>
-            </Link>
-
-            <Link to='/logout'>
-              <button className="btn px-3 py-2" id="unique-transparent-btn">
-                <span className="" >로그아웃</span>
-              </button>
-            </Link>
-          </>
+          // <div className="row">
+          //   <Link to='/MyPage' className="btn px-3 py-2">
+          //       <span className="gradient-underline" >마이페이지</span>
+          //   </Link>
+          <Link to='/MyPage' className="btn px-3 py-2">
+            <span className="gradient-underline" >마이페이지</span>
+          </Link>
+          
+          // </div>
           ) : (
-          <Link to='/login'>
-            <button className="btn px-3 py-2" id="unique-transparent-btn">
-              <span className="gradient-underline">로그인</span>
-            </button>
+          <Link to='/login' className="btn px-3 py-2">
+              <span className="twayfly">로그인</span>
           </Link>
          )}
+
+         { loggedInfo ? (
+          <Link to='/logout' className="btn px-3 py-2">
+            <span>로그아웃</span>
+          </Link>
+         ) : (<></>)}
 
         <div className="m-2 position-absolute bottom-0 text-secondary row">
           <div>
