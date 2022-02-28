@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios from 'axios';
 import storage from '../../lib/storage';
 
-const BASE_URL = process.env.REACT_APP_API_URL
-const PORT = process.env.REACT_APP_API_PORT
-const loggedInfo = storage.get('loggedInfo') // 로그인 정보
+const BASE_URL = process.env.REACT_APP_API_URL;
+const PORT = process.env.REACT_APP_API_PORT;
+const loggedInfo = storage.get('loggedInfo'); // 로그인 정보
 
-export const getUserInfo = (userid) => axios.get(`${BASE_URL}:${{PORT}}/member/${userid}`)
+export const getUserInfo = (userid) => axios.get(`${BASE_URL}:${{PORT}}/member/${userid}`);
 export const editUserInfo = (member) => {
   const config = {
     method: 'put',
@@ -13,9 +13,9 @@ export const editUserInfo = (member) => {
     data:{
       member
     },
-  }
-  return axios(config)
-}
+  };
+  return axios(config);
+};
 
 export const deleteUser = (member) => {
   const config = {
@@ -24,9 +24,9 @@ export const deleteUser = (member) => {
     data:{
       member
     },
-  }
-  return axios(config)
-}
+  };
+  return axios(config);
+};
 
 export const getUserRatings = () => {
   const config = {
@@ -35,9 +35,9 @@ export const getUserRatings = () => {
     headers: {
       snsId: loggedInfo.snsId,
     }
-  }
-  return axios(config)
-}
+  };
+  return axios(config);
+};
 export const getUserArticles = () => {
   const config = {
     method: 'get',
@@ -45,9 +45,9 @@ export const getUserArticles = () => {
     headers: {
       snsId: loggedInfo.snsId,
     }
-  }
-  return axios(config)
-}
+  };
+  return axios(config);
+};
 export const getUserClips = () => {
   const config = {
     method: 'get',
@@ -55,6 +55,37 @@ export const getUserClips = () => {
     headers: {
       snsId: loggedInfo.snsId,
     }
-  }
-  return axios(config)
-}
+  };
+  return axios(config);
+
+};
+export const getUserRatingsRecent = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/member/ratings/recent`,
+    headers: {
+      snsId: loggedInfo.snsId,
+    }
+  };
+  return axios(config);
+};
+export const getUserClipsRecent = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/member/myclips/recent`, 
+    headers: {
+      snsId: loggedInfo.snsId,
+    }
+  };
+  return axios(config);
+};
+export const getUserArticlesRecent = () => {
+  const config = {
+    method: 'get',
+    url: `${BASE_URL}:${PORT}/member/articles/recent`, 
+    headers: {
+      snsId: loggedInfo.snsId,
+    }
+  };
+  return axios(config);
+};
